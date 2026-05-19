@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ちるーむ | 長崎大学 こども食堂サポートサークル</title>
+<meta name="description" content="長崎県のこども食堂と、ボランティアに関心のある大学生をつなぐ、長崎大学のサークル「ちるーむ」の公式サイト。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --mint: #C8EBE7;
+    --mint-soft: #E5F4F1;
+    --mint-deep: #95C9C0;
+    --coral: #F08767;
+    --coral-soft: #FBC4B0;
+    --coral-deep: #D9613F;
+    --yellow: #FBCD4F;
+    --yellow-soft: #FDE49E;
+    --teal: #6FC2B5;
+    --cream: #FFF9F0;
+    --white: #FFFFFF;
+    --charcoal: #2E3D3F;
+    --charcoal-soft: #5E6F71;
+    --charcoal-faint: #8DA0A2;
+    --line-green: #06C755;
+    --facebook-blue: #1877F2;
+    --linkedin-blue: #0A66C2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    color: var(--charcoal);
+    background: var(--mint-soft);
+    line-height: 1.85;
+    font-feature-settings: "palt" 1;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+  .wrap { width: 100%; max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  .eyebrow {
+    font-family: 'Fraunces', serif; font-style: italic; font-weight: 400;
+    font-size: 13px; letter-spacing: 0.1em;
+    color: var(--coral-deep);
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .eyebrow::before { content: ''; width: 24px; height: 1.5px; background: var(--coral); border-radius: 2px; }
+  .section-title {
+    font-family: 'Hachi Maru Pop', cursive;
+    font-size: clamp(26px, 6.5vw, 36px); line-height: 1.45;
+    margin-bottom: 10px; color: var(--charcoal);
+  }
+  .section-lead {
+    font-size: 14px; color: var(--charcoal-soft);
+    margin-bottom: 40px; line-height: 1.9;
+  }
+  section { padding: 88px 0; position: relative; }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.08s; }
+  .reveal-delay-2 { transition-delay: 0.16s; }
+  .reveal-delay-3 { transition-delay: 0.24s; }
+  .reveal-delay-4 { transition-delay: 0.32s; }
+
+  /* Dot grid */
+  .dot-grid {
+    position: absolute; pointer-events: none; opacity: 0.18;
+    background-image: radial-gradient(circle, var(--teal) 1.5px, transparent 1.5px);
+    background-size: 18px 18px;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: var(--mint);
+    min-height: 100svh;
+    padding: 28px 0 56px;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .hero-blob { position: absolute; border-radius: 50%; pointer-events: none; animation: floatBlob 9s ease-in-out infinite; }
+  .hero-blob.b1 { width: 200px; height: 200px; background: var(--yellow-soft); top: 4%; right: -70px; filter: blur(3px); }
+  .hero-blob.b2 { width: 150px; height: 150px; background: var(--coral-soft); bottom: 16%; left: -50px; animation-delay: 2.5s; filter: blur(2px); }
+  .hero-blob.b3 { width: 80px; height: 80px; background: var(--teal); opacity: 0.45; top: 38%; right: 12%; animation-delay: 5s; filter: blur(1px); }
+  .hero-blob.b4 { width: 50px; height: 50px; background: var(--coral); opacity: 0.25; top: 18%; left: 30%; animation-delay: 3s; filter: blur(1px); }
+  @keyframes floatBlob {
+    0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+    33% { transform: translateY(-18px) translateX(8px) rotate(5deg); }
+    66% { transform: translateY(-8px) translateX(-6px) rotate(-3deg); }
+  }
+  .hero-dot-grid { width: 160px; height: 160px; top: 50%; left: -20px; transform: translateY(-50%); }
+
+  .hero-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 24px; position: relative; z-index: 5;
+  }
+  .hero-nav-brand { font-family: 'Hachi Maru Pop', cursive; font-size: 17px; color: var(--charcoal); }
+  .hero-nav-link {
+    font-size: 11px; letter-spacing: 0.08em;
+    color: var(--charcoal);
+    border: 1.5px solid var(--charcoal); border-radius: 999px;
+    padding: 8px 18px; background: transparent;
+    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .hero-nav-link:hover { transform: translateY(-2px); background: var(--coral); color: var(--white); border-color: var(--coral); }
+
+  .hero-content {
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+    padding: 44px 24px 0; position: relative; z-index: 2;
+  }
+
+  /* Logo block with both icons */
+  .hero-logo-block { display: flex; align-items: center; gap: 18px; margin-bottom: 36px; }
+  .hero-logo-img {
+    width: 100px; height: 100px; border-radius: 24px;
+    object-fit: cover;
+    box-shadow: 0 8px 28px rgba(46,61,63,0.13), 0 2px 6px rgba(46,61,63,0.08);
+    flex-shrink: 0;
+    transition: transform 0.4s cubic-bezier(.34,1.56,.64,1);
+  }
+  .hero-logo-img:hover { transform: scale(1.05) rotate(-2deg); }
+  .hero-univ-img {
+    width: 56px; height: 56px; border-radius: 14px;
+    object-fit: contain; background: var(--white);
+    padding: 6px;
+    box-shadow: 0 4px 14px rgba(46,61,63,0.10);
+    flex-shrink: 0;
+  }
+  .hero-logo-meta { display: flex; flex-direction: column; gap: 6px; }
+  .hero-logo-tag {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--white); padding: 6px 13px; border-radius: 999px;
+    font-size: 11px; color: var(--charcoal-soft); align-self: flex-start;
+    box-shadow: 0 2px 8px rgba(46,61,63,0.07);
+  }
+  .hero-logo-tag::before {
+    content: ''; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--coral); animation: pulse 2.2s ease-in-out infinite; flex-shrink: 0;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(1.25); }
+  }
+  .hero-logo-nagasaki { font-family: 'Fraunces', serif; font-style: italic; font-size: 12px; color: var(--charcoal-soft); letter-spacing: 0.04em; }
+
+  /* Main title */
+  .hero-title {
+    font-family: 'Hachi Maru Pop', cursive;
+    font-size: clamp(52px, 15vw, 80px);
+    line-height: 1.1; letter-spacing: 0.01em;
+    color: var(--charcoal);
+    margin-bottom: 16px;
+  }
+
+  /* Catchphrase */
+  .hero-catchphrase {
+    font-family: 'Hachi Maru Pop', cursive;
+    font-size: clamp(18px, 5vw, 26px);
+    line-height: 1.5; letter-spacing: 0.02em;
+    color: var(--coral-deep);
+    margin-bottom: 20px;
+    position: relative; display: inline-block;
+  }
+  .hero-catchphrase::after {
+    content: '';
+    position: absolute; left: -2px; right: -2px; bottom: 2px;
+    height: 10px;
+    background: var(--yellow);
+    z-index: -1;
+    border-radius: 3px;
+    transform: rotate(-0.5deg);
+  }
+
+  .hero-sub {
+    font-size: 14px; line-height: 2;
+    color: var(--charcoal-soft);
+    max-width: 420px;
+  }
+
+  .hero-handline { margin-top: 30px; align-self: flex-start; display: flex; align-items: center; gap: 12px; }
+  .hero-handline svg { width: 72px; height: 12px; flex-shrink: 0; }
+
+  .scroll-cue {
+    position: relative; align-self: center; margin-top: 44px;
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 10px; letter-spacing: 0.22em; color: var(--charcoal-soft);
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    text-transform: uppercase;
+  }
+  .scroll-cue .tick {
+    width: 1.5px; height: 34px; background: var(--charcoal-soft); border-radius: 2px;
+    animation: tickDown 1.9s cubic-bezier(.45,0,.55,1) infinite; transform-origin: top;
+  }
+  @keyframes tickDown {
+    0% { transform: scaleY(0); opacity: 1; }
+    60% { transform: scaleY(1); opacity: 1; }
+    100% { transform: scaleY(1); opacity: 0; }
+  }
+
+  /* ===== ABOUT ===== */
+  .about { background: var(--cream); }
+  .about-grid { display: grid; gap: 36px; }
+  .about-mission {
+    font-family: 'Hachi Maru Pop', cursive;
+    font-size: clamp(20px, 5vw, 26px); line-height: 1.75;
+  }
+  .about-mission .pop {
+    color: var(--coral); position: relative; display: inline;
+  }
+  .about-text { font-size: 14.5px; color: var(--charcoal-soft); line-height: 2.1; margin-top: 22px; }
+  .about-text p + p { margin-top: 16px; }
+  .about-illust {
+    width: 100%; max-width: 340px; margin: 0 auto;
+    aspect-ratio: 4/3; border-radius: 28px;
+    background: var(--mint); position: relative; overflow: hidden; flex-shrink: 0;
+  }
+  .about-illust-inner { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .about-illust-placeholder {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    color: var(--charcoal-soft); font-size: 13px; text-align: center; padding: 20px;
+  }
+  .about-illust-placeholder span { font-family: 'Hachi Maru Pop', cursive; font-size: 14px; color: var(--teal); }
+  .about-numbers {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 32px;
+  }
+  .about-number-item {
+    background: var(--white); border-radius: 18px; padding: 16px 12px; text-align: center; border: 1.5px solid var(--mint);
+  }
+  .about-number-item .num { font-family: 'Fraunces', serif; font-style: italic; font-size: 28px; color: var(--coral); line-height: 1; }
+  .about-number-item .num sup { font-size: 14px; }
+  .about-number-item .lbl { font-size: 11px; color: var(--charcoal-soft); margin-top: 4px; line-height: 1.5; }
+
+  /* ===== ACTIVITIES ===== */
+  .activities { background: var(--mint-soft); }
+  .activity-cards { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  .activity-card {
+    background: var(--white); border-radius: 26px; padding: 24px 22px;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s ease;
+    border: 1.5px solid transparent; overflow: hidden;
+  }
+  .activity-card::before {
+    content: ''; position: absolute; inset: 0; border-radius: inherit;
+    background: linear-gradient(135deg, transparent 60%, rgba(200,235,231,0.4)); pointer-events: none;
+  }
+  .activity-card:hover { transform: translateY(-5px) rotate(0.3deg); box-shadow: 0 16px 40px rgba(46,61,63,0.10); border-color: var(--mint-deep); }
+  .activity-card .num {
+    position: absolute; top: 18px; right: 22px;
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 38px; color: var(--mint-deep); opacity: 0.4; line-height: 1;
+  }
+  .activity-icon { width: 60px; height: 60px; border-radius: 18px; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .activity-card:nth-child(1) .activity-icon { background: var(--coral-soft); }
+  .activity-card:nth-child(2) .activity-icon { background: var(--yellow-soft); }
+  .activity-card:nth-child(3) .activity-icon { background: var(--mint); }
+  .activity-card:nth-child(4) .activity-icon { background: var(--coral-soft); }
+  .activity-icon svg { width: 28px; height: 28px; }
+  .activity-card h3 { font-family: 'Hachi Maru Pop', cursive; font-weight: 400; font-size: 18px; margin-bottom: 8px; line-height: 1.4; }
+  .activity-card p { font-size: 13.5px; color: var(--charcoal-soft); line-height: 1.9; }
+
+  /* ===== GALLERY ===== */
+  .gallery { background: var(--white); }
+  .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .gallery-item {
+    aspect-ratio: 4/3; border-radius: 18px;
+    background: var(--mint); overflow: hidden; position: relative;
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .gallery-item:hover { transform: scale(1.02); }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-item-placeholder {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: var(--charcoal-faint); font-size: 12px; text-align: center; padding: 16px;
+  }
+  .gallery-item-placeholder svg { width: 32px; height: 32px; opacity: 0.5; }
+  .gallery-item:first-child { grid-column: span 2; aspect-ratio: 16/7; }
+
+  /* ===== EVENTS ===== */
+  .events { background: var(--white); }
+  .events-list { display: flex; flex-direction: column; gap: 14px; }
+  .event-card {
+    display: grid; grid-template-columns: 78px 1fr; gap: 18px;
+    background: var(--cream); border-radius: 22px; padding: 20px; align-items: center;
+    border: 1.5px solid transparent;
+    transition: border-color 0.25s, transform 0.25s cubic-bezier(.34,1.56,.64,1);
+  }
+  .event-card:hover { border-color: var(--coral-soft); transform: translateX(3px); }
+  .event-date { background: var(--white); border-radius: 14px; padding: 10px 6px; text-align: center; border: 1.5px solid var(--mint); }
+  .event-date .month { font-family: 'Fraunces', serif; font-style: italic; font-size: 11px; color: var(--coral-deep); text-transform: uppercase; letter-spacing: 0.06em; }
+  .event-date .day { font-family: 'Hachi Maru Pop', cursive; font-size: 26px; line-height: 1.2; color: var(--charcoal); }
+  .event-date .dow { font-size: 10px; color: var(--charcoal-soft); }
+  .event-meta { min-width: 0; }
+  .event-meta h3 { font-family: 'Hachi Maru Pop', cursive; font-weight: 400; font-size: 16px; line-height: 1.5; margin-bottom: 5px; }
+  .event-meta .place { font-size: 11.5px; color: var(--charcoal-soft); display: flex; align-items: center; gap: 5px; margin-bottom: 10px; }
+  .event-meta .place::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--coral); flex-shrink: 0; }
+  .event-cta { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--coral-deep); font-weight: 500; border-bottom: 1.5px solid var(--coral); padding-bottom: 1px; transition: gap 0.2s; }
+  .event-cta:hover { gap: 9px; }
+
+  .wave-divider { width: 100%; height: 28px; display: block; }
+
+  /* ===== JOIN US ===== */
+  .join {
+    background: linear-gradient(160deg, var(--coral) 0%, #E86D4E 100%);
+    color: var(--white); position: relative; overflow: hidden;
+  }
+  .join-blob { position: absolute; border-radius: 50%; pointer-events: none; animation: floatBlob 10s ease-in-out infinite; }
+  .join-blob.j1 { width: 220px; height: 220px; background: var(--yellow); opacity: 0.2; top: -80px; right: -60px; filter: blur(4px); }
+  .join-blob.j2 { width: 160px; height: 160px; background: var(--mint); opacity: 0.2; bottom: -50px; left: -60px; animation-delay: 3s; filter: blur(3px); }
+  .join-blob.j3 { width: 80px; height: 80px; background: var(--white); opacity: 0.12; bottom: 30%; right: 10%; animation-delay: 6s; }
+  .join .wrap { position: relative; z-index: 2; }
+  .join .eyebrow { color: rgba(255,255,255,0.8); }
+  .join .eyebrow::before { background: rgba(255,255,255,0.6); }
+  .join h2 { font-family: 'Hachi Maru Pop', cursive; font-weight: 400; font-size: clamp(26px, 6.5vw, 36px); line-height: 1.55; margin-bottom: 14px; }
+  .join-lead { font-size: 14px; line-height: 2; opacity: 0.9; max-width: 400px; margin-bottom: 36px; }
+  .join-channels { display: flex; flex-direction: column; gap: 12px; }
+  .join-btn {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--white); color: var(--charcoal);
+    padding: 18px 20px; border-radius: 18px;
+    font-size: 14.5px; font-weight: 500;
+    transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), box-shadow 0.25s;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+    width: 100%; text-align: left; border: none; cursor: pointer; text-decoration: none;
+  }
+  .join-btn:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 8px 0 rgba(0,0,0,0.12); }
+  .join-btn .icon-wrap { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .join-btn.instagram .icon-wrap { background: linear-gradient(135deg, #FAAD4F, #DC2A77 50%, #8134AF); color: var(--white); }
+  .join-btn.email .icon-wrap { background: var(--mint); }
+  .join-btn.line .icon-wrap { background: var(--line-green); color: var(--white); }
+  .join-btn .icon-wrap svg { width: 20px; height: 20px; }
+  .join-btn .label-wrap { flex: 1; min-width: 0; }
+  .join-btn .label { font-family: 'Hachi Maru Pop', cursive; font-weight: 400; font-size: 15px; line-height: 1.3; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+  .join-btn .sub { font-size: 11px; color: var(--charcoal-soft); margin-top: 3px; }
+  .join-btn .arrow { color: var(--charcoal-faint); font-size: 16px; transition: transform 0.2s; }
+  .join-btn:hover .arrow { transform: translateX(4px); color: var(--coral); }
+  .join-recommend {
+    background: var(--yellow); color: var(--charcoal);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 9px; font-weight: 700;
+    padding: 3px 7px; border-radius: 6px; display: inline-block;
+    transform: rotate(-2.5deg); letter-spacing: 0.04em;
+  }
+
+  /* ===== CONNECT ===== */
+  .connect { background: var(--mint-soft); }
+  .connect-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .connect-card {
+    background: var(--white); border-radius: 18px; padding: 16px 20px;
+    display: flex; align-items: center; gap: 14px;
+    transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), box-shadow 0.25s;
+    border: 1.5px solid transparent;
+  }
+  .connect-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(46,61,63,0.08); border-color: var(--mint-deep); }
+  .connect-icon { width: 38px; height: 38px; border-radius: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .connect-icon svg { width: 18px; height: 18px; }
+  .connect-card .label { flex: 1; min-width: 0; }
+  .connect-card .name { font-size: 13.5px; font-weight: 500; line-height: 1.3; }
+  .connect-card .desc { font-size: 11px; color: var(--charcoal-soft); margin-top: 2px; }
+  .connect-card .ext { color: var(--charcoal-faint); font-size: 13px; }
+  .connect-section-label {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 12px; color: var(--coral-deep);
+    margin: 22px 0 8px; display: flex; align-items: center; gap: 8px;
+  }
+  .connect-section-label::before { content: ''; width: 14px; height: 1.5px; background: var(--coral); border-radius: 2px; }
+
+  /* ===== CONTACT ===== */
+  .contact { background: var(--cream); }
+  .contact-card {
+    background: var(--white); border-radius: 26px; padding: 36px 24px; text-align: center;
+    border: 1.5px dashed var(--mint-deep); position: relative; overflow: hidden;
+  }
+  .contact-card::before { content: ''; position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; border-radius: 50%; background: var(--yellow-soft); opacity: 0.6; }
+  .contact-card .lbl { font-family: 'Fraunces', serif; font-style: italic; font-size: 12px; color: var(--charcoal-soft); margin-bottom: 6px; }
+  .contact-card h3 { font-family: 'Hachi Maru Pop', cursive; font-size: 21px; line-height: 1.55; margin-bottom: 12px; }
+  .contact-card p { font-size: 13px; color: var(--charcoal-soft); line-height: 1.9; margin-bottom: 24px; }
+  .contact-mail {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--charcoal); color: var(--white);
+    padding: 13px 22px; border-radius: 999px;
+    font-size: 12.5px; font-weight: 500;
+    transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), background 0.2s;
+    position: relative; z-index: 1;
+  }
+  .contact-mail:hover { transform: translateY(-3px); background: var(--coral); }
+
+  /* ===== FOOTER ===== */
+  footer { background: var(--mint-deep); color: var(--charcoal); padding: 48px 0 28px; position: relative; overflow: hidden; }
+  footer::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--coral), var(--yellow), var(--teal)); }
+  footer .wrap { display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; }
+  .footer-logo { font-family: 'Hachi Maru Pop', cursive; font-size: 22px; }
+  .footer-affil { font-size: 11px; opacity: 0.7; }
+  .footer-sns { display: flex; gap: 10px; }
+  .footer-sns a {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.7); color: var(--charcoal);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), background 0.2s;
+  }
+  .footer-sns a:hover { transform: translateY(-3px) scale(1.1); background: var(--white); }
+  .footer-sns svg { width: 16px; height: 16px; }
+  .footer-copy { font-family: 'Fraunces', serif; font-style: italic; font-size: 10.5px; opacity: 0.55; margin-top: 6px; }
+
+  /* ===== DESKTOP ===== */
+  @media (min-width: 720px) {
+    .wrap { padding: 0 40px; }
+    section { padding: 110px 0; }
+    .about-grid { grid-template-columns: 1.3fr 1fr; align-items: start; gap: 48px; }
+    .about-illust { max-width: none; margin: 0; }
+    .activity-cards { grid-template-columns: 1fr 1fr; gap: 18px; }
+    .connect-grid { grid-template-columns: 1fr 1fr; }
+    .hero-logo-img { width: 120px; height: 120px; border-radius: 28px; }
+    .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+    .gallery-item:first-child { grid-column: span 2; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-blob b1"></div>
+  <div class="hero-blob b2"></div>
+  <div class="hero-blob b3"></div>
+  <div class="hero-blob b4"></div>
+  <div class="dot-grid hero-dot-grid"></div>
+
+  <nav class="hero-nav">
+    <span class="hero-nav-brand">ちるーむ</span>
+    <a href="#join" class="hero-nav-link">参加する ›</a>
+  </nav>
+
+  <div class="hero-content">
+    <div class="hero-logo-block">
+      <img src="チルーム　アイコン.jpg" alt="ちるーむ ロゴ" class="hero-logo-img">
+      <img src="nagasaki-u.png" alt="長崎大学" class="hero-univ-img">
+      <div class="hero-logo-meta">
+        <div class="hero-logo-tag">長崎大学 認定サークル</div>
+        <span class="hero-logo-nagasaki">Nagasaki University</span>
+      </div>
+    </div>
+
+    <h1 class="hero-title reveal">ちるーむ</h1>
+
+    <p class="hero-catchphrase reveal reveal-delay-1">ごはんで繋がる、笑顔の輪</p>
+
+    <p class="hero-sub reveal reveal-delay-2">
+      ボランティアに関心のある大学生と、こども食堂をつなぎ、遊びや食事の時間を
+      ともにしながら、地域とのつながりを広げるサポートをするサークルです。
+    </p>
+
+    <div class="hero-handline reveal reveal-delay-3">
+      <svg viewBox="0 0 72 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 8 Q10 2, 20 7 T40 7 T60 7 T70 5" stroke="#F08767" stroke-width="2.5" stroke-linecap="round"></path>
+      </svg>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <span class="tick"></span>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<svg class="wave-divider" viewBox="0 0 720 28" preserveAspectRatio="none" style="background: var(--mint);">
+  <path d="M0,14 Q90,0 180,14 T360,14 T540,14 T720,14 L720,28 L0,28 Z" fill="#FFF9F0"></path>
+</svg>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="eyebrow reveal">About</div>
+    <h2 class="section-title reveal reveal-delay-1">わたしたちのこと</h2>
+
+    <div class="about-grid">
+      <div>
+        <div class="about-text reveal reveal-delay-1">
+          <p>わたしたちはちゃいるどほーむ、略して「ちるーむ」という名前で、長崎県で活動しているサークルです。</p>
+          <p>長崎県ではこども食堂が年々増え、子どもたちの居場所や地域の交流の場として大切な役割を担っています。しかし、ボランティアの人手不足や運営の負担が大きいといった課題もあります。また、参加したい気持ちはあってもきっかけがない大学生も少なくありません。</p>
+          <p>私たち「ちるーむ」は、こども食堂と大学生をつなぎ、活動に参加して子供食堂をサポートし、ワークショップ等の企画・実施を通して地域全体をつなぐ場をつくることを目指して活動しています。</p>
+        </div>
+        <div class="about-numbers reveal reveal-delay-2">
+          <div class="about-number-item">
+            <div class="num">2<sup>+</sup></div>
+            <div class="lbl">連携<br>こども食堂</div>
+          </div>
+          <div class="about-number-item">
+            <div class="num">月<sup>2</sup></div>
+            <div class="lbl">定期<br>活動回数</div>
+          </div>
+          <div class="about-number-item">
+            <div class="num">∞</div>
+            <div class="lbl">こどもの<br>笑顔</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-illust reveal reveal-delay-1">
+        <div class="about-illust-inner">
+          <svg width="240" height="180" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="110" width="180" height="10" rx="5" fill="#95C9C0"></rect>
+            <rect x="50" y="120" width="10" height="40" rx="5" fill="#95C9C0"></rect>
+            <rect x="180" y="120" width="10" height="40" rx="5" fill="#95C9C0"></rect>
+            <ellipse cx="90" cy="108" rx="24" ry="8" fill="#FBC4B0"></ellipse>
+            <ellipse cx="150" cy="108" rx="24" ry="8" fill="#FDE49E"></ellipse>
+            <path d="M66 108 Q90 96 114 108" stroke="#F08767" stroke-width="2.5" fill="#FFF9F0"></path>
+            <path d="M126 108 Q150 96 174 108" stroke="#FBCD4F" stroke-width="2.5" fill="#FFF9F0"></path>
+            <path d="M84 92 Q88 84 84 76" stroke="#95C9C0" stroke-width="2" fill="none" stroke-linecap="round"></path>
+            <path d="M90 90 Q94 82 90 74" stroke="#95C9C0" stroke-width="2" fill="none" stroke-linecap="round"></path>
+            <path d="M96 92 Q100 84 96 76" stroke="#95C9C0" stroke-width="2" fill="none" stroke-linecap="round"></path>
+            <circle cx="60" cy="72" r="16" fill="#FDE49E"></circle>
+            <circle cx="55" cy="69" r="2" fill="#2E3D3F"></circle>
+            <circle cx="65" cy="69" r="2" fill="#2E3D3F"></circle>
+            <path d="M55 76 Q60 80 65 76" stroke="#D9613F" stroke-width="2" fill="none" stroke-linecap="round"></path>
+            <path d="M44 88 Q60 84 76 88 L78 108 H42 Z" fill="#6FC2B5"></path>
+            <line x1="42" y1="94" x2="34" y2="104" stroke="#6FC2B5" stroke-width="8" stroke-linecap="round"></line>
+            <line x1="78" y1="94" x2="86" y2="104" stroke="#6FC2B5" stroke-width="8" stroke-linecap="round"></line>
+            <circle cx="180" cy="68" r="18" fill="#FBC4B0"></circle>
+            <circle cx="175" cy="65" r="2.2" fill="#2E3D3F"></circle>
+            <circle cx="185" cy="65" r="2.2" fill="#2E3D3F"></circle>
+            <path d="M174 73 Q180 78 186 73" stroke="#D9613F" stroke-width="2" fill="none" stroke-linecap="round"></path>
+            <path d="M162 84 Q180 80 198 84 L200 108 H160 Z" fill="#F08767"></path>
+            <line x1="160" y1="90" x2="150" y2="103" stroke="#F08767" stroke-width="9" stroke-linecap="round"></line>
+            <line x1="200" y1="90" x2="210" y2="103" stroke="#F08767" stroke-width="9" stroke-linecap="round"></line>
+            <path d="M120 65 C120 60, 114 57, 114 63 C114 68, 120 73, 120 73 C120 73, 126 68, 126 63 C126 57, 120 60, 120 65Z" fill="#F08767" opacity="0.85"></path>
+            <path d="M30 40 L32 36 L34 40 L38 42 L34 44 L32 48 L30 44 L26 42 Z" fill="#FBCD4F"></path>
+          </svg>
+        </div>
+        <div style="position:absolute;top:-16px;right:-16px;width:56px;height:56px;border-radius:50%;background:var(--coral-soft);opacity:0.7;"></div>
+        <div style="position:absolute;bottom:-10px;left:-10px;width:36px;height:36px;border-radius:50%;background:var(--yellow-soft);opacity:0.8;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ACTIVITIES ===== -->
+<svg class="wave-divider" viewBox="0 0 720 28" preserveAspectRatio="none" style="background: var(--cream);">
+  <path d="M0,14 Q90,28 180,14 T360,14 T540,14 T720,14 L720,28 L0,28 Z" fill="#E5F4F1"></path>
+</svg>
+
+<section class="activities" id="activities">
+  <div class="wrap">
+    <div class="eyebrow reveal">Activities</div>
+    <h2 class="section-title reveal reveal-delay-1">わたしたちにできること</h2>
+    <p class="section-lead reveal reveal-delay-2">こどもと、食堂と、地域と。ちるーむでできる4つのこと。</p>
+
+    <div class="activity-cards">
+      <article class="activity-card reveal">
+        <span class="num">01</span>
+        <div class="activity-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#D9613F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 11v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3"></path><path d="M5 11V7a7 7 0 0 1 14 0v4"></path>
+            <line x1="12" y1="19" x2="12" y2="22"></line>
+          </svg>
+        </div>
+        <h3>こども食堂のお手伝い</h3>
+        <p>食事の準備や配膳など、スタッフの方々を学生のチカラで支援します。</p>
+      </article>
+
+      <article class="activity-card reveal reveal-delay-1">
+        <span class="num">02</span>
+        <div class="activity-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#B98E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+            <line x1="9" y1="9" x2="9.01" y2="9" stroke-width="3"></line>
+            <line x1="15" y1="9" x2="15.01" y2="9" stroke-width="3"></line>
+          </svg>
+        </div>
+        <h3>こどもとのふれあい</h3>
+        <p>自由時間には、子供たちと一緒に遊んだり勉強をみたりして子どもたちと交流を深めます。</p>
+      </article>
+
+      <article class="activity-card reveal reveal-delay-2">
+        <span class="num">03</span>
+        <div class="activity-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3F8C82" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+            <circle cx="12" cy="15" r="1.5" fill="#3F8C82"></circle>
+          </svg>
+        </div>
+        <h3>イベント企画</h3>
+        <p>季節のお楽しみや、こどもが笑顔になれる企画をみんなで考えます。</p>
+      </article>
+
+      <article class="activity-card reveal reveal-delay-3">
+        <span class="num">04</span>
+        <div class="activity-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#D9613F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        </div>
+        <h3>地域との繋がり</h3>
+        <p>大学・学年を超えた仲間と出会い、振り返りを流しながら楽しみます。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<svg class="wave-divider" viewBox="0 0 720 28" preserveAspectRatio="none" style="background: var(--mint-soft);">
+  <path d="M0,14 Q90,0 180,14 T360,14 T540,14 T720,14 L720,28 L0,28 Z" fill="white"></path>
+</svg>
+
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="eyebrow reveal">Gallery</div>
+    <h2 class="section-title reveal reveal-delay-1">活動の様子</h2>
+    <p class="section-lead reveal reveal-delay-2">みんなで作る笑顔の記録。</p>
+
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <div class="gallery-item-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          <span>メイン写真</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-1">
+        <div class="gallery-item-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          <span>活動写真①</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-2">
+        <div class="gallery-item-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          <span>活動写真②</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-1">
+        <div class="gallery-item-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          <span>活動写真③</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-2">
+        <div class="gallery-item-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          <span>活動写真④</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-3">
+        <div class="gallery-item-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          <span>活動写真⑤</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== JOIN US ===== -->
+<section class="join" id="join">
+  <div class="join-blob j1"></div>
+  <div class="join-blob j2"></div>
+  <div class="join-blob j3"></div>
+  <div class="wrap">
+    <div class="eyebrow reveal">Join us</div>
+    <h2 class="reveal reveal-delay-1">ちるーむに、<br>参加してみない？</h2>
+    <p class="join-lead reveal reveal-delay-2">
+      気になったら気軽に連絡してね。<br>
+      LINEやInstagramのDMからカジュアルにどうぞ。
+    </p>
+
+    <div class="join-channels">
+      <a href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener" class="join-btn line reveal">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+          </svg>
+        </div>
+        <div class="label-wrap">
+          <div class="label">公式LINEで連絡 <span class="join-recommend">おすすめ</span></div>
+          <div class="sub">@990qouib</div>
+        </div>
+        <span class="arrow">›</span>
+      </a>
+
+      <a href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener" class="join-btn instagram reveal reveal-delay-1">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
+          </svg>
+        </div>
+        <div class="label-wrap">
+          <div class="label">InstagramのDMで連絡</div>
+          <div class="sub">@nagasaki_childhome</div>
+        </div>
+        <span class="arrow">›</span>
+      </a>
+
+      <a href="mailto:childhome.nagasaki@gmail.com" class="join-btn email reveal reveal-delay-2">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+        </div>
+        <div class="label-wrap">
+          <div class="label">メールで連絡</div>
+          <div class="sub">childhome.nagasaki@gmail.com</div>
+        </div>
+        <span class="arrow">›</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONNECT ===== -->
+<section class="connect" id="connect">
+  <div class="wrap">
+    <div class="eyebrow reveal">Connect</div>
+    <h2 class="section-title reveal reveal-delay-1">もっと知りたい方へ</h2>
+    <p class="section-lead reveal reveal-delay-2">ちるーむと繋がれるこども食堂、SNSはこちら。</p>
+
+    <div class="connect-section-label">ちるーむのSNS</div>
+    <div class="connect-grid">
+      <a href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener" class="connect-card reveal">
+        <div class="connect-icon" style="background: var(--coral-soft);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#D9613F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Instagram</div>
+          <div class="desc">@nagasaki_childhome</div>
+        </div>
+        <span class="ext">›</span>
+      </a>
+
+      <a href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener" class="connect-card reveal reveal-delay-1">
+        <div class="connect-icon" style="background: #E8F9EF;">
+          <svg viewBox="0 0 24 24" fill="#06C755">
+            <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">LINE公式</div>
+          <div class="desc">@990qouib</div>
+        </div>
+        <span class="ext">›</span>
+      </a>
+
+      <a href="https://www.facebook.com/share/18ar3FUNtg/?mibextid=wwXIfr" target="_blank" rel="noopener" class="connect-card reveal reveal-delay-2">
+        <div class="connect-icon" style="background: #E7F0FD;">
+          <svg viewBox="0 0 24 24" fill="#1877F2">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Facebook</div>
+          <div class="desc">ちるーむ公式ページ</div>
+        </div>
+        <span class="ext">›</span>
+      </a>
+
+      <a href="https://www.linkedin.com/in/%E3%81%BB%E3%83%BC%E3%82%80-%E3%81%A1%E3%82%83%E3%81%84%E3%82%8B%E3%81%A9-1152a3406" target="_blank" rel="noopener" class="connect-card reveal reveal-delay-3">
+        <div class="connect-icon" style="background: #E8F0F8;">
+          <svg viewBox="0 0 24 24" fill="#0A66C2">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">LinkedIn</div>
+          <div class="desc">ちゃいるどほーむ</div>
+        </div>
+        <span class="ext">›</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-card reveal">
+      <div class="lbl">Other Contact</div>
+      <h3>媒体・コラボ・<br>地域からのお問い合わせ</h3>
+      <p>一般のお問い合わせは「Join us」セクションへ。<br>その他のお問い合わせはこちらまで。</p>
+      <a href="mailto:childhome.nagasaki@gmail.com" class="contact-mail">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+          <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+        childhome.nagasaki@gmail.com
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="footer-logo">ちるーむ</div>
+    <div class="footer-affil">ちゃいるどほーむ / 長崎大学 認定サークル</div>
+    <div class="footer-sns">
+      <a href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+        </svg>
+      </a>
+      <a href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener" aria-label="LINE">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+        </svg>
+      </a>
+      <a href="https://www.facebook.com/share/18ar3FUNtg/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+      </a>
+      <a href="mailto:childhome.nagasaki@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+          <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+      </a>
+    </div>
+    <div class="footer-copy">© 2025 ちるーむ (ちゃいるどほーむ) All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+})();
+</script>
+
+</body>
+</html>
