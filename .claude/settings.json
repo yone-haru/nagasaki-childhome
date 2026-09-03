@@ -39,7 +39,15 @@
       "Bash(gh issue edit:*)",
       "Bash(node tools/check.mjs:*)",
       "Bash(node tools/serve.mjs:*)",
-      "Bash(curl -s -o /dev/null -w * http://localhost:*)"
+      "Bash(curl -s -o /dev/null -w * http://localhost:*)",
+      "mcp__vercel__list_deployments",
+      "mcp__vercel__get_deployment",
+      "mcp__vercel__get_runtime_logs",
+      "mcp__claude-in-chrome__tabs_context_mcp",
+      "mcp__claude-in-chrome__read_page",
+      "mcp__claude-in-chrome__get_page_text",
+      "mcp__claude-in-chrome__read_console_messages",
+      "mcp__claude-in-chrome__read_network_requests"
     ],
     "deny": [
       "Read(./.env)",

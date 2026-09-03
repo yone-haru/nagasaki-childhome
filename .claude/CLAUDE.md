@@ -37,6 +37,7 @@ _ ver2.0 _.html       # 旧版(13MB)。参照も編集もしない
 - アニメーションは `.reveal` クラス + 末尾の IntersectionObserver 1本だけ。新しい要素にも `.reveal` を付ければ動く。
 - `.env` が `.gitignore` に入っていなかった（2026-09-03 に修正）。`tools/check.mjs` が毎回この状態を検査する。
 - `tools/check.mjs` のタグ対応チェックは属性値内に `>` があると誤爆する（例: `title="5 > 3"`）。今のところ該当箇所はないが、そういう属性値を書くときは注意する。
+- **`cd "パス" && grep/cat/head ... 相対パス` は `--dangerously-skip-permissions` 下でも許可プロンプトで止まることがある。** 原因は `.claude/settings.json` の `permissions.deny` に `Read()` ルール（`.env`・`_ ver2.0 _.html` 等）があるため。`cd` の後に相対パスで読むコマンドは、実際にどのファイルを読むか静的に確定できず、deny ルールに触れないか保証できないため確認を求められる（deny は skip-permissions でも上書きされない）。**回避策**: `cd ... &&` でつながず、絶対パスを直接渡す。例: `grep -n "パターン" "C:/Users/晴輝/Documents/pr/ちるーむ/index.html"`。この deny ルールは `.env`・秘密情報保護のために必要なので外さない。
 
 ## 検証ループ（最重要・消さない）
 - **IMPORTANT: `index.html` を変更したら必ず `node tools/check.mjs` を実行し、exit 0 になるまでコミットしない。**
