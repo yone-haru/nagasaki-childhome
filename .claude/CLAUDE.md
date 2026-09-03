@@ -4,7 +4,7 @@
 
 ## 技術スタック
 - HTML + CSS + 素の JavaScript のみ。**ビルドツールも npm 依存もない**（CSS と JS は `index.html` に内包）
-- 外部依存は Google Fonts のみ（Hachi Maru Pop / Zen Kaku Gothic New / Fraunces）。ライブラリは足さない
+- 外部依存は Google Fonts のみ（見出し: Zen Maru Gothic 700/900、本文: Zen Kaku Gothic New 400/500/700。v4.0 で Hachi Maru Pop / Fraunces は廃止）。ライブラリは足さない
 - 検証: 自作の `tools/check.mjs`（依存ゼロ・Node 標準のみ）
 - デプロイ: Vercel。`vercel.json` は `cleanUrls: true` / `trailingSlash: false`。**master への push が即本番公開**
 
@@ -18,15 +18,20 @@ git push origin master      # 本番公開（= デプロイ。下の「やって
 
 ## プロジェクト構成
 ```
-index.html            # サイト本体（CSS/JS 内包・約880行）。編集対象はほぼここだけ
+index.html            # サイト本体（CSS/JS 内包・約1250行）。編集対象はほぼここだけ
 vercel.json           # Vercel 設定（cleanUrls / trailingSlash）
 tools/                # 検証・開発用スクリプト（依存ゼロ。ここ以外にスクリプトを増やさない）
 .claude/              # 運用ルール・スキル・フック（このファイルを含む）
-nagasaki-u.png        # 本番で参照している画像
-チルーム　アイコン.jpg  # 同上（ファイル名に全角スペースあり）
+chiroom-logo.png      # ロゴタイプ（透過・内容領域でトリミング済み・39KB）。ヘッダー/ヒーロー/フッターで使用
+nagasaki-u.png        # 長崎大学ロゴ
+ogp.png               # OGP 画像 1200×630
+favicon-32.png / favicon-512.png / apple-touch-icon.png   # favicon（ロゴの「ち」1文字）
+チルーム　アイコン.jpg  # 元ロゴ（背景付き・ファイル名に全角スペースあり）。v4.0 からは未使用だが残す
+チルーム_アイコン_透過 .png / .svg   # 元ロゴ（透過）。未追跡・未使用。chiroom-logo.png の生成元
 _ ver2.0 _.html       # 旧版(13MB)。参照も編集もしない
-改善点まとめ.pdf       # 改善要望の元資料（v3.0 で反映済み）
+改善点まとめ.pdf       # 改善要望の元資料（v3.0 で反映済み・v4.0 でも指定文言を維持）
 ```
+本番 URL: `https://childhome-nagasaki.vercel.app/`（canonical / OGP / JSON-LD に絶対 URL で記載）
 
 ## ハマりどころ・既知の問題（随時追記・消さない）
 - **`package.json` を置かない。** Vercel の「静的サイト」検出が変わり、意図しないビルドが走る。検証は `node tools/check.mjs` のように直接実行する。
@@ -37,6 +42,8 @@ _ ver2.0 _.html       # 旧版(13MB)。参照も編集もしない
 - アニメーションは `.reveal` クラス + 末尾の IntersectionObserver 1本だけ。新しい要素にも `.reveal` を付ければ動く。
 - `.env` が `.gitignore` に入っていなかった（2026-09-03 に修正）。`tools/check.mjs` が毎回この状態を検査する。
 - `tools/check.mjs` のタグ対応チェックは属性値内に `>` があると誤爆する（例: `title="5 > 3"`）。今のところ該当箇所はないが、そういう属性値を書くときは注意する。
+- **Chrome 拡張（claude-in-chrome）のスクリーンショットは、そのタブが非表示（`document.hidden === true`）だと真っ白になる。** ユーザーが別ウィンドウを見ていると起きる。代替は headless Chrome: `"/c/Program Files/Google/Chrome/Application/chrome.exe" --headless=new --screenshot=... --window-size=1280,9000 URL`。ただし **headless でも `--window-size` の幅は約 500px 未満にならない**（390px を指定しても viewport は 500px 前後のまま画像だけ 390px に切られ、「はみ出している」ように見える）。狭い幅を正確に見るには、`<iframe width="390">` を並べたラッパー HTML を撮るか、CDP の `Emulation.setDeviceMetricsOverride` を使う（Node 22 標準の `WebSocket` で依存ゼロで書ける）。また `--virtual-time-budget` が短いと `.reveal` の遷移途中（薄い状態）で撮れて「要素が消えている」ように見える。**25000 以上**にする。
+- 画像アセットの生成には Python 3.10 + Pillow 12 が使える（`python -c "import PIL"`）。ImageMagick はない。
 - **`cd "パス" && grep/cat/head ... 相対パス` は `--dangerously-skip-permissions` 下でも許可プロンプトで止まることがある。** 原因は `.claude/settings.json` の `permissions.deny` に `Read()` ルール（`.env`・`_ ver2.0 _.html` 等）があるため。`cd` の後に相対パスで読むコマンドは、実際にどのファイルを読むか静的に確定できず、deny ルールに触れないか保証できないため確認を求められる（deny は skip-permissions でも上書きされない）。**回避策**: `cd ... &&` でつながず、絶対パスを直接渡す。例: `grep -n "パターン" "C:/Users/晴輝/Documents/pr/ちるーむ/index.html"`。この deny ルールは `.env`・秘密情報保護のために必要なので外さない。
 
 ## 検証ループ（最重要・消さない）

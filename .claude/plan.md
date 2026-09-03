@@ -3,41 +3,63 @@
 <!-- 複数ファイルにまたがる変更の前に、Claude がここへプランを書く(CLAUDE.md 参照)。 -->
 <!-- 形式: ゴール / 変更するファイル / 手順 / 完了条件 / 仮定 -->
 
-## 2026-09-03 dev/ テンプレートの本プロジェクトへの統合 — **完了**（結果は loop-result.md）
+## 2026-09-04 サイト全面リニューアル v4.0（Issue #1）— **完了**（verifier PASS。結果は loop-result.md）
 
 ### ゴール
-`dev/`（Claude Code 開発テンプレート）の【】を本プロジェクトの実態で埋め、`.claude/` として稼働させる。
-テンプレートが前提とする「検証コマンド（test/lint/build）」が本プロジェクトには存在しないため、
-依存ゼロの検証スクリプトを用意して検証ループを実際に閉じられる状態にする。
+サークル公式サイトを「一流企業のコーポレートサイトと遜色ない」水準へ。雰囲気（ミント×コーラル×イエロー、あたたかく親しみやすい）は維持しつつ、デザイン・UI/UX・情報設計・文言・機能を刷新する。単一 `index.html` 構成・依存ゼロは維持。
+
+### デザインプラン（frontend-design スキルに基づく）
+- **主役はひとつ**: 実物のロゴタイプ画像（手描き風・三色ストライプ）をヒーローで大きく使う。他は静かに規律を保つ。
+- **色**（`:root` 変数。生コードは書かない）
+  - `--mint` #C8EBE7 / `--mint-soft` #EAF6F4 / `--mint-deep` #95C9C0 / `--brand-sky` #CEF4F7（ロゴ背景の実測値 rgb(206,244,247)）
+  - `--coral` #F08767 / `--coral-soft` #FBD3C4 / `--coral-deep` #D9613F
+  - `--yellow` #FBCD4F / `--yellow-soft` #FDE9B0
+  - `--ink` #22353A（見出し）/ `--charcoal` #2E3D3F（本文）/ `--charcoal-soft` #5E6F71 / `--line` #D8E9E6（罫線）
+  - `--paper` #FFFFFF（地）
+- **書体**: 見出し = Zen Maru Gothic（700/900・丸ゴシックで親しみと品格を両立）、本文 = Zen Kaku Gothic New（400/500/700）。Hachi Maru Pop と Fraunces は廃止（子どもっぽさと「英字イタリック eyebrow」の型を捨てる。ロゴ画像が手描きの役を担う）。
+- **レイアウト**: コンテナ max-width 1120px。デスクトップは本格的な2カラム・グリッド、モバイルは1カラム。本文の行長は 40字前後に抑える。左揃え基本、CTA ブロックのみ中央。
+- **ブランド・モチーフ**: ロゴの「斜めストライプ（コーラル/イエロー/ミント）」をセクション見出しの小さなマークと区切り線に転用。これ以外の装飾（浮遊ブロブ・ドットグリッド・波区切り）は撤去。
+- **モーション**: ヒーローの登場1回（ロゴ→コピー→CTA の段階表示）と、控えめな `.reveal`（opacity+12px, 0.5s）のみ。`prefers-reduced-motion` で全停止。
+- **避ける型**: 大文字 eyebrow、`01/02/03` の装飾番号（順序があるステップだけ番号）、同一カードの羅列、'→' 付きリンク、中黒つなぎのメタ文字列。
+
+### 情報設計（セクション順・id）
+1. `header`（固定・ぼかし背景・モバイルはハンバーガー）
+2. hero（ロゴタイプ大 / キャッチコピー / 説明文 / CTA: LINEで相談・活動を見る / 長崎大学認定の表記）
+3. `#news` お知らせ（編集しやすいリスト）
+4. `#about` わたしたちのこと（指定文言そのまま＋名前の由来＋「課題→こたえ」3対＋基本情報）
+5. `#activities` 活動内容（4つ・1枚のパネルを罫線で4分割）
+6. `#flow` 参加までの流れ（3ステップ・本当に順序があるので番号あり）
+7. `#gallery` 活動の様子（写真6枠・差し替え手順を HTML コメントに）
+8. `#faq` よくある質問（`<details>` アコーディオン）
+9. `#join` 参加する（学生向け: LINE 主 / Instagram / メール。**こども食堂・地域の方向け** を分離: メール）
+10. `#connect` SNS（Instagram / LINE / Facebook / LinkedIn）
+11. `footer`（サイトマップ・SNS・所属・著作権）
+12. モバイル固定 CTA バー（ヒーロー通過後に表示・join 表示中は隠す）
 
 ### 変更するファイル
-- `.claude/CLAUDE.md`（新規・テンプレートを実プロジェクト値で埋める）
-- `.claude/settings.json`（新規・allow を実コマンドに置換／旧版HTMLを deny）
-- `.claude/settings.local.json`（既存に env 追記。既存の allow は保持）
-- `.claude/hooks/usage-guard.js` `.claude/hooks/README.md`（そのままコピー）
-- `.claude/agents/verifier.md`（検証コマンドのみ実コマンド化）
-- `.claude/skills/{feature,commit,work-issues}/SKILL.md`（【test】【lint】を実コマンド化）
-- `.claude/rules/index-html.md`（example-rule を本プロジェクトの規約に置換）
-- `.claude/plan.md` `.claude/loop-result.md` `.claude/README.md`
-- `tools/check.mjs`（検証: リンク/アセット/id重複/秘密情報）
-- `tools/serve.mjs`（開発サーバ: cleanUrls 相当）
-- `.gitignore`（テンプレートの ignore をマージ。**`.env` が未 ignore だったのを修正**）
-- `dev/`（統合後に削除。原本は `../template/dev` に残る）
+- `index.html`（全面書き換え）
+- `chiroom-logo.png`（新規: 透過ロゴを内容領域でトリミング・最適化。元 `チルーム_アイコン_透過 .png` は未追跡のまま残す）
+- `favicon-32.png` / `favicon-512.png` / `apple-touch-icon.png` / `ogp.png`（新規: PIL で生成。ロゴ「ち」1文字 / 1200×630 のOGP画像）
+- `.claude/rules/index-html.md`（新構成に合わせて更新: `<header>` あり・セクション順・変数名）
+- `.claude/CLAUDE.md`（プロジェクト構成・行数・新アセットの記述を更新）
+- `.claude/loop-result.md`（記録）
 
 ### 手順
-1. `.claude/` 一式を配置し【】を実値で埋める
-2. `tools/*.mjs` を作成し、`node tools/check.mjs` が現状の index.html で PASS することを確認
-3. `.gitignore` をマージ（`.env` を確実に除外）
-4. `dev/` を削除（`../template/dev` と一致することを diff で確認済み）
-5. verifier サブエージェントで検証
+1. 画像アセット生成（PIL）→ `node tools/check.mjs` の参照チェックで存在確認
+2. `index.html` 全面書き換え（head: SEO/OGP/JSON-LD/favicon → CSS → 本文 → JS 1本）
+3. `node tools/check.mjs` PASS
+4. `node tools/serve.mjs` + Chrome で 390px / 1280px のスクリーンショット確認 → 崩れを修正
+5. verifier に検証依頼 → [must]/[should] 修正 → PASS
+6. rules / CLAUDE.md / loop-result 更新 → 論理単位でコミット（push はしない）
 
 ### 完了条件
-- `node tools/check.mjs` が exit 0
-- `node tools/serve.mjs` が起動し `/` が 200 を返す
-- `.claude/` 配下に `【】` が 1 つも残っていない
-- `git status` に `.env` が現れない
-- verifier が PASS
+- `node tools/check.mjs` exit 0
+- 390px と 1280px でレイアウト崩れなし（スクリーンショット）
+- すべてのアンカー・画像参照が有効、alt あり、キーボード操作でナビ・FAQ・CTA が使える
+- verifier PASS
 
-### 仮定
-- 仮定: 本サイトにテスト/ビルド/Lint は今後も導入しない（依存を増やさない方針）。よって「テスト」は自作の静的検証スクリプトで代替する。
-- 仮定: package.json は置かない（Vercel の静的サイト検出を変えないため）。検証は `node <script>` の直接実行とする。
+### 仮定（ファイルに根拠がないもの）
+- 仮定: 参加費は無料、学部・学年不問、他大学生も相談可、活動日は土日中心 → FAQ に「要確認」コメントを付ける
+- 仮定: 参加までの流れは「LINEで連絡 → 見学・体験 → 活動参加」の3段階
+- 仮定: 本番ドメインは不明のため OGP の画像 URL は相対パスで記述し、判明後に絶対 URL へ差し替える（HTML コメントで明示）
+- 仮定: お知らせの初期項目は「公式サイトをリニューアルしました（2026.09）」のみ事実。それ以外は入れない
