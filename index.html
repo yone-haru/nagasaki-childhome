@@ -4,875 +4,1245 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ちるーむ | 長崎大学 こども食堂サポートサークル</title>
-<meta name="description" content="長崎県のこども食堂と、ボランティアに関心のある大学生をつなぐ、長崎大学のサークル「ちるーむ」の公式サイト。">
+<meta name="description" content="ちるーむ（ちゃいるどほーむ）は、ボランティアに関心のある大学生と長崎県のこども食堂をつなぐ長崎大学のサークルです。食事の準備や配膳のお手伝い、こどもとのふれあい、イベント企画を通して、地域のつながりを広げています。">
+<meta name="theme-color" content="#CEF4F7">
+<link rel="canonical" href="https://childhome-nagasaki.vercel.app/">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<!-- OGP / SNS シェア用（本番ドメイン: childhome-nagasaki.vercel.app。独自ドメインに変えたら canonical と og:url / og:image も直す） -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ちるーむ">
+<meta property="og:title" content="ちるーむ | 長崎大学 こども食堂サポートサークル">
+<meta property="og:description" content="ごはんで繋がる、笑顔の輪。ボランティアに関心のある大学生と、長崎県のこども食堂をつなぐ長崎大学のサークルです。">
+<meta property="og:url" content="https://childhome-nagasaki.vercel.app/">
+<meta property="og:image" content="https://childhome-nagasaki.vercel.app/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ちるーむ | 長崎大学 こども食堂サポートサークル">
+<meta name="twitter:description" content="ごはんで繋がる、笑顔の輪。ボランティアに関心のある大学生と、長崎県のこども食堂をつなぐ長崎大学のサークルです。">
+<meta name="twitter:image" content="https://childhome-nagasaki.vercel.app/ogp.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="chiroom-logo.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ちるーむ",
+  "alternateName": "ちゃいるどほーむ",
+  "description": "ボランティアに関心のある大学生と長崎県のこども食堂をつなぐ、長崎大学認定サークル。",
+  "url": "https://childhome-nagasaki.vercel.app/",
+  "logo": "https://childhome-nagasaki.vercel.app/ogp.png",
+  "email": "childhome.nagasaki@gmail.com",
+  "areaServed": "長崎県",
+  "sameAs": [
+    "https://www.instagram.com/nagasaki_childhome",
+    "https://www.facebook.com/share/18ar3FUNtg/?mibextid=wwXIfr",
+    "https://www.linkedin.com/in/%E3%81%BB%E3%83%BC%E3%82%80-%E3%81%A1%E3%82%83%E3%81%84%E3%82%8B%E3%81%A9-1152a3406",
+    "https://line.me/R/ti/p/@990qouib"
+  ]
+}
+</script>
+
 <style>
+  /* =========================================================
+     デザイントークン（色はここでだけ定義する。生の色コードを他所に書かない）
+     ========================================================= */
   :root {
+    --brand-sky: #CEF4F7;     /* ロゴ画像の背景色（実測） */
     --mint: #C8EBE7;
-    --mint-soft: #E5F4F1;
+    --mint-soft: #EAF6F4;
     --mint-deep: #95C9C0;
+    --teal: #4FA89B;          /* ミント系の濃色。アイコン背景・装飾用 */
+    --teal-text: #2A7469;     /* 文字・リンク用のティール（白地で 5.5:1、mint-soft 地で 5.0:1） */
     --coral: #F08767;
-    --coral-soft: #FBC4B0;
+    --coral-soft: #FBD3C4;
     --coral-deep: #D9613F;
     --yellow: #FBCD4F;
-    --yellow-soft: #FDE49E;
-    --teal: #6FC2B5;
-    --cream: #FFF9F0;
-    --white: #FFFFFF;
+    --yellow-soft: #FDE9B0;
+    --ink: #22353A;
     --charcoal: #2E3D3F;
     --charcoal-soft: #5E6F71;
     --charcoal-faint: #8DA0A2;
+    --line: #D8E9E6;
+    --paper: #FFFFFF;
     --line-green: #06C755;
     --facebook-blue: #1877F2;
     --linkedin-blue: #0A66C2;
+
+    --font-body: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    --font-head: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+
+    --radius-lg: 28px;
+    --radius-md: 16px;
+    --radius-sm: 10px;
+    --header-h: 72px;
+    --ease-out: cubic-bezier(.22, 1, .36, 1);
+    --shadow-float: 0 12px 32px rgba(34, 53, 58, 0.14);
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  html { scroll-behavior: smooth; }
+
+  /* ---------- リセット・基礎 ---------- */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); -webkit-text-size-adjust: 100%; }
   body {
-    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.9;
     color: var(--charcoal);
-    background: var(--mint-soft);
-    line-height: 1.85;
+    background: var(--paper);
     font-feature-settings: "palt" 1;
-    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
   }
-  img { max-width: 100%; display: block; }
+  img { max-width: 100%; height: auto; display: block; }
   a { color: inherit; text-decoration: none; }
-  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
+  ul, ol { list-style: none; }
+  address { font-style: normal; }
+  :focus-visible { outline: 3px solid var(--coral-deep); outline-offset: 3px; border-radius: 4px; }
+  ::selection { background: var(--yellow); color: var(--ink); }
 
-  .wrap { width: 100%; max-width: 720px; margin: 0 auto; padding: 0 24px; }
-  .eyebrow {
-    font-family: 'Fraunces', serif; font-style: italic; font-weight: 400;
-    font-size: 13px; letter-spacing: 0.1em;
-    color: var(--coral-deep);
-    display: inline-flex; align-items: center; gap: 10px;
-    margin-bottom: 14px;
-    text-transform: uppercase;
+  .container { width: min(100% - 40px, 1120px); margin-inline: auto; }
+  .visually-hidden {
+    position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
   }
-  .eyebrow::before { content: ''; width: 24px; height: 1.5px; background: var(--coral); border-radius: 2px; }
-  .section-title {
-    font-family: 'Hachi Maru Pop', cursive;
-    font-size: clamp(26px, 6.5vw, 36px); line-height: 1.45;
-    margin-bottom: 10px; color: var(--charcoal);
+  .skip-link {
+    position: absolute; top: 8px; left: 8px; z-index: 100;
+    background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 999px;
+    font-weight: 700; transform: translateY(-200%); transition: transform .2s;
   }
-  .section-lead {
-    font-size: 14px; color: var(--charcoal-soft);
-    margin-bottom: 40px; line-height: 1.9;
-  }
-  section { padding: 88px 0; position: relative; }
+  .skip-link:focus { transform: translateY(0); }
 
-  /* Scroll reveal */
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  .reveal-delay-1 { transition-delay: 0.08s; }
-  .reveal-delay-2 { transition-delay: 0.16s; }
-  .reveal-delay-3 { transition-delay: 0.24s; }
-  .reveal-delay-4 { transition-delay: 0.32s; }
-
-  /* Dot grid */
-  .dot-grid {
-    position: absolute; pointer-events: none; opacity: 0.18;
-    background-image: radial-gradient(circle, var(--teal) 1.5px, transparent 1.5px);
-    background-size: 18px 18px;
+  /* ---------- 見出しまわり ---------- */
+  h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 700; color: var(--ink); line-height: 1.35; letter-spacing: 0.01em; }
+  .stripe-mark {
+    display: inline-block; width: 40px; height: 10px; border-radius: 999px;
+    background: repeating-linear-gradient(-55deg, var(--coral) 0 9px, var(--yellow) 9px 18px, var(--mint-deep) 18px 27px);
   }
+  .sec-head { margin-bottom: clamp(36px, 5vw, 56px); }
+  .sec-head .stripe-mark { margin-bottom: 18px; }
+  .sec-head h2 { font-size: clamp(28px, 3.4vw, 40px); }
+  .sec-lead { margin-top: 14px; font-size: clamp(15px, 1.4vw, 17px); color: var(--charcoal-soft); max-width: 40em; }
+  .sec-head.is-center { text-align: center; }
+  .sec-head.is-center .sec-lead { margin-inline: auto; }
 
-  /* ===== HERO ===== */
+  section.block { padding-block: clamp(72px, 10vw, 128px); }
+  section.block.is-tinted { background: var(--mint-soft); }
+
+  /* ---------- ボタン ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 56px; padding: 12px 28px; border-radius: 999px;
+    font-family: var(--font-head); font-weight: 700; font-size: 16px; line-height: 1.3; text-align: center;
+    transition: transform .25s var(--ease-out), background-color .2s, color .2s, border-color .2s, box-shadow .25s;
+  }
+  .btn svg { width: 22px; height: 22px; flex-shrink: 0; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0); }
+  .btn-primary { background: var(--ink); color: var(--paper); box-shadow: 0 6px 18px rgba(34, 53, 58, 0.18); }
+  .btn-primary:hover { background: var(--charcoal); box-shadow: 0 10px 24px rgba(34, 53, 58, 0.22); }
+  .btn-primary .ico-line { color: var(--line-green); }
+  .btn-outline { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
+  .btn-outline:hover { background: var(--ink); color: var(--paper); }
+  .btn-soft { background: var(--paper); color: var(--ink); border: 2px solid var(--line); }
+  .btn-soft:hover { border-color: var(--mint-deep); }
+  .btn-sm { min-height: 44px; padding: 8px 20px; font-size: 14px; white-space: nowrap; }
+  .link-arrow {
+    display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--teal-text);
+    border-bottom: 2px solid transparent; transition: border-color .2s;
+  }
+  .link-arrow svg { width: 18px; height: 18px; transition: transform .25s var(--ease-out); }
+  .link-arrow:hover { border-color: var(--teal-text); }
+  .link-arrow:hover svg { transform: translateX(3px); }
+
+  /* ---------- スクロール表示（末尾の IntersectionObserver が .visible を付ける） ---------- */
+  .reveal { opacity: 0; transform: translateY(12px); transition: opacity .55s var(--ease-out), transform .55s var(--ease-out); }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: .08s; }
+  .reveal-delay-2 { transition-delay: .16s; }
+  .reveal-delay-3 { transition-delay: .24s; }
+
+  /* =========================================================
+     ヘッダー
+     ========================================================= */
+  .site-header {
+    position: fixed; inset: 0 0 auto 0; z-index: 50;
+    height: var(--header-h);
+    transition: background-color .3s, box-shadow .3s, backdrop-filter .3s;
+  }
+  .site-header.is-scrolled, .site-header.is-open {
+    background: rgba(255, 255, 255, 0.86);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    box-shadow: 0 1px 0 var(--line);
+  }
+  .site-header .container { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .brand { display: inline-flex; align-items: center; height: 100%; }
+  .brand img { height: 34px; width: auto; }
+  .site-nav { display: none; }
+  .site-nav ul { display: flex; align-items: center; gap: 4px; }
+  .site-nav a {
+    display: inline-block; padding: 10px 14px; border-radius: 999px;
+    font-size: 14.5px; font-weight: 700; color: var(--ink);
+    transition: background-color .2s;
+  }
+  .site-nav a:hover { background: rgba(34, 53, 58, 0.06); }
+  .header-cta { display: none; }
+  .nav-toggle {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 48px; height: 48px; border-radius: 50%; margin-right: -8px;
+    background: var(--paper); box-shadow: 0 2px 10px rgba(34, 53, 58, 0.12);
+  }
+  .nav-toggle .bars { position: relative; width: 20px; height: 14px; }
+  .nav-toggle .bars span {
+    position: absolute; left: 0; width: 100%; height: 2.5px; border-radius: 2px; background: var(--ink);
+    transition: transform .3s var(--ease-out), opacity .2s, top .3s var(--ease-out);
+  }
+  .nav-toggle .bars span:nth-child(1) { top: 0; }
+  .nav-toggle .bars span:nth-child(2) { top: 6px; }
+  .nav-toggle .bars span:nth-child(3) { top: 12px; }
+  .nav-toggle[aria-expanded="true"] .bars span:nth-child(1) { top: 6px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] .bars span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] .bars span:nth-child(3) { top: 6px; transform: rotate(-45deg); }
+
+  .mobile-menu {
+    position: fixed; inset: var(--header-h) 0 0 0; z-index: 49;
+    background: var(--paper); padding: 20px 20px 40px; overflow-y: auto;
+    transform: translateY(-8px); opacity: 0; visibility: hidden;
+    transition: opacity .25s, transform .3s var(--ease-out), visibility 0s linear .3s;
+  }
+  .mobile-menu.is-open { transform: none; opacity: 1; visibility: visible; transition-delay: 0s; }
+  .mobile-menu ul { border-top: 1px solid var(--line); }
+  .mobile-menu li { border-bottom: 1px solid var(--line); }
+  .mobile-menu a.menu-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 4px; font-family: var(--font-head); font-weight: 700; font-size: 18px; color: var(--ink);
+  }
+  .mobile-menu a.menu-link svg { width: 20px; height: 20px; color: var(--charcoal-soft); }
+  .mobile-menu .menu-cta { margin-top: 28px; display: grid; gap: 12px; }
+  .mobile-menu .menu-cta .btn { width: 100%; }
+  .mobile-menu .menu-sns { margin-top: 28px; display: flex; gap: 10px; justify-content: center; }
+
+  /* =========================================================
+     ヒーロー
+     ========================================================= */
   .hero {
-    background: var(--mint);
-    min-height: 100svh;
-    padding: 28px 0 56px;
     position: relative; overflow: hidden;
-    display: flex; flex-direction: column;
+    background: var(--brand-sky);
+    padding: calc(var(--header-h) + 36px) 0 56px;
   }
-  .hero-blob { position: absolute; border-radius: 50%; pointer-events: none; animation: floatBlob 9s ease-in-out infinite; }
-  .hero-blob.b1 { width: 200px; height: 200px; background: var(--yellow-soft); top: 4%; right: -70px; filter: blur(3px); }
-  .hero-blob.b2 { width: 150px; height: 150px; background: var(--coral-soft); bottom: 16%; left: -50px; animation-delay: 2.5s; filter: blur(2px); }
-  .hero-blob.b3 { width: 80px; height: 80px; background: var(--teal); opacity: 0.45; top: 38%; right: 12%; animation-delay: 5s; filter: blur(1px); }
-  .hero-blob.b4 { width: 50px; height: 50px; background: var(--coral); opacity: 0.25; top: 18%; left: 30%; animation-delay: 3s; filter: blur(1px); }
-  @keyframes floatBlob {
-    0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
-    33% { transform: translateY(-18px) translateX(8px) rotate(5deg); }
-    66% { transform: translateY(-8px) translateX(-6px) rotate(-3deg); }
+  .hero::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 64px;
+    background: var(--paper);
+    border-radius: 100% 100% 0 0 / 100% 100% 0 0;
+    transform: scaleX(1.4);
   }
-  .hero-dot-grid { width: 160px; height: 160px; top: 50%; left: -20px; transform: translateY(-50%); }
+  .hero .container { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  /* グリッド直下の要素は min-width:auto のままだと画像の固有幅で横にはみ出す */
+  .hero .container > *, .about-grid > *, .flow-layout > *, .join-panel > *, .footer-grid > * { min-width: 0; }
+  .hero-affil {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(255, 255, 255, 0.72); border-radius: 999px; padding: 8px 14px 8px 8px;
+    font-size: 13px; font-weight: 700; color: var(--charcoal); width: fit-content;
+  }
+  .hero-affil img { height: 22px; width: auto; }
+  .hero-logo { margin-top: 22px; }
+  .hero-logo img { width: min(100%, 560px); height: auto; }
+  .hero-copy {
+    margin-top: 22px;
+    font-family: var(--font-head); font-weight: 900;
+    font-size: clamp(28px, 4.4vw, 46px); line-height: 1.4; letter-spacing: 0.02em; color: var(--ink);
+  }
+  .hero-copy .marker {
+    background: linear-gradient(transparent 62%, var(--yellow) 62%, var(--yellow) 92%, transparent 92%);
+    padding: 0 0.08em;
+  }
+  .hero-lead { margin-top: 18px; font-size: clamp(15px, 1.5vw, 17px); line-height: 2; max-width: 30em; color: var(--charcoal); }
+  .hero-actions { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero-actions .btn { flex: 1 1 200px; }
+  .hero-art { display: flex; justify-content: center; }
+  .hero-art svg { width: min(100%, 300px); height: auto; }
 
-  .hero-nav {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 0 24px; position: relative; z-index: 5;
+  /* ヒーローの登場アニメーション（ページ表示時に一度だけ） */
+  @keyframes hero-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  .hero-affil, .hero-logo, .hero-copy, .hero-lead, .hero-actions, .hero-art {
+    animation: hero-rise .8s var(--ease-out) both;
   }
-  .hero-nav-brand { font-family: 'Hachi Maru Pop', cursive; font-size: 17px; color: var(--charcoal); }
-  .hero-nav-link {
-    font-size: 11px; letter-spacing: 0.08em;
-    color: var(--charcoal);
-    border: 1.5px solid var(--charcoal); border-radius: 999px;
-    padding: 8px 18px; background: transparent;
-    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), background 0.2s, color 0.2s, border-color 0.2s;
-  }
-  .hero-nav-link:hover { transform: translateY(-2px); background: var(--coral); color: var(--white); border-color: var(--coral); }
+  .hero-logo { animation-delay: .05s; }
+  .hero-copy { animation-delay: .18s; }
+  .hero-lead { animation-delay: .28s; }
+  .hero-actions { animation-delay: .38s; }
+  .hero-art { animation-delay: .3s; }
+  @keyframes steam { 0% { transform: translateY(0); opacity: .0; } 30% { opacity: .9; } 100% { transform: translateY(-14px); opacity: 0; } }
+  .hero-art .steam { animation: steam 2.8s ease-in-out infinite; transform-origin: center; }
+  .hero-art .steam.s2 { animation-delay: .9s; }
+  .hero-art .steam.s3 { animation-delay: 1.8s; }
 
-  .hero-content {
-    flex: 1; display: flex; flex-direction: column; justify-content: center;
-    padding: 44px 24px 0; position: relative; z-index: 2;
+  /* =========================================================
+     お知らせ
+     ========================================================= */
+  .news { padding: 8px 0 0; }
+  .news-box {
+    display: grid; gap: 8px; padding: 22px 24px;
+    border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper);
   }
+  .news-box h2 { font-size: 15px; display: flex; align-items: center; gap: 10px; }
+  .news-box h2 .stripe-mark { width: 26px; height: 7px; }
+  .news-list li { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 8px 0; border-top: 1px dashed var(--line); }
+  .news-list li:first-child { border-top: 0; }
+  .news-list time, .news-list .news-date { font-size: 13px; font-weight: 700; color: var(--teal-text); font-variant-numeric: tabular-nums; min-width: 6.5em; }
+  .news-list a { border-bottom: 1px solid transparent; transition: border-color .2s; }
+  .news-list a:hover { border-color: var(--charcoal); }
 
-  /* Logo block with both icons */
-  .hero-logo-block { display: flex; align-items: center; gap: 18px; margin-bottom: 36px; }
-  .hero-logo-img {
-    width: 100px; height: 100px; border-radius: 24px;
-    object-fit: cover;
-    box-shadow: 0 8px 28px rgba(46,61,63,0.13), 0 2px 6px rgba(46,61,63,0.08);
-    flex-shrink: 0;
-    transition: transform 0.4s cubic-bezier(.34,1.56,.64,1);
+  /* =========================================================
+     わたしたちのこと
+     ========================================================= */
+  .about-grid { display: grid; gap: 40px; }
+  .about-text p { line-height: 2.05; }
+  .about-text p + p { margin-top: 1.2em; }
+  .about-origin {
+    margin-top: 28px; padding: 18px 22px; border-left: 4px solid var(--yellow);
+    background: var(--yellow-soft); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 14.5px; line-height: 1.9;
   }
-  .hero-logo-img:hover { transform: scale(1.05) rotate(-2deg); }
-  .hero-univ-img {
-    width: 56px; height: 56px; border-radius: 14px;
-    object-fit: contain; background: var(--white);
-    padding: 6px;
-    box-shadow: 0 4px 14px rgba(46,61,63,0.10);
-    flex-shrink: 0;
+  .about-origin strong { font-family: var(--font-head); color: var(--ink); }
+  .profile {
+    background: var(--mint-soft); border-radius: var(--radius-lg); padding: 28px 26px;
   }
-  .hero-logo-meta { display: flex; flex-direction: column; gap: 6px; }
-  .hero-logo-tag {
-    display: inline-flex; align-items: center; gap: 7px;
-    background: var(--white); padding: 6px 13px; border-radius: 999px;
-    font-size: 11px; color: var(--charcoal-soft); align-self: flex-start;
-    box-shadow: 0 2px 8px rgba(46,61,63,0.07);
-  }
-  .hero-logo-tag::before {
-    content: ''; width: 7px; height: 7px; border-radius: 50%;
-    background: var(--coral); animation: pulse 2.2s ease-in-out infinite; flex-shrink: 0;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.55; transform: scale(1.25); }
-  }
-  .hero-logo-nagasaki { font-family: 'Fraunces', serif; font-style: italic; font-size: 12px; color: var(--charcoal-soft); letter-spacing: 0.04em; }
+  .profile h3 { font-size: 18px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .profile dl { display: grid; grid-template-columns: auto 1fr; gap: 0 18px; }
+  .profile dt, .profile dd { padding: 11px 0; border-top: 1px solid rgba(34, 53, 58, 0.1); font-size: 14.5px; line-height: 1.7; }
+  .profile dt { font-weight: 700; color: var(--charcoal-soft); white-space: nowrap; }
+  .profile dd a { color: var(--teal-text); font-weight: 700; }
 
-  /* Main title */
-  .hero-title {
-    font-family: 'Hachi Maru Pop', cursive;
-    font-size: clamp(52px, 15vw, 80px);
-    line-height: 1.1; letter-spacing: 0.01em;
-    color: var(--charcoal);
-    margin-bottom: 16px;
+  .answers { margin-top: clamp(56px, 7vw, 88px); }
+  .answers h3 { font-size: clamp(22px, 2.4vw, 28px); margin-bottom: 26px; }
+  .answers-grid { display: grid; gap: 14px; }
+  .answer {
+    display: grid; grid-template-columns: 1fr; gap: 12px;
+    padding: 24px; border-radius: var(--radius-md); background: var(--paper); border: 1px solid var(--line);
   }
+  .answer .q, .answer .a { font-size: 15px; line-height: 1.85; }
+  .answer .q { color: var(--charcoal-soft); padding-left: 44px; position: relative; }
+  .answer .a { padding-left: 44px; position: relative; color: var(--ink); font-weight: 500; }
+  .answer .q::before, .answer .a::before {
+    position: absolute; left: 0; top: 2px; width: 32px; height: 24px; border-radius: 6px;
+    font-family: var(--font-head); font-size: 12px; font-weight: 700; line-height: 24px; text-align: center;
+  }
+  .answer .q::before { content: '課題'; background: var(--mint); color: var(--ink); }
+  .answer .a::before { content: '答え'; background: var(--coral); color: var(--paper); }
 
-  /* Catchphrase */
-  .hero-catchphrase {
-    font-family: 'Hachi Maru Pop', cursive;
-    font-size: clamp(18px, 5vw, 26px);
-    line-height: 1.5; letter-spacing: 0.02em;
-    color: var(--coral-deep);
-    margin-bottom: 20px;
-    position: relative; display: inline-block;
+  /* =========================================================
+     活動内容（1枚のパネルを罫線で4分割）
+     ========================================================= */
+  .activity-panel {
+    display: grid; grid-template-columns: 1fr;
+    background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden;
   }
-  .hero-catchphrase::after {
-    content: '';
-    position: absolute; left: -2px; right: -2px; bottom: 2px;
-    height: 10px;
-    background: var(--yellow);
-    z-index: -1;
-    border-radius: 3px;
-    transform: rotate(-0.5deg);
+  .activity {
+    padding: 32px 28px; border-top: 1px solid var(--line);
   }
+  .activity:first-child { border-top: 0; }
+  .activity-icon {
+    width: 64px; height: 64px; border-radius: 20px; display: grid; place-items: center; margin-bottom: 18px;
+  }
+  .activity-icon svg { width: 30px; height: 30px; }
+  .activity:nth-child(1) .activity-icon { background: var(--coral-soft); color: var(--coral-deep); }
+  .activity:nth-child(2) .activity-icon { background: var(--yellow-soft); color: var(--ink); }
+  .activity:nth-child(3) .activity-icon { background: var(--mint); color: var(--teal-text); }
+  .activity:nth-child(4) .activity-icon { background: var(--brand-sky); color: var(--teal-text); }
+  .activity h3 { font-size: 20px; margin-bottom: 8px; }
+  .activity p { font-size: 15px; color: var(--charcoal-soft); line-height: 1.9; }
 
-  .hero-sub {
-    font-size: 14px; line-height: 2;
-    color: var(--charcoal-soft);
-    max-width: 420px;
+  /* =========================================================
+     参加までの流れ（順序があるので番号を付ける）
+     ========================================================= */
+  .flow { counter-reset: step; }
+  .flow-list { display: grid; gap: 0; position: relative; }
+  .flow-step {
+    position: relative; display: grid; grid-template-columns: 56px 1fr; gap: 20px; padding: 0 0 36px;
   }
+  .flow-step:last-child { padding-bottom: 0; }
+  .flow-step::before {
+    counter-increment: step; content: counter(step);
+    width: 56px; height: 56px; border-radius: 50%; background: var(--ink); color: var(--paper);
+    font-family: var(--font-head); font-weight: 700; font-size: 20px;
+    display: grid; place-items: center; position: relative; z-index: 1;
+  }
+  .flow-step::after {
+    content: ''; position: absolute; left: 27px; top: 56px; bottom: 0; width: 2px;
+    background: repeating-linear-gradient(to bottom, var(--mint-deep) 0 8px, transparent 8px 14px);
+  }
+  .flow-step:last-child::after { display: none; }
+  .flow-step h3 { font-size: 20px; margin-top: 12px; }
+  .flow-step p { margin-top: 8px; font-size: 15px; color: var(--charcoal-soft); }
+  .flow-step .flow-note { margin-top: 12px; font-size: 13.5px; color: var(--teal-text); font-weight: 700; }
+  .flow-aside {
+    margin-top: 40px; padding: 28px 26px; border-radius: var(--radius-lg);
+    background: var(--brand-sky); display: grid; gap: 16px;
+  }
+  .flow-aside h3 { font-size: 20px; }
+  .flow-aside p { font-size: 15px; }
 
-  .hero-handline { margin-top: 30px; align-self: flex-start; display: flex; align-items: center; gap: 12px; }
-  .hero-handline svg { width: 72px; height: 12px; flex-shrink: 0; }
-
-  .scroll-cue {
-    position: relative; align-self: center; margin-top: 44px;
-    font-family: 'Fraunces', serif; font-style: italic;
-    font-size: 10px; letter-spacing: 0.22em; color: var(--charcoal-soft);
-    display: flex; flex-direction: column; align-items: center; gap: 10px;
-    text-transform: uppercase;
-  }
-  .scroll-cue .tick {
-    width: 1.5px; height: 34px; background: var(--charcoal-soft); border-radius: 2px;
-    animation: tickDown 1.9s cubic-bezier(.45,0,.55,1) infinite; transform-origin: top;
-  }
-  @keyframes tickDown {
-    0% { transform: scaleY(0); opacity: 1; }
-    60% { transform: scaleY(1); opacity: 1; }
-    100% { transform: scaleY(1); opacity: 0; }
-  }
-
-  /* ===== ABOUT ===== */
-  .about { background: var(--cream); }
-  .about-grid { display: grid; gap: 36px; }
-  .about-mission {
-    font-family: 'Hachi Maru Pop', cursive;
-    font-size: clamp(20px, 5vw, 26px); line-height: 1.75;
-  }
-  .about-mission .pop {
-    color: var(--coral); position: relative; display: inline;
-  }
-  .about-text { font-size: 14.5px; color: var(--charcoal-soft); line-height: 2.1; margin-top: 22px; }
-  .about-text p + p { margin-top: 16px; }
-  .about-illust {
-    width: 100%; max-width: 340px; margin: 0 auto;
-    aspect-ratio: 4/3; border-radius: 28px;
-    background: var(--mint); position: relative; overflow: hidden; flex-shrink: 0;
-  }
-  .about-illust-inner { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
-  .about-illust-placeholder {
-    display: flex; flex-direction: column; align-items: center; gap: 10px;
-    color: var(--charcoal-soft); font-size: 13px; text-align: center; padding: 20px;
-  }
-  .about-illust-placeholder span { font-family: 'Hachi Maru Pop', cursive; font-size: 14px; color: var(--teal); }
-  .about-numbers {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 32px;
-  }
-  .about-number-item {
-    background: var(--white); border-radius: 18px; padding: 16px 12px; text-align: center; border: 1.5px solid var(--mint);
-  }
-  .about-number-item .num { font-family: 'Fraunces', serif; font-style: italic; font-size: 28px; color: var(--coral); line-height: 1; }
-  .about-number-item .num sup { font-size: 14px; }
-  .about-number-item .lbl { font-size: 11px; color: var(--charcoal-soft); margin-top: 4px; line-height: 1.5; }
-
-  /* ===== ACTIVITIES ===== */
-  .activities { background: var(--mint-soft); }
-  .activity-cards { display: grid; grid-template-columns: 1fr; gap: 16px; }
-  .activity-card {
-    background: var(--white); border-radius: 26px; padding: 24px 22px;
-    position: relative;
-    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s ease;
-    border: 1.5px solid transparent; overflow: hidden;
-  }
-  .activity-card::before {
-    content: ''; position: absolute; inset: 0; border-radius: inherit;
-    background: linear-gradient(135deg, transparent 60%, rgba(200,235,231,0.4)); pointer-events: none;
-  }
-  .activity-card:hover { transform: translateY(-5px) rotate(0.3deg); box-shadow: 0 16px 40px rgba(46,61,63,0.10); border-color: var(--mint-deep); }
-  .activity-card .num {
-    position: absolute; top: 18px; right: 22px;
-    font-family: 'Fraunces', serif; font-style: italic;
-    font-size: 38px; color: var(--mint-deep); opacity: 0.4; line-height: 1;
-  }
-  .activity-icon { width: 60px; height: 60px; border-radius: 18px; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .activity-card:nth-child(1) .activity-icon { background: var(--coral-soft); }
-  .activity-card:nth-child(2) .activity-icon { background: var(--yellow-soft); }
-  .activity-card:nth-child(3) .activity-icon { background: var(--mint); }
-  .activity-card:nth-child(4) .activity-icon { background: var(--coral-soft); }
-  .activity-icon svg { width: 28px; height: 28px; }
-  .activity-card h3 { font-family: 'Hachi Maru Pop', cursive; font-weight: 400; font-size: 18px; margin-bottom: 8px; line-height: 1.4; }
-  .activity-card p { font-size: 13.5px; color: var(--charcoal-soft); line-height: 1.9; }
-
-  /* ===== GALLERY ===== */
-  .gallery { background: var(--white); }
+  /* =========================================================
+     活動の様子（写真ギャラリー）
+     ========================================================= */
   .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .gallery-item {
-    aspect-ratio: 4/3; border-radius: 18px;
-    background: var(--mint); overflow: hidden; position: relative;
-    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
-    display: flex; align-items: center; justify-content: center;
+  .gallery-grid figure {
+    position: relative; aspect-ratio: 4 / 3; border-radius: var(--radius-md); overflow: hidden;
+    background: var(--mint-soft); margin: 0;
   }
-  .gallery-item:hover { transform: scale(1.02); }
-  .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-  .gallery-item-placeholder {
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-    color: var(--charcoal-faint); font-size: 12px; text-align: center; padding: 16px;
+  .gallery-grid figure.is-large { grid-column: span 2; aspect-ratio: 16 / 10; }
+  .gallery-grid img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-grid figcaption {
+    position: absolute; left: 12px; bottom: 12px; padding: 5px 12px; border-radius: 999px;
+    background: rgba(255, 255, 255, 0.86); font-size: 12.5px; font-weight: 700; color: var(--ink);
   }
-  .gallery-item-placeholder svg { width: 32px; height: 32px; opacity: 0.5; }
-  .gallery-item:first-child { grid-column: span 2; aspect-ratio: 16/7; }
+  .photo-pending {
+    position: absolute; inset: 0; display: grid; place-items: center; text-align: center;
+    color: var(--teal-text); font-size: 13px; font-weight: 700; padding: 16px;
+    background-color: var(--mint);
+    background-image: repeating-linear-gradient(-55deg, rgba(255, 255, 255, 0.45) 0 12px, transparent 12px 24px);
+    border: 2px dashed var(--mint-deep); border-radius: inherit;
+  }
+  .photo-pending svg {
+    width: 52px; height: 52px; padding: 13px; margin: 0 auto 8px;
+    border-radius: 50%; background: var(--paper); color: var(--mint-deep);
+  }
+  /* 小さな枠ではキャプションと重なるので文字を出さず、アイコンだけ少し上に */
+  .gallery-grid figure:not(.is-large) .photo-pending { padding-bottom: 40px; }
+  .gallery-grid figure:not(.is-large) .photo-pending .pending-text { display: none; }
+  .gallery-grid figure:not(.is-large) .photo-pending svg { margin-bottom: 0; }
+  .gallery-more { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+  .gallery-more p { font-size: 15px; color: var(--charcoal-soft); }
 
-  /* ===== EVENTS ===== */
-  .events { background: var(--white); }
-  .events-list { display: flex; flex-direction: column; gap: 14px; }
-  .event-card {
-    display: grid; grid-template-columns: 78px 1fr; gap: 18px;
-    background: var(--cream); border-radius: 22px; padding: 20px; align-items: center;
-    border: 1.5px solid transparent;
-    transition: border-color 0.25s, transform 0.25s cubic-bezier(.34,1.56,.64,1);
+  /* =========================================================
+     よくある質問
+     ========================================================= */
+  .faq-list { border-top: 1px solid var(--line); }
+  .faq-item { border-bottom: 1px solid var(--line); }
+  .faq-item summary {
+    list-style: none; cursor: pointer; display: grid; grid-template-columns: 1fr 28px; align-items: center; gap: 16px;
+    padding: 22px 4px; font-family: var(--font-head); font-weight: 700; font-size: 17px; color: var(--ink);
+    transition: color .2s;
   }
-  .event-card:hover { border-color: var(--coral-soft); transform: translateX(3px); }
-  .event-date { background: var(--white); border-radius: 14px; padding: 10px 6px; text-align: center; border: 1.5px solid var(--mint); }
-  .event-date .month { font-family: 'Fraunces', serif; font-style: italic; font-size: 11px; color: var(--coral-deep); text-transform: uppercase; letter-spacing: 0.06em; }
-  .event-date .day { font-family: 'Hachi Maru Pop', cursive; font-size: 26px; line-height: 1.2; color: var(--charcoal); }
-  .event-date .dow { font-size: 10px; color: var(--charcoal-soft); }
-  .event-meta { min-width: 0; }
-  .event-meta h3 { font-family: 'Hachi Maru Pop', cursive; font-weight: 400; font-size: 16px; line-height: 1.5; margin-bottom: 5px; }
-  .event-meta .place { font-size: 11.5px; color: var(--charcoal-soft); display: flex; align-items: center; gap: 5px; margin-bottom: 10px; }
-  .event-meta .place::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--coral); flex-shrink: 0; }
-  .event-cta { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--coral-deep); font-weight: 500; border-bottom: 1.5px solid var(--coral); padding-bottom: 1px; transition: gap 0.2s; }
-  .event-cta:hover { gap: 9px; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:hover { color: var(--teal-text); }
+  .faq-item summary .plus {
+    width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--line); position: relative; transition: transform .3s var(--ease-out), border-color .2s;
+  }
+  .faq-item summary .plus::before, .faq-item summary .plus::after {
+    content: ''; position: absolute; background: var(--ink); left: 50%; top: 50%; transform: translate(-50%, -50%);
+  }
+  .faq-item summary .plus::before { width: 12px; height: 2px; }
+  .faq-item summary .plus::after { width: 2px; height: 12px; transition: transform .3s var(--ease-out); }
+  .faq-item[open] summary .plus { transform: rotate(180deg); border-color: var(--mint-deep); }
+  .faq-item[open] summary .plus::after { transform: translate(-50%, -50%) scaleY(0); }
+  .faq-item .faq-body { padding: 0 4px 24px; font-size: 15px; color: var(--charcoal); max-width: 44em; }
+  .faq-item .faq-body p + p { margin-top: .6em; }
+  .faq-item .faq-body a { color: var(--teal-text); font-weight: 700; border-bottom: 1px solid currentColor; }
 
-  .wave-divider { width: 100%; height: 28px; display: block; }
+  /* =========================================================
+     参加する
+     ========================================================= */
+  .join { padding-block: clamp(72px, 10vw, 128px); }
+  .join-panel {
+    position: relative; overflow: hidden; border-radius: var(--radius-lg);
+    background: var(--brand-sky); padding: clamp(36px, 5vw, 64px) clamp(22px, 4vw, 56px);
+  }
+  .join-panel .stripe-band {
+    position: absolute; top: 0; left: 0; right: 0; height: 10px;
+    background: repeating-linear-gradient(-55deg, var(--coral) 0 14px, var(--yellow) 14px 28px, var(--mint-deep) 28px 42px);
+  }
+  .join-panel h2 { font-size: clamp(26px, 3.2vw, 38px); }
+  .join-panel .join-lead { margin-top: 14px; font-size: 16px; max-width: 34em; }
+  .join-channels { margin-top: 32px; display: grid; gap: 12px; }
+  .channel {
+    display: grid; grid-template-columns: 48px 1fr auto; align-items: center; gap: 16px;
+    background: var(--paper); border-radius: var(--radius-md); padding: 16px 18px;
+    transition: transform .25s var(--ease-out), box-shadow .25s;
+  }
+  .channel:hover { transform: translateY(-2px); box-shadow: var(--shadow-float); }
+  .channel-icon { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; }
+  .channel-icon svg { width: 24px; height: 24px; }
+  .channel.is-line .channel-icon { background: var(--line-green); color: var(--paper); }
+  .channel.is-instagram .channel-icon { background: var(--coral-soft); color: var(--coral-deep); }
+  .channel.is-mail .channel-icon { background: var(--mint); color: var(--teal-text); }
+  .channel .channel-name { font-family: var(--font-head); font-weight: 700; font-size: 17px; color: var(--ink); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .channel .channel-sub { font-size: 12.5px; color: var(--charcoal-soft); margin-top: 2px; overflow-wrap: anywhere; }
+  .channel .tag { font-size: 11px; font-weight: 700; background: var(--yellow); color: var(--ink); padding: 2px 8px; border-radius: 6px; font-family: var(--font-body); }
+  .channel .go { width: 20px; height: 20px; color: var(--charcoal-soft); transition: transform .25s var(--ease-out), color .2s; }
+  .channel:hover .go { transform: translateX(3px); color: var(--ink); }
+  .join-note { margin-top: 18px; font-size: 13.5px; color: var(--charcoal-soft); }
 
-  /* ===== JOIN US ===== */
-  .join {
-    background: linear-gradient(160deg, var(--coral) 0%, #E86D4E 100%);
-    color: var(--white); position: relative; overflow: hidden;
+  .partner-panel {
+    margin-top: 20px; border-radius: var(--radius-lg); border: 1px solid var(--line); background: var(--paper);
+    padding: clamp(28px, 4vw, 44px) clamp(22px, 4vw, 48px);
+    display: grid; gap: 20px;
   }
-  .join-blob { position: absolute; border-radius: 50%; pointer-events: none; animation: floatBlob 10s ease-in-out infinite; }
-  .join-blob.j1 { width: 220px; height: 220px; background: var(--yellow); opacity: 0.2; top: -80px; right: -60px; filter: blur(4px); }
-  .join-blob.j2 { width: 160px; height: 160px; background: var(--mint); opacity: 0.2; bottom: -50px; left: -60px; animation-delay: 3s; filter: blur(3px); }
-  .join-blob.j3 { width: 80px; height: 80px; background: var(--white); opacity: 0.12; bottom: 30%; right: 10%; animation-delay: 6s; }
-  .join .wrap { position: relative; z-index: 2; }
-  .join .eyebrow { color: rgba(255,255,255,0.8); }
-  .join .eyebrow::before { background: rgba(255,255,255,0.6); }
-  .join h2 { font-family: 'Hachi Maru Pop', cursive; font-weight: 400; font-size: clamp(26px, 6.5vw, 36px); line-height: 1.55; margin-bottom: 14px; }
-  .join-lead { font-size: 14px; line-height: 2; opacity: 0.9; max-width: 400px; margin-bottom: 36px; }
-  .join-channels { display: flex; flex-direction: column; gap: 12px; }
-  .join-btn {
-    display: flex; align-items: center; gap: 14px;
-    background: var(--white); color: var(--charcoal);
-    padding: 18px 20px; border-radius: 18px;
-    font-size: 14.5px; font-weight: 500;
-    transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), box-shadow 0.25s;
-    box-shadow: 0 4px 0 rgba(0,0,0,0.1);
-    width: 100%; text-align: left; border: none; cursor: pointer; text-decoration: none;
-  }
-  .join-btn:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 8px 0 rgba(0,0,0,0.12); }
-  .join-btn .icon-wrap { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .join-btn.instagram .icon-wrap { background: linear-gradient(135deg, #FAAD4F, #DC2A77 50%, #8134AF); color: var(--white); }
-  .join-btn.email .icon-wrap { background: var(--mint); }
-  .join-btn.line .icon-wrap { background: var(--line-green); color: var(--white); }
-  .join-btn .icon-wrap svg { width: 20px; height: 20px; }
-  .join-btn .label-wrap { flex: 1; min-width: 0; }
-  .join-btn .label { font-family: 'Hachi Maru Pop', cursive; font-weight: 400; font-size: 15px; line-height: 1.3; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
-  .join-btn .sub { font-size: 11px; color: var(--charcoal-soft); margin-top: 3px; }
-  .join-btn .arrow { color: var(--charcoal-faint); font-size: 16px; transition: transform 0.2s; }
-  .join-btn:hover .arrow { transform: translateX(4px); color: var(--coral); }
-  .join-recommend {
-    background: var(--yellow); color: var(--charcoal);
-    font-family: 'Zen Kaku Gothic New', sans-serif;
-    font-size: 9px; font-weight: 700;
-    padding: 3px 7px; border-radius: 6px; display: inline-block;
-    transform: rotate(-2.5deg); letter-spacing: 0.04em;
-  }
+  .partner-panel h2 { font-size: clamp(22px, 2.6vw, 30px); }
+  .partner-panel p { font-size: 15px; color: var(--charcoal); max-width: 40em; }
+  .partner-panel ul { display: grid; gap: 8px; font-size: 15px; }
+  .partner-panel li { padding-left: 22px; position: relative; }
+  .partner-panel li::before { content: ''; position: absolute; left: 0; top: .75em; width: 10px; height: 10px; border-radius: 50%; background: var(--coral); }
+  .partner-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .partner-actions .mail-text { font-size: 14px; color: var(--charcoal-soft); word-break: break-all; }
 
-  /* ===== CONNECT ===== */
-  .connect { background: var(--mint-soft); }
-  .connect-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-  .connect-card {
-    background: var(--white); border-radius: 18px; padding: 16px 20px;
-    display: flex; align-items: center; gap: 14px;
-    transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), box-shadow 0.25s;
-    border: 1.5px solid transparent;
+  /* =========================================================
+     SNS
+     ========================================================= */
+  .sns-list { display: grid; gap: 0; border-top: 1px solid var(--line); }
+  .sns-item {
+    display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 16px;
+    padding: 18px 4px; border-bottom: 1px solid var(--line); transition: background-color .2s;
   }
-  .connect-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(46,61,63,0.08); border-color: var(--mint-deep); }
-  .connect-icon { width: 38px; height: 38px; border-radius: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .connect-icon svg { width: 18px; height: 18px; }
-  .connect-card .label { flex: 1; min-width: 0; }
-  .connect-card .name { font-size: 13.5px; font-weight: 500; line-height: 1.3; }
-  .connect-card .desc { font-size: 11px; color: var(--charcoal-soft); margin-top: 2px; }
-  .connect-card .ext { color: var(--charcoal-faint); font-size: 13px; }
-  .connect-section-label {
-    font-family: 'Fraunces', serif; font-style: italic;
-    font-size: 12px; color: var(--coral-deep);
-    margin: 22px 0 8px; display: flex; align-items: center; gap: 8px;
-  }
-  .connect-section-label::before { content: ''; width: 14px; height: 1.5px; background: var(--coral); border-radius: 2px; }
+  .sns-item:hover { background: var(--mint-soft); }
+  .sns-icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; color: var(--paper); }
+  .sns-icon svg { width: 22px; height: 22px; }
+  .sns-item.is-instagram .sns-icon { background: var(--coral); }
+  .sns-item.is-line .sns-icon { background: var(--line-green); }
+  .sns-item.is-facebook .sns-icon { background: var(--facebook-blue); }
+  .sns-item.is-linkedin .sns-icon { background: var(--linkedin-blue); }
+  .sns-item .sns-name { font-family: var(--font-head); font-weight: 700; font-size: 16px; color: var(--ink); }
+  .sns-item .sns-desc { font-size: 13px; color: var(--charcoal-soft); word-break: break-all; }
+  .sns-item .ext { width: 18px; height: 18px; color: var(--charcoal-soft); }
 
-  /* ===== CONTACT ===== */
-  .contact { background: var(--cream); }
-  .contact-card {
-    background: var(--white); border-radius: 26px; padding: 36px 24px; text-align: center;
-    border: 1.5px dashed var(--mint-deep); position: relative; overflow: hidden;
+  /* =========================================================
+     フッター
+     ========================================================= */
+  /* モバイルは固定 CTA の高さぶん下に余白を取る */
+  .site-footer { background: var(--mint); color: var(--ink); padding: clamp(48px, 7vw, 80px) 0 calc(96px + env(safe-area-inset-bottom)); }
+  .footer-grid { display: grid; gap: 36px; }
+  .footer-brand img { height: 40px; width: auto; }
+  .footer-brand p { margin-top: 14px; font-size: 14px; line-height: 1.8; max-width: 26em; }
+  .footer-nav h3 { font-size: 14px; color: var(--charcoal-soft); margin-bottom: 10px; }
+  .footer-nav ul { display: grid; gap: 6px; }
+  .footer-nav a { font-size: 15px; font-weight: 500; border-bottom: 1px solid transparent; transition: border-color .2s; }
+  .footer-nav a:hover { border-color: var(--ink); }
+  .footer-sns { display: flex; gap: 10px; flex-wrap: wrap; }
+  .footer-sns a, .mobile-menu .menu-sns a {
+    width: 44px; height: 44px; border-radius: 50%; background: var(--paper); color: var(--ink);
+    display: grid; place-items: center; transition: transform .25s var(--ease-out), background-color .2s;
   }
-  .contact-card::before { content: ''; position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; border-radius: 50%; background: var(--yellow-soft); opacity: 0.6; }
-  .contact-card .lbl { font-family: 'Fraunces', serif; font-style: italic; font-size: 12px; color: var(--charcoal-soft); margin-bottom: 6px; }
-  .contact-card h3 { font-family: 'Hachi Maru Pop', cursive; font-size: 21px; line-height: 1.55; margin-bottom: 12px; }
-  .contact-card p { font-size: 13px; color: var(--charcoal-soft); line-height: 1.9; margin-bottom: 24px; }
-  .contact-mail {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--charcoal); color: var(--white);
-    padding: 13px 22px; border-radius: 999px;
-    font-size: 12.5px; font-weight: 500;
-    transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), background 0.2s;
-    position: relative; z-index: 1;
+  .mobile-menu .menu-sns a { background: var(--mint-soft); }
+  .footer-sns a:hover, .mobile-menu .menu-sns a:hover { transform: translateY(-3px); }
+  .footer-sns svg, .mobile-menu .menu-sns svg { width: 20px; height: 20px; }
+  .footer-bottom {
+    margin-top: 40px; padding-top: 22px; border-top: 1px solid rgba(34, 53, 58, 0.14);
+    display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; font-size: 12.5px; color: var(--charcoal-soft);
   }
-  .contact-mail:hover { transform: translateY(-3px); background: var(--coral); }
+  .footer-bottom a { border-bottom: 1px solid transparent; }
+  .footer-bottom a:hover { border-color: currentColor; }
 
-  /* ===== FOOTER ===== */
-  footer { background: var(--mint-deep); color: var(--charcoal); padding: 48px 0 28px; position: relative; overflow: hidden; }
-  footer::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--coral), var(--yellow), var(--teal)); }
-  footer .wrap { display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; }
-  .footer-logo { font-family: 'Hachi Maru Pop', cursive; font-size: 22px; }
-  .footer-affil { font-size: 11px; opacity: 0.7; }
-  .footer-sns { display: flex; gap: 10px; }
-  .footer-sns a {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: rgba(255,255,255,0.7); color: var(--charcoal);
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), background 0.2s;
+  /* =========================================================
+     モバイル固定 CTA（ヒーローを過ぎたら表示・参加セクション表示中は隠す）
+     ========================================================= */
+  .sticky-cta {
+    position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 40;
+    display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center;
+    background: rgba(255, 255, 255, 0.92); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    border: 1px solid var(--line); border-radius: 999px; padding: 8px 8px 8px 18px;
+    box-shadow: var(--shadow-float);
+    transform: translateY(calc(100% + 24px)); opacity: 0; transition: transform .4s var(--ease-out), opacity .3s;
   }
-  .footer-sns a:hover { transform: translateY(-3px) scale(1.1); background: var(--white); }
-  .footer-sns svg { width: 16px; height: 16px; }
-  .footer-copy { font-family: 'Fraunces', serif; font-style: italic; font-size: 10.5px; opacity: 0.55; margin-top: 6px; }
+  .sticky-cta.is-visible { transform: none; opacity: 1; }
+  .sticky-cta .cta-text { font-size: 13px; font-weight: 700; color: var(--ink); line-height: 1.3; }
+  .sticky-cta .cta-text small { display: block; font-weight: 500; color: var(--charcoal-soft); font-size: 11.5px; }
+  .sticky-cta .btn { min-height: 44px; padding: 0 18px; font-size: 14px; }
 
-  /* ===== DESKTOP ===== */
-  @media (min-width: 720px) {
-    .wrap { padding: 0 40px; }
-    section { padding: 110px 0; }
-    .about-grid { grid-template-columns: 1.3fr 1fr; align-items: start; gap: 48px; }
-    .about-illust { max-width: none; margin: 0; }
-    .activity-cards { grid-template-columns: 1fr 1fr; gap: 18px; }
-    .connect-grid { grid-template-columns: 1fr 1fr; }
-    .hero-logo-img { width: 120px; height: 120px; border-radius: 28px; }
+  /* =========================================================
+     レスポンシブ
+     ========================================================= */
+  @media (min-width: 640px) {
     .gallery-grid { grid-template-columns: repeat(3, 1fr); }
-    .gallery-item:first-child { grid-column: span 2; }
+    .gallery-grid figure.is-large { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
+    .answers-grid { grid-template-columns: repeat(3, 1fr); }
+    .answer { grid-template-columns: 1fr; align-content: start; }
+    .activity-panel { grid-template-columns: 1fr 1fr; }
+    .activity { border-top: 0; }
+    .activity:nth-child(2n) { border-left: 1px solid var(--line); }
+    .activity:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+    .hero-actions .btn { flex: 0 1 auto; min-width: 220px; }
+  }
+  @media (min-width: 900px) {
+    :root { --header-h: 80px; }
+    .site-nav { display: block; }
+    .header-cta { display: inline-flex; }
+    .nav-toggle { display: none; }
+    .mobile-menu { display: none; }
+    .brand img { height: 38px; }
+    .hero { padding: calc(var(--header-h) + 56px) 0 96px; }
+    .hero .container { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); align-items: center; gap: 48px; }
+    .hero-art svg { width: min(100%, 460px); }
+    .about-grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: 56px; align-items: start; }
+    .profile { position: sticky; top: calc(var(--header-h) + 24px); }
+    .flow-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 56px; align-items: start; }
+    .flow-aside { margin-top: 0; position: sticky; top: calc(var(--header-h) + 24px); }
+    .join-panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+    .join-channels { margin-top: 0; }
+    .sns-list { grid-template-columns: 1fr 1fr; gap: 0 40px; }
+    .sticky-cta { display: none; }
+    .site-footer { padding-bottom: 28px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition-duration: 0s !important; }
+    .reveal { opacity: 1; transform: none; }
   }
 </style>
 </head>
 <body>
 
-<!-- ===== HERO ===== -->
-<section class="hero">
-  <div class="hero-blob b1"></div>
-  <div class="hero-blob b2"></div>
-  <div class="hero-blob b3"></div>
-  <div class="hero-blob b4"></div>
-  <div class="dot-grid hero-dot-grid"></div>
+<a class="skip-link" href="#main">本文へ移動</a>
 
-  <nav class="hero-nav">
-    <span class="hero-nav-brand">ちるーむ</span>
-    <a href="#join" class="hero-nav-link">参加する ›</a>
-  </nav>
+<!-- ===== ヘッダー ===== -->
+<header class="site-header" id="site-header">
+  <div class="container">
+    <a class="brand" href="#top" aria-label="ちるーむ トップへ">
+      <img src="chiroom-logo.png" alt="ちるーむ" width="1200" height="467">
+    </a>
+    <nav class="site-nav" aria-label="サイト内ナビゲーション">
+      <ul>
+        <li><a href="#about">わたしたちのこと</a></li>
+        <li><a href="#activities">活動内容</a></li>
+        <li><a href="#flow">参加の流れ</a></li>
+        <li><a href="#gallery">活動の様子</a></li>
+        <li><a href="#faq">よくある質問</a></li>
+        <li><a href="#connect">SNS</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-primary btn-sm header-cta" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">
+      <svg class="ico-line" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+      LINEで相談する
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="メニューを開く">
+      <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+  </div>
+</header>
 
-  <div class="hero-content">
-    <div class="hero-logo-block">
-      <img src="チルーム　アイコン.jpg" alt="ちるーむ ロゴ" class="hero-logo-img">
-      <img src="nagasaki-u.png" alt="長崎大学" class="hero-univ-img">
-      <div class="hero-logo-meta">
-        <div class="hero-logo-tag">長崎大学 認定サークル</div>
-        <span class="hero-logo-nagasaki">Nagasaki University</span>
+<div class="mobile-menu" id="mobile-menu">
+  <ul>
+    <li><a class="menu-link" href="#about">わたしたちのこと<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+    <li><a class="menu-link" href="#activities">活動内容<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+    <li><a class="menu-link" href="#flow">参加の流れ<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+    <li><a class="menu-link" href="#gallery">活動の様子<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+    <li><a class="menu-link" href="#faq">よくある質問<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+    <li><a class="menu-link" href="#join">参加する<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+    <li><a class="menu-link" href="#connect">SNS<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+  </ul>
+  <div class="menu-cta">
+    <a class="btn btn-primary" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">
+      <svg class="ico-line" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+      LINEで相談する
+    </a>
+    <a class="btn btn-soft" href="mailto:childhome.nagasaki@gmail.com">メールで問い合わせる</a>
+  </div>
+  <div class="menu-sns">
+    <a href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg>
+    </a>
+    <a href="https://www.facebook.com/share/18ar3FUNtg/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/in/%E3%81%BB%E3%83%BC%E3%82%80-%E3%81%A1%E3%82%83%E3%81%84%E3%82%8B%E3%81%A9-1152a3406" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ===== ヒーロー ===== -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="container">
+    <div class="hero-main">
+      <p class="hero-affil">
+        <img src="nagasaki-u.png" alt="" width="2363" height="827">
+        長崎大学 認定サークル
+      </p>
+      <h1 class="hero-logo" id="hero-title">
+        <img src="chiroom-logo.png" alt="ちるーむ" width="1200" height="467" fetchpriority="high">
+      </h1>
+      <p class="hero-copy"><span class="marker">ごはんで繋がる、笑顔の輪</span></p>
+      <p class="hero-lead">ボランティアに関心のある大学生と、こども食堂をつなぎ、遊びや食事の時間をともにしながら、地域とのつながりを広げるサポートをするサークルです。</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">
+          <svg class="ico-line" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+          LINEで気軽に相談する
+        </a>
+        <a class="btn btn-outline" href="#activities">活動内容を見る</a>
       </div>
     </div>
 
-    <h1 class="hero-title reveal">ちるーむ</h1>
-
-    <p class="hero-catchphrase reveal reveal-delay-1">ごはんで繋がる、笑顔の輪</p>
-
-    <p class="hero-sub reveal reveal-delay-2">
-      ボランティアに関心のある大学生と、こども食堂をつなぎ、遊びや食事の時間を
-      ともにしながら、地域とのつながりを広げるサポートをするサークルです。
-    </p>
-
-    <div class="hero-handline reveal reveal-delay-3">
-      <svg viewBox="0 0 72 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2 8 Q10 2, 20 7 T40 7 T60 7 T70 5" stroke="#F08767" stroke-width="2.5" stroke-linecap="round"></path>
+    <!-- イラスト枠。メンバーが描いた「ごはんを食べている図」ができたら、この <svg> を <img src="..." alt="..."> に置き換える -->
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <g id="place-setting">
+            <line x1="200" y1="88" x2="282" y2="88" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>
+            <line x1="200" y1="97" x2="282" y2="97" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="216" cy="138" r="30" fill="var(--coral)"/>
+            <circle cx="216" cy="138" r="21" fill="var(--paper)"/>
+            <circle cx="210" cy="132" r="2.4" fill="var(--mint-soft)"/>
+            <circle cx="222" cy="136" r="2.4" fill="var(--mint-soft)"/>
+            <circle cx="215" cy="145" r="2.4" fill="var(--mint-soft)"/>
+            <circle cx="268" cy="142" r="21" fill="var(--mint-deep)"/>
+            <circle cx="268" cy="142" r="14" fill="var(--yellow-soft)"/>
+            <rect x="262" y="136" width="6" height="6" rx="1" fill="var(--paper)"/>
+            <rect x="270" y="143" width="5" height="5" rx="1" fill="var(--paper)"/>
+          </g>
+        </defs>
+        <circle cx="240" cy="240" r="236" fill="var(--paper)" opacity="0.45"/>
+        <rect x="188" y="10" width="104" height="46" rx="23" fill="var(--coral-soft)"/>
+        <rect x="188" y="424" width="104" height="46" rx="23" fill="var(--yellow-soft)"/>
+        <rect x="10" y="188" width="46" height="104" rx="23" fill="var(--mint)"/>
+        <rect x="424" y="188" width="46" height="104" rx="23" fill="var(--coral-soft)"/>
+        <circle cx="240" cy="240" r="178" fill="var(--paper)" stroke="var(--mint-deep)" stroke-width="8"/>
+        <use href="#place-setting"/>
+        <use href="#place-setting" transform="rotate(90 240 240)"/>
+        <use href="#place-setting" transform="rotate(180 240 240)"/>
+        <use href="#place-setting" transform="rotate(270 240 240)"/>
+        <circle cx="240" cy="240" r="52" fill="var(--yellow-soft)" stroke="var(--yellow)" stroke-width="5"/>
+        <circle cx="226" cy="232" r="11" fill="var(--coral)"/>
+        <circle cx="252" cy="228" r="9" fill="var(--mint-deep)"/>
+        <circle cx="246" cy="252" r="10" fill="var(--coral-deep)"/>
+        <ellipse cx="226" cy="254" rx="9" ry="6" fill="var(--teal)" transform="rotate(-25 226 254)"/>
+        <path class="steam s1" d="M226 186 q5 -8 0 -16 q-5 -8 0 -16" fill="none" stroke="var(--charcoal-faint)" stroke-width="3" stroke-linecap="round"/>
+        <path class="steam s2" d="M240 182 q5 -8 0 -16 q-5 -8 0 -16" fill="none" stroke="var(--charcoal-faint)" stroke-width="3" stroke-linecap="round"/>
+        <path class="steam s3" d="M254 186 q5 -8 0 -16 q-5 -8 0 -16" fill="none" stroke="var(--charcoal-faint)" stroke-width="3" stroke-linecap="round"/>
       </svg>
     </div>
   </div>
+</section>
 
-  <div class="scroll-cue">
-    <span>Scroll</span>
-    <span class="tick"></span>
+<!-- ===== お知らせ（新しい項目は先頭に追加。日付は <time datetime="YYYY-MM-DD"> で書く） ===== -->
+<section class="news container" id="news" aria-labelledby="news-title">
+  <div class="news-box reveal">
+    <h2 id="news-title"><span class="stripe-mark" aria-hidden="true"></span>お知らせ</h2>
+    <ul class="news-list">
+      <li>
+        <time datetime="2026-09-04">2026.09.04</time>
+        <span>公式サイトをリニューアルしました。</span>
+      </li>
+      <li>
+        <span class="news-date">随時</span>
+        <span>活動の様子は <a href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener">Instagram</a> で更新しています。</span>
+      </li>
+    </ul>
   </div>
 </section>
 
-<!-- ===== ABOUT ===== -->
-<svg class="wave-divider" viewBox="0 0 720 28" preserveAspectRatio="none" style="background: var(--mint);">
-  <path d="M0,14 Q90,0 180,14 T360,14 T540,14 T720,14 L720,28 L0,28 Z" fill="#FFF9F0"></path>
-</svg>
-
-<section class="about" id="about">
-  <div class="wrap">
-    <div class="eyebrow reveal">About</div>
-    <h2 class="section-title reveal reveal-delay-1">わたしたちのこと</h2>
+<!-- ===== わたしたちのこと ===== -->
+<section class="block about" id="about" aria-labelledby="about-title">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="stripe-mark" aria-hidden="true"></span>
+      <h2 id="about-title">わたしたちのこと</h2>
+      <p class="sec-lead">こども食堂と大学生をつなぎ、地域全体をつなぐ場をつくる。長崎で活動する学生サークルです。</p>
+    </div>
 
     <div class="about-grid">
-      <div>
-        <div class="about-text reveal reveal-delay-1">
-          <p>わたしたちはちゃいるどほーむ、略して「ちるーむ」という名前で、長崎県で活動しているサークルです。</p>
-          <p>長崎県ではこども食堂が年々増え、子どもたちの居場所や地域の交流の場として大切な役割を担っています。しかし、ボランティアの人手不足や運営の負担が大きいといった課題もあります。また、参加したい気持ちはあってもきっかけがない大学生も少なくありません。</p>
-          <p>私たち「ちるーむ」は、こども食堂と大学生をつなぎ、活動に参加して子供食堂をサポートし、ワークショップ等の企画・実施を通して地域全体をつなぐ場をつくることを目指して活動しています。</p>
-        </div>
-        <div class="about-numbers reveal reveal-delay-2">
-          <div class="about-number-item">
-            <div class="num">2<sup>+</sup></div>
-            <div class="lbl">連携<br>こども食堂</div>
-          </div>
-          <div class="about-number-item">
-            <div class="num">月<sup>2</sup></div>
-            <div class="lbl">定期<br>活動回数</div>
-          </div>
-          <div class="about-number-item">
-            <div class="num">∞</div>
-            <div class="lbl">こどもの<br>笑顔</div>
-          </div>
+      <div class="about-text reveal">
+        <p>わたしたちはちゃいるどほーむ、略して「ちるーむ」という名前で、長崎県で活動しているサークルです。</p>
+        <p>長崎県ではこども食堂が年々増え、子どもたちの居場所や地域の交流の場として大切な役割を担っています。しかし、ボランティアの人手不足や運営の負担が大きいといった課題もあります。また、参加したい気持ちはあってもきっかけがない大学生も少なくありません。</p>
+        <p>私たち「ちるーむ」は、こども食堂と大学生をつなぎ、活動に参加して子供食堂をサポートし、ワークショップ等の企画・実施を通して地域全体をつなぐ場をつくることを目指して活動しています。</p>
+        <div class="about-origin">
+          <strong>名前の由来</strong><br>
+          「ちゃいるどほーむ（child home）」を縮めて「ちるーむ」。こどもにとっての、もうひとつの家のような場所でありたいという想いを込めています。
         </div>
       </div>
 
-      <div class="about-illust reveal reveal-delay-1">
-        <div class="about-illust-inner">
-          <svg width="240" height="180" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="30" y="110" width="180" height="10" rx="5" fill="#95C9C0"></rect>
-            <rect x="50" y="120" width="10" height="40" rx="5" fill="#95C9C0"></rect>
-            <rect x="180" y="120" width="10" height="40" rx="5" fill="#95C9C0"></rect>
-            <ellipse cx="90" cy="108" rx="24" ry="8" fill="#FBC4B0"></ellipse>
-            <ellipse cx="150" cy="108" rx="24" ry="8" fill="#FDE49E"></ellipse>
-            <path d="M66 108 Q90 96 114 108" stroke="#F08767" stroke-width="2.5" fill="#FFF9F0"></path>
-            <path d="M126 108 Q150 96 174 108" stroke="#FBCD4F" stroke-width="2.5" fill="#FFF9F0"></path>
-            <path d="M84 92 Q88 84 84 76" stroke="#95C9C0" stroke-width="2" fill="none" stroke-linecap="round"></path>
-            <path d="M90 90 Q94 82 90 74" stroke="#95C9C0" stroke-width="2" fill="none" stroke-linecap="round"></path>
-            <path d="M96 92 Q100 84 96 76" stroke="#95C9C0" stroke-width="2" fill="none" stroke-linecap="round"></path>
-            <circle cx="60" cy="72" r="16" fill="#FDE49E"></circle>
-            <circle cx="55" cy="69" r="2" fill="#2E3D3F"></circle>
-            <circle cx="65" cy="69" r="2" fill="#2E3D3F"></circle>
-            <path d="M55 76 Q60 80 65 76" stroke="#D9613F" stroke-width="2" fill="none" stroke-linecap="round"></path>
-            <path d="M44 88 Q60 84 76 88 L78 108 H42 Z" fill="#6FC2B5"></path>
-            <line x1="42" y1="94" x2="34" y2="104" stroke="#6FC2B5" stroke-width="8" stroke-linecap="round"></line>
-            <line x1="78" y1="94" x2="86" y2="104" stroke="#6FC2B5" stroke-width="8" stroke-linecap="round"></line>
-            <circle cx="180" cy="68" r="18" fill="#FBC4B0"></circle>
-            <circle cx="175" cy="65" r="2.2" fill="#2E3D3F"></circle>
-            <circle cx="185" cy="65" r="2.2" fill="#2E3D3F"></circle>
-            <path d="M174 73 Q180 78 186 73" stroke="#D9613F" stroke-width="2" fill="none" stroke-linecap="round"></path>
-            <path d="M162 84 Q180 80 198 84 L200 108 H160 Z" fill="#F08767"></path>
-            <line x1="160" y1="90" x2="150" y2="103" stroke="#F08767" stroke-width="9" stroke-linecap="round"></line>
-            <line x1="200" y1="90" x2="210" y2="103" stroke="#F08767" stroke-width="9" stroke-linecap="round"></line>
-            <path d="M120 65 C120 60, 114 57, 114 63 C114 68, 120 73, 120 73 C120 73, 126 68, 126 63 C126 57, 120 60, 120 65Z" fill="#F08767" opacity="0.85"></path>
-            <path d="M30 40 L32 36 L34 40 L38 42 L34 44 L32 48 L30 44 L26 42 Z" fill="#FBCD4F"></path>
-          </svg>
+      <aside class="profile reveal reveal-delay-1" aria-labelledby="profile-title">
+        <h3 id="profile-title"><span class="stripe-mark" aria-hidden="true" style="width: 26px; height: 7px;"></span>団体概要</h3>
+        <dl>
+          <dt>名称</dt><dd>ちゃいるどほーむ（略称: ちるーむ）</dd>
+          <dt>所属</dt><dd>長崎大学 認定サークル</dd>
+          <dt>活動地域</dt><dd>長崎県内のこども食堂</dd>
+          <dt>活動頻度</dt><dd>月2回程度の定期活動</dd>
+          <dt>連携先</dt><dd>こども食堂 2か所以上</dd>
+          <dt>連絡先</dt><dd><a href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">公式LINE</a> / <a href="mailto:childhome.nagasaki@gmail.com">メール</a></dd>
+        </dl>
+      </aside>
+    </div>
+
+    <div class="answers reveal">
+      <h3>こども食堂の課題に、学生ができること</h3>
+      <div class="answers-grid">
+        <div class="answer">
+          <p class="q">ボランティアの人手が足りず、運営の負担が大きい。</p>
+          <p class="a">学生が食事の準備や配膳を手伝い、スタッフの方を支えます。</p>
         </div>
-        <div style="position:absolute;top:-16px;right:-16px;width:56px;height:56px;border-radius:50%;background:var(--coral-soft);opacity:0.7;"></div>
-        <div style="position:absolute;bottom:-10px;left:-10px;width:36px;height:36px;border-radius:50%;background:var(--yellow-soft);opacity:0.8;"></div>
+        <div class="answer">
+          <p class="q">参加したい気持ちはあっても、きっかけがない。</p>
+          <p class="a">ちるーむが窓口になり、はじめてでも参加しやすい形をつくります。</p>
+        </div>
+        <div class="answer">
+          <p class="q">こどもの居場所や地域の交流の場を、もっと広げたい。</p>
+          <p class="a">ワークショップなどの企画を通して、地域全体をつなぐ場をつくります。</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== ACTIVITIES ===== -->
-<svg class="wave-divider" viewBox="0 0 720 28" preserveAspectRatio="none" style="background: var(--cream);">
-  <path d="M0,14 Q90,28 180,14 T360,14 T540,14 T720,14 L720,28 L0,28 Z" fill="#E5F4F1"></path>
-</svg>
+<!-- ===== 活動内容 ===== -->
+<section class="block is-tinted activities" id="activities" aria-labelledby="activities-title">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="stripe-mark" aria-hidden="true"></span>
+      <h2 id="activities-title">活動内容</h2>
+      <p class="sec-lead">こどもと、食堂と、地域と。ちるーむでできる4つのこと。</p>
+    </div>
 
-<section class="activities" id="activities">
-  <div class="wrap">
-    <div class="eyebrow reveal">Activities</div>
-    <h2 class="section-title reveal reveal-delay-1">わたしたちにできること</h2>
-    <p class="section-lead reveal reveal-delay-2">こどもと、食堂と、地域と。ちるーむでできる4つのこと。</p>
-
-    <div class="activity-cards">
-      <article class="activity-card reveal">
-        <span class="num">01</span>
-        <div class="activity-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#D9613F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 11v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3"></path><path d="M5 11V7a7 7 0 0 1 14 0v4"></path>
-            <line x1="12" y1="19" x2="12" y2="22"></line>
-          </svg>
+    <div class="activity-panel reveal">
+      <article class="activity">
+        <div class="activity-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3"/><path d="M5 11V7a7 7 0 0 1 14 0v4"/><path d="M12 19v3"/><path d="M8 22h8"/></svg>
         </div>
         <h3>こども食堂のお手伝い</h3>
         <p>食事の準備や配膳など、スタッフの方々を学生のチカラで支援します。</p>
       </article>
-
-      <article class="activity-card reveal reveal-delay-1">
-        <span class="num">02</span>
-        <div class="activity-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#B98E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="9"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-            <line x1="9" y1="9" x2="9.01" y2="9" stroke-width="3"></line>
-            <line x1="15" y1="9" x2="15.01" y2="9" stroke-width="3"></line>
-          </svg>
+      <article class="activity">
+        <div class="activity-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></svg>
         </div>
         <h3>こどもとのふれあい</h3>
         <p>自由時間には、子供たちと一緒に遊んだり勉強をみたりして子どもたちと交流を深めます。</p>
       </article>
-
-      <article class="activity-card reveal reveal-delay-2">
-        <span class="num">03</span>
-        <div class="activity-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#3F8C82" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="18" rx="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-            <circle cx="12" cy="15" r="1.5" fill="#3F8C82"></circle>
-          </svg>
+      <article class="activity">
+        <div class="activity-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/><path d="M9 16l2 2 4-4"/></svg>
         </div>
         <h3>イベント企画</h3>
         <p>季節のお楽しみや、こどもが笑顔になれる企画をみんなで考えます。</p>
       </article>
-
-      <article class="activity-card reveal reveal-delay-3">
-        <span class="num">04</span>
-        <div class="activity-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#D9613F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-          </svg>
+      <article class="activity">
+        <div class="activity-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
         <h3>地域との繋がり</h3>
-        <p>大学・学年を超えた仲間と出会い、振り返りを流しながら楽しみます。</p>
+        <p>こども食堂のスタッフや地域の方、大学・学年を超えた仲間と出会い、活動の振り返りを共有しながら地域とのつながりを広げます。</p>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ===== GALLERY ===== -->
-<svg class="wave-divider" viewBox="0 0 720 28" preserveAspectRatio="none" style="background: var(--mint-soft);">
-  <path d="M0,14 Q90,0 180,14 T360,14 T540,14 T720,14 L720,28 L0,28 Z" fill="white"></path>
-</svg>
+<!-- ===== 参加までの流れ ===== -->
+<section class="block flow" id="flow" aria-labelledby="flow-title">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="stripe-mark" aria-hidden="true"></span>
+      <h2 id="flow-title">参加までの流れ</h2>
+      <p class="sec-lead">気になったら、まずは連絡するだけ。3つのステップで活動に参加できます。</p>
+    </div>
 
-<section class="gallery" id="gallery">
-  <div class="wrap">
-    <div class="eyebrow reveal">Gallery</div>
-    <h2 class="section-title reveal reveal-delay-1">活動の様子</h2>
-    <p class="section-lead reveal reveal-delay-2">みんなで作る笑顔の記録。</p>
+    <div class="flow-layout">
+      <ol class="flow-list reveal">
+        <li class="flow-step">
+          <div>
+            <h3>LINEで連絡する</h3>
+            <p>公式LINEを友だち追加して、「参加してみたい」「話を聞きたい」と送ってください。質問だけでも歓迎です。</p>
+            <p class="flow-note">返信はメンバーが順番に行います。</p>
+          </div>
+        </li>
+        <li class="flow-step">
+          <div>
+            <h3>見学・体験に行く</h3>
+            <p>日程を相談して、まずは1回、メンバーと一緒にこども食堂へ。集合場所や持ち物は事前にお知らせします。</p>
+            <p class="flow-note">はじめての日は、先輩メンバーがずっと一緒です。</p>
+          </div>
+        </li>
+        <li class="flow-step">
+          <div>
+            <h3>メンバーとして活動する</h3>
+            <p>都合の合う日に参加しながら、お手伝い、こどもとのふれあい、イベント企画に関わっていきます。</p>
+            <p class="flow-note">学部・学年は問いません。</p>
+          </div>
+        </li>
+      </ol>
 
-    <div class="gallery-grid">
-      <div class="gallery-item reveal">
-        <div class="gallery-item-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <rect x="3" y="3" width="18" height="18" rx="3"></rect>
-            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-            <polyline points="21 15 16 10 5 21"></polyline>
-          </svg>
-          <span>メイン写真</span>
-        </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-1">
-        <div class="gallery-item-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <rect x="3" y="3" width="18" height="18" rx="3"></rect>
-            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-            <polyline points="21 15 16 10 5 21"></polyline>
-          </svg>
-          <span>活動写真①</span>
-        </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-2">
-        <div class="gallery-item-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <rect x="3" y="3" width="18" height="18" rx="3"></rect>
-            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-            <polyline points="21 15 16 10 5 21"></polyline>
-          </svg>
-          <span>活動写真②</span>
-        </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-1">
-        <div class="gallery-item-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <rect x="3" y="3" width="18" height="18" rx="3"></rect>
-            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-            <polyline points="21 15 16 10 5 21"></polyline>
-          </svg>
-          <span>活動写真③</span>
-        </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-2">
-        <div class="gallery-item-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <rect x="3" y="3" width="18" height="18" rx="3"></rect>
-            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-            <polyline points="21 15 16 10 5 21"></polyline>
-          </svg>
-          <span>活動写真④</span>
-        </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-3">
-        <div class="gallery-item-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <rect x="3" y="3" width="18" height="18" rx="3"></rect>
-            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-            <polyline points="21 15 16 10 5 21"></polyline>
-          </svg>
-          <span>活動写真⑤</span>
-        </div>
-      </div>
+      <aside class="flow-aside reveal reveal-delay-1" aria-labelledby="flow-aside-title">
+        <h3 id="flow-aside-title">まずは話を聞くだけでも</h3>
+        <p>「続けられるか不安」「どんな雰囲気か知りたい」という段階でも大丈夫です。公式LINEでお気軽にどうぞ。</p>
+        <a class="btn btn-primary" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">
+          <svg class="ico-line" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+          LINEで友だち追加
+        </a>
+        <p style="font-size: 13.5px; color: var(--charcoal-soft);">LINE ID: @990qouib</p>
+      </aside>
     </div>
   </div>
 </section>
 
-<!-- ===== JOIN US ===== -->
-<section class="join" id="join">
-  <div class="join-blob j1"></div>
-  <div class="join-blob j2"></div>
-  <div class="join-blob j3"></div>
-  <div class="wrap">
-    <div class="eyebrow reveal">Join us</div>
-    <h2 class="reveal reveal-delay-1">ちるーむに、<br>参加してみない？</h2>
-    <p class="join-lead reveal reveal-delay-2">
-      気になったら気軽に連絡してね。<br>
-      LINEやInstagramのDMからカジュアルにどうぞ。
-    </p>
+<!-- ===== 活動の様子 =====
+     写真を載せるときは、各 <figure> の中の <div class="photo-pending">…</div> を
+     <img src="photos/xxx.jpg" alt="写真の説明" loading="lazy"> に置き換える。figcaption は短い説明文。 -->
+<section class="block is-tinted gallery" id="gallery" aria-labelledby="gallery-title">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="stripe-mark" aria-hidden="true"></span>
+      <h2 id="gallery-title">活動の様子</h2>
+      <p class="sec-lead">みんなでつくる、笑顔の記録。</p>
+    </div>
 
-    <div class="join-channels">
-      <a href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener" class="join-btn line reveal">
-        <div class="icon-wrap">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
-          </svg>
+    <div class="gallery-grid reveal">
+      <figure class="is-large">
+        <div class="photo-pending" role="img" aria-label="写真を準備中">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="pending-text">写真を準備中</span></div>
         </div>
-        <div class="label-wrap">
-          <div class="label">公式LINEで連絡 <span class="join-recommend">おすすめ</span></div>
-          <div class="sub">@990qouib</div>
+        <figcaption>こども食堂でのごはんの時間</figcaption>
+      </figure>
+      <figure>
+        <div class="photo-pending" role="img" aria-label="写真を準備中">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="pending-text">写真を準備中</span></div>
         </div>
-        <span class="arrow">›</span>
-      </a>
+        <figcaption>調理のお手伝い</figcaption>
+      </figure>
+      <figure>
+        <div class="photo-pending" role="img" aria-label="写真を準備中">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="pending-text">写真を準備中</span></div>
+        </div>
+        <figcaption>こどもとあそぶ時間</figcaption>
+      </figure>
+      <figure>
+        <div class="photo-pending" role="img" aria-label="写真を準備中">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="pending-text">写真を準備中</span></div>
+        </div>
+        <figcaption>イベントの準備</figcaption>
+      </figure>
+      <figure>
+        <div class="photo-pending" role="img" aria-label="写真を準備中">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="pending-text">写真を準備中</span></div>
+        </div>
+        <figcaption>メンバーの集合写真</figcaption>
+      </figure>
+      <figure>
+        <div class="photo-pending" role="img" aria-label="写真を準備中">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="pending-text">写真を準備中</span></div>
+        </div>
+        <figcaption>活動後の振り返り</figcaption>
+      </figure>
+    </div>
 
-      <a href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener" class="join-btn instagram reveal reveal-delay-1">
-        <div class="icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-            <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line>
-          </svg>
-        </div>
-        <div class="label-wrap">
-          <div class="label">InstagramのDMで連絡</div>
-          <div class="sub">@nagasaki_childhome</div>
-        </div>
-        <span class="arrow">›</span>
-      </a>
-
-      <a href="mailto:childhome.nagasaki@gmail.com" class="join-btn email reveal reveal-delay-2">
-        <div class="icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-            <polyline points="22,6 12,13 2,6"></polyline>
-          </svg>
-        </div>
-        <div class="label-wrap">
-          <div class="label">メールで連絡</div>
-          <div class="sub">childhome.nagasaki@gmail.com</div>
-        </div>
-        <span class="arrow">›</span>
+    <div class="gallery-more reveal">
+      <p>最新の活動報告は Instagram で発信しています。</p>
+      <a class="link-arrow" href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener">
+        Instagramを見る
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ===== CONNECT ===== -->
-<section class="connect" id="connect">
-  <div class="wrap">
-    <div class="eyebrow reveal">Connect</div>
-    <h2 class="section-title reveal reveal-delay-1">もっと知りたい方へ</h2>
-    <p class="section-lead reveal reveal-delay-2">ちるーむと繋がれるこども食堂、SNSはこちら。</p>
+<!-- ===== よくある質問 ===== -->
+<section class="block faq" id="faq" aria-labelledby="faq-title">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="stripe-mark" aria-hidden="true"></span>
+      <h2 id="faq-title">よくある質問</h2>
+      <p class="sec-lead">参加を考えている方から、よくいただく質問をまとめました。ここにないことは LINE で気軽に聞いてください。</p>
+    </div>
 
-    <div class="connect-section-label">ちるーむのSNS</div>
-    <div class="connect-grid">
-      <a href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener" class="connect-card reveal">
-        <div class="connect-icon" style="background: var(--coral-soft);">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#D9613F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="2" width="20" height="20" rx="5"></rect>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-          </svg>
+    <div class="faq-list reveal">
+      <details class="faq-item">
+        <summary>ボランティアははじめてです。参加できますか？<span class="plus" aria-hidden="true"></span></summary>
+        <div class="faq-body">
+          <p>はい。メンバーの多くがはじめての参加からスタートしています。当日はメンバーが一緒に行動し、やることはその場でお伝えするので、事前の準備は必要ありません。</p>
         </div>
-        <div class="label">
-          <div class="name">Instagram</div>
-          <div class="desc">@nagasaki_childhome</div>
+      </details>
+      <details class="faq-item">
+        <summary>活動はいつ、どのくらいの頻度でありますか？<span class="plus" aria-hidden="true"></span></summary>
+        <div class="faq-body">
+          <p>定期的な活動は月2回程度です。毎回参加する必要はなく、授業やアルバイトの都合に合わせて、参加できる日だけで大丈夫です。</p>
         </div>
-        <span class="ext">›</span>
+      </details>
+      <details class="faq-item">
+        <summary>参加費はかかりますか？<span class="plus" aria-hidden="true"></span></summary>
+        <div class="faq-body">
+          <!-- 要確認: 参加費・交通費の扱いはサークルの実態に合わせて修正すること -->
+          <p>活動への参加費はかかりません。こども食堂までの交通費など、細かい点は LINE でお尋ねください。</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>長崎大学以外の学生でも参加できますか？<span class="plus" aria-hidden="true"></span></summary>
+        <div class="faq-body">
+          <!-- 要確認: 他大学生の受け入れ可否はサークルの方針に合わせて修正すること -->
+          <p>長崎大学の認定サークルですが、他大学の学生の参加も歓迎しています。まずは LINE でご相談ください。</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>年度の途中からでも入れますか？<span class="plus" aria-hidden="true"></span></summary>
+        <div class="faq-body">
+          <p>入れます。メンバーは通年で募集しています。見学・体験からはじめて、合いそうなら続けてください。</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>こども食堂を運営しています。学生に手伝ってもらえますか？<span class="plus" aria-hidden="true"></span></summary>
+        <div class="faq-body">
+          <p>ぜひご相談ください。活動日や人数、お手伝いの内容をうかがったうえで、参加できるメンバーを調整します。<a href="mailto:childhome.nagasaki@gmail.com">メール</a>でご連絡いただけると確実です。</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 参加する ===== -->
+<section class="join" id="join" aria-labelledby="join-title">
+  <div class="container">
+    <div class="join-panel reveal">
+      <span class="stripe-band" aria-hidden="true"></span>
+      <div>
+        <h2 id="join-title">ちるーむに、<br>参加してみませんか</h2>
+        <p class="join-lead">気になったら、気軽に連絡してください。LINE や Instagram の DM からで大丈夫です。学部・学年は問いません。</p>
+      </div>
+      <div>
+        <div class="join-channels">
+          <a class="channel is-line" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">
+            <span class="channel-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+            </span>
+            <span>
+              <span class="channel-name">公式LINEで連絡 <span class="tag">いちばん早い</span></span>
+              <span class="channel-sub">@990qouib</span>
+            </span>
+            <svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </a>
+          <a class="channel is-instagram" href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener">
+            <span class="channel-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg>
+            </span>
+            <span>
+              <span class="channel-name">InstagramのDMで連絡</span>
+              <span class="channel-sub">@nagasaki_childhome</span>
+            </span>
+            <svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </a>
+          <a class="channel is-mail" href="mailto:childhome.nagasaki@gmail.com">
+            <span class="channel-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M22 7l-10 7L2 7"/></svg>
+            </span>
+            <span>
+              <span class="channel-name">メールで連絡</span>
+              <span class="channel-sub">childhome.nagasaki@gmail.com</span>
+            </span>
+            <svg class="go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <p class="join-note">返信までに数日いただくことがあります。急ぎの場合は LINE をご利用ください。</p>
+      </div>
+    </div>
+
+    <div class="partner-panel reveal" id="partner" aria-labelledby="partner-title">
+      <h2 id="partner-title">こども食堂・地域の方へ</h2>
+      <p>学生ボランティアの受け入れ、イベントやワークショップの共同企画、取材や講演のご依頼など、地域の皆さまからのご相談を歓迎しています。</p>
+      <ul>
+        <li>こども食堂の運営を学生に手伝ってほしい</li>
+        <li>こども向けのイベント・ワークショップを一緒に企画したい</li>
+        <li>取材・講演・メディア掲載のご相談</li>
+      </ul>
+      <div class="partner-actions">
+        <a class="btn btn-outline" href="mailto:childhome.nagasaki@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M22 7l-10 7L2 7"/></svg>
+          メールで相談する
+        </a>
+        <span class="mail-text">childhome.nagasaki@gmail.com</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SNS ===== -->
+<section class="block is-tinted connect" id="connect" aria-labelledby="connect-title">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="stripe-mark" aria-hidden="true"></span>
+      <h2 id="connect-title">SNSでつながる</h2>
+      <p class="sec-lead">日々の活動や募集のお知らせは、各 SNS で発信しています。</p>
+    </div>
+
+    <div class="sns-list reveal">
+      <a class="sns-item is-instagram" href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener">
+        <span class="sns-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg>
+        </span>
+        <span>
+          <span class="sns-name">Instagram</span><br>
+          <span class="sns-desc">@nagasaki_childhome 活動の写真と日々の様子</span>
+        </span>
+        <svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
       </a>
-
-      <a href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener" class="connect-card reveal reveal-delay-1">
-        <div class="connect-icon" style="background: #E8F9EF;">
-          <svg viewBox="0 0 24 24" fill="#06C755">
-            <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
-          </svg>
-        </div>
-        <div class="label">
-          <div class="name">LINE公式</div>
-          <div class="desc">@990qouib</div>
-        </div>
-        <span class="ext">›</span>
+      <a class="sns-item is-line" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">
+        <span class="sns-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+        </span>
+        <span>
+          <span class="sns-name">LINE公式アカウント</span><br>
+          <span class="sns-desc">@990qouib 参加の相談・質問はこちら</span>
+        </span>
+        <svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
       </a>
-
-      <a href="https://www.facebook.com/share/18ar3FUNtg/?mibextid=wwXIfr" target="_blank" rel="noopener" class="connect-card reveal reveal-delay-2">
-        <div class="connect-icon" style="background: #E7F0FD;">
-          <svg viewBox="0 0 24 24" fill="#1877F2">
-            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-          </svg>
-        </div>
-        <div class="label">
-          <div class="name">Facebook</div>
-          <div class="desc">ちるーむ公式ページ</div>
-        </div>
-        <span class="ext">›</span>
+      <a class="sns-item is-facebook" href="https://www.facebook.com/share/18ar3FUNtg/?mibextid=wwXIfr" target="_blank" rel="noopener">
+        <span class="sns-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </span>
+        <span>
+          <span class="sns-name">Facebook</span><br>
+          <span class="sns-desc">ちるーむ公式ページ</span>
+        </span>
+        <svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
       </a>
-
-      <a href="https://www.linkedin.com/in/%E3%81%BB%E3%83%BC%E3%82%80-%E3%81%A1%E3%82%83%E3%81%84%E3%82%8B%E3%81%A9-1152a3406" target="_blank" rel="noopener" class="connect-card reveal reveal-delay-3">
-        <div class="connect-icon" style="background: #E8F0F8;">
-          <svg viewBox="0 0 24 24" fill="#0A66C2">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-          </svg>
-        </div>
-        <div class="label">
-          <div class="name">LinkedIn</div>
-          <div class="desc">ちゃいるどほーむ</div>
-        </div>
-        <span class="ext">›</span>
+      <a class="sns-item is-linkedin" href="https://www.linkedin.com/in/%E3%81%BB%E3%83%BC%E3%82%80-%E3%81%A1%E3%82%83%E3%81%84%E3%82%8B%E3%81%A9-1152a3406" target="_blank" rel="noopener">
+        <span class="sns-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </span>
+        <span>
+          <span class="sns-name">LinkedIn</span><br>
+          <span class="sns-desc">ちゃいるどほーむ</span>
+        </span>
+        <svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ===== CONTACT ===== -->
-<section class="contact" id="contact">
-  <div class="wrap">
-    <div class="contact-card reveal">
-      <div class="lbl">Other Contact</div>
-      <h3>媒体・コラボ・<br>地域からのお問い合わせ</h3>
-      <p>一般のお問い合わせは「Join us」セクションへ。<br>その他のお問い合わせはこちらまで。</p>
-      <a href="mailto:childhome.nagasaki@gmail.com" class="contact-mail">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-          <polyline points="22,6 12,13 2,6"></polyline>
-        </svg>
-        childhome.nagasaki@gmail.com
-      </a>
-    </div>
-  </div>
-</section>
+</main>
 
-<!-- ===== FOOTER ===== -->
-<footer>
-  <div class="wrap">
-    <div class="footer-logo">ちるーむ</div>
-    <div class="footer-affil">ちゃいるどほーむ / 長崎大学 認定サークル</div>
-    <div class="footer-sns">
-      <a href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="5"></rect>
-          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-        </svg>
-      </a>
-      <a href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener" aria-label="LINE">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
-        </svg>
-      </a>
-      <a href="https://www.facebook.com/share/18ar3FUNtg/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-        </svg>
-      </a>
-      <a href="mailto:childhome.nagasaki@gmail.com" aria-label="Email">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-          <polyline points="22,6 12,13 2,6"></polyline>
-        </svg>
-      </a>
+<!-- ===== フッター ===== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="chiroom-logo.png" alt="ちるーむ" width="1200" height="467" loading="lazy">
+        <p>ちゃいるどほーむ（ちるーむ）<br>長崎大学 認定サークル<br>ボランティアに関心のある大学生と、長崎県のこども食堂をつなぐ学生団体です。</p>
+      </div>
+      <nav class="footer-nav" aria-label="フッターナビゲーション">
+        <h3>サイトマップ</h3>
+        <ul>
+          <li><a href="#about">わたしたちのこと</a></li>
+          <li><a href="#activities">活動内容</a></li>
+          <li><a href="#flow">参加までの流れ</a></li>
+          <li><a href="#gallery">活動の様子</a></li>
+          <li><a href="#faq">よくある質問</a></li>
+          <li><a href="#join">参加する</a></li>
+          <li><a href="#partner">こども食堂・地域の方へ</a></li>
+        </ul>
+      </nav>
+      <div class="footer-nav">
+        <h3>つながる</h3>
+        <div class="footer-sns">
+          <a href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg>
+          </a>
+          <a href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener" aria-label="LINE">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+          </a>
+          <a href="https://www.facebook.com/share/18ar3FUNtg/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/%E3%81%BB%E3%83%BC%E3%82%80-%E3%81%A1%E3%82%83%E3%81%84%E3%82%8B%E3%81%A9-1152a3406" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="mailto:childhome.nagasaki@gmail.com" aria-label="メール">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M22 7l-10 7L2 7"/></svg>
+          </a>
+        </div>
+        <address style="margin-top: 14px; font-size: 14px;">
+          <a href="mailto:childhome.nagasaki@gmail.com" style="border-bottom: 1px solid currentColor;">childhome.nagasaki@gmail.com</a>
+        </address>
+      </div>
     </div>
-    <div class="footer-copy">© 2025 ちるーむ (ちゃいるどほーむ) All rights reserved.</div>
+    <div class="footer-bottom">
+      <span>© <span id="copyright-year">2026</span> ちるーむ（ちゃいるどほーむ）</span>
+      <a href="#top">ページの先頭へ</a>
+    </div>
   </div>
 </footer>
 
+<!-- モバイル固定 CTA -->
+<div class="sticky-cta" id="sticky-cta" aria-hidden="true">
+  <span class="cta-text">参加してみたい？<small>質問だけでも大丈夫</small></span>
+  <a class="btn btn-primary" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener" tabindex="-1">
+    <svg class="ico-line" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+    LINEで相談
+  </a>
+</div>
+
 <script>
-(function() {
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+(function () {
+  'use strict';
+  var header = document.getElementById('site-header');
+  var toggle = document.querySelector('.nav-toggle');
+  var menu = document.getElementById('mobile-menu');
+  var sticky = document.getElementById('sticky-cta');
+  var hero = document.getElementById('top');
+  var join = document.getElementById('join');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ヘッダー: スクロールしたら背景を付ける */
+  function onScroll() {
+    header.classList.toggle('is-scrolled', window.scrollY > 8);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* モバイルメニュー */
+  function setMenu(open) {
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    menu.classList.toggle('is-open', open);
+    header.classList.toggle('is-open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  toggle.addEventListener('click', function () {
+    setMenu(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+  menu.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { setMenu(false); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { setMenu(false); toggle.focus(); }
+  });
+  window.matchMedia('(min-width: 900px)').addEventListener('change', function (e) { if (e.matches) setMenu(false); });
+
+  /* スクロール表示 */
+  var revealEls = document.querySelectorAll('.reveal');
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('visible'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+  }
+
+  /* モバイル固定 CTA: ヒーローを過ぎたら表示、参加セクションが見えている間は隠す */
+  if ('IntersectionObserver' in window) {
+    var heroVisible = true, joinVisible = false;
+    function updateSticky() {
+      var show = !heroVisible && !joinVisible;
+      sticky.classList.toggle('is-visible', show);
+      sticky.setAttribute('aria-hidden', String(!show));
+      sticky.querySelector('a').setAttribute('tabindex', show ? '0' : '-1');
+    }
+    new IntersectionObserver(function (entries) { heroVisible = entries[0].isIntersecting; updateSticky(); }, { threshold: 0.15 }).observe(hero);
+    new IntersectionObserver(function (entries) { joinVisible = entries[0].isIntersecting; updateSticky(); }, { threshold: 0.05 }).observe(join);
+  }
+
+  /* 著作権表示の年 */
+  var y = document.getElementById('copyright-year');
+  if (y) y.textContent = String(new Date().getFullYear());
 })();
 </script>
 
