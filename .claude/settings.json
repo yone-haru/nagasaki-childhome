@@ -1,0 +1,57 @@
+{
+  "env": {
+    "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "node .claude/hooks/usage-guard.js statusline",
+    "padding": 0
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/usage-guard.js\" prompt",
+            "timeout": 5,
+            "statusMessage": "usage-guard"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(git show:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git check-ignore:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh issue create:*)",
+      "Bash(gh issue comment:*)",
+      "Bash(gh issue close:*)",
+      "Bash(gh issue edit:*)",
+      "Bash(node tools/check.mjs:*)",
+      "Bash(node tools/serve.mjs:*)",
+      "Bash(curl -s -o /dev/null -w * http://localhost:*)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./**/.env)",
+      "Read(./secrets/**)",
+      "Read(./_ ver2.0 _.html)",
+      "Edit(./_ ver2.0 _.html)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(vercel --prod:*)",
+      "Bash(rm -rf /:*)"
+    ]
+  }
+}

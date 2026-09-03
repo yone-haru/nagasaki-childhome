@@ -1,0 +1,14 @@
+{
+  "//": "個人用設定の例。settings.local.json にリネームして使う(gitignore 済み)。チーム共有の settings.json より優先される。",
+  "//model": "Opus で十分なプロジェクトなら \"model\": \"opus\" を書く。プロジェクト設定は /model で保存した既定より優先されるので、Fable/Opus を行き来するプロジェクトでは書かずに /model に任せる。",
+  "model": "opus",
+  "env": {
+    "FABLE_SWITCH_THRESHOLD": "45"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(npm run test:*)",
+      "Bash(npm run lint:*)"
+    ]
+  }
+}

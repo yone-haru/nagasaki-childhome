@@ -1,5 +1,27 @@
+# Claude Code 個人設定（チーム共有の .claude/settings.json とは別）
+.claude/settings.local.json
+CLAUDE.local.md
+
+# usage-guard がステータスラインから書き出す一時キャッシュ
+.claude/usage-cache.json
+
+# 秘密情報
+.env
+.env.*
+!.env.example
+secrets/
+
+# 依存関係・ビルド成果物
 node_modules/
+dist/
+build/
+
+# ログ
+*.log
+
+# OS / エディタ
 .DS_Store
 Thumbs.db
-.env.local
+
+# Vercel
 .vercel
