@@ -18,7 +18,7 @@ git push origin master      # 本番公開（= デプロイ。下の「やって
 
 ## プロジェクト構成
 ```
-index.html            # サイト本体（CSS/JS/アイコン SVG 内包・約1550行）。編集対象はほぼここだけ。構成と規約は .claude/rules/index-html.md
+index.html            # サイト本体（CSS/JS/アイコン SVG 内包・約1580行）。編集対象はほぼここだけ。構成と規約は .claude/rules/index-html.md
 vercel.json           # Vercel 設定（cleanUrls / trailingSlash）
 tools/                # 検証・開発用スクリプト（依存ゼロ。ここ以外にスクリプトを増やさない）
 .claude/              # 運用ルール・スキル・フック（このファイルを含む）
@@ -47,6 +47,12 @@ _ ver2.0 _.html       # 旧版(13MB)。参照も編集もしない
 - **Chrome 拡張（claude-in-chrome）のスクリーンショットは、そのタブが非表示（`document.hidden === true`）だと真っ白になる。** ユーザーが別ウィンドウを見ていると起きる。代替は headless Chrome: `"/c/Program Files/Google/Chrome/Application/chrome.exe" --headless=new --screenshot=... --window-size=1280,9000 URL`。ただし **headless でも `--window-size` の幅は約 500px 未満にならない**（390px を指定しても viewport は 500px 前後のまま画像だけ 390px に切られ、「はみ出している」ように見える）。狭い幅を正確に見るには、`<iframe width="390">` を並べたラッパー HTML を撮るか、CDP の `Emulation.setDeviceMetricsOverride` を使う（Node 22 標準の `WebSocket` で依存ゼロで書ける）。また `--virtual-time-budget` が短いと `.reveal` の遷移途中（薄い状態）で撮れて「要素が消えている」ように見える。**25000 以上**にする。
 - 画像アセットの生成には Python 3.10 + Pillow 12 が使える（`python -c "import PIL"`）。ImageMagick はない。
 - **`cd "パス" && grep/cat/head ... 相対パス` は `--dangerously-skip-permissions` 下でも許可プロンプトで止まることがある。** 原因は `.claude/settings.json` の `permissions.deny` に `Read()` ルール（`.env`・`_ ver2.0 _.html` 等）があるため。`cd` の後に相対パスで読むコマンドは、実際にどのファイルを読むか静的に確定できず、deny ルールに触れないか保証できないため確認を求められる（deny は skip-permissions でも上書きされない）。**回避策**: `cd ... &&` でつながず、絶対パスを直接渡す。例: `grep -n "パターン" "C:/Users/晴輝/Documents/pr/ちるーむ/index.html"`。この deny ルールは `.env`・秘密情報保護のために必要なので外さない。
+- **Codex（codex-cli MCP）でテストさせるとき**:
+  - `model: "gpt-6-astra"` を必ず渡す。既定のモデルは ChatGPT アカウントでは「not supported」で失敗する。
+  - `review` に `commit` を渡すときは `prompt` を付けられない（CLI の引数エラーになる）。
+  - スクリーンショットを見せるときは `workingDirectory` をその画像のあるフォルダにする。プロジェクト直下のままだと「スクリーンショットが見つからない」と返ってくる。
+  - 長いテストは 120 秒を超えるとバックグラウンドに回り、結果はタスク通知で届く。
+- **ギャラリーの「写真準備中」の枠は `.gallery-grid:has(.photo-pending)` で小さく並ぶ。** 写真をすべて `<img>` に差し替えると自動で大きいモザイクに戻る。1枚でも `.photo-pending` が残っている間は小さいまま。
 
 ## 検証ループ（最重要・消さない）
 - **IMPORTANT: `index.html` を変更したら必ず `node tools/check.mjs` を実行し、exit 0 になるまでコミットしない。**

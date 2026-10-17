@@ -3,7 +3,7 @@ paths:
   - "index.html"
 ---
 
-# index.html の規約（単一ファイル構成・v4.1）
+# index.html の規約（単一ファイル構成・v4.2）
 
 このサイトは `index.html` 1枚に CSS と JS を内包している。以下を守れば構成が崩れない。
 
@@ -11,7 +11,7 @@ paths:
 `<head>`（meta / OGP / favicon / Google Fonts / JSON-LD / `<style>`）→ `<body>`:
 `a.skip-link` → `svg.sprite`（アイコン定義）→ `header.site-header`（固定ヘッダー・PC ナビ・LINE ボタン・ハンバーガー）→ `nav.mobile-menu` → `<main id="main">` 内のセクション群 → `footer.site-footer` → `div.sticky-cta`（モバイル固定 CTA）→ 末尾の `<script>` 1本。
 
-セクションは `hero(#top) → news(#news) → about(#about) → activities(#activities) → day(#day) → promise(#promise) → flow(#flow) → gallery(#gallery) → faq(#faq) → join(#join, 内部に #partner) → connect(#connect)` の順。ナビはヘッダー（主要5項目）・モバイルメニュー（全セクション）・フッター（全セクション）の3か所にある。**セクションを足す／id を変えるときは3か所とも直す**（`node tools/check.mjs` がアンカー切れを検出する）。
+セクションは `hero(#top) → news(#news) → about(#about) → activities(#activities) → day(#day) → promise(#promise) → flow(#flow) → gallery(#gallery) → faq(#faq) → join(#join, 内部に #partner) → connect(#connect)` の順。ナビはヘッダー（主要5項目）・モバイルメニュー（全セクション）・フッター（全セクション）の3か所にある。**セクションを足す／id を変えるときは3か所とも直す**（`node tools/check.mjs` がアンカー切れを検出する）。PC のヘッダーナビは 1080px で6項目目が入らないので、食堂・地域の方向けの `#partner` へはヒーローの CTA 下にある `.hero-partner` のリンクで案内している。
 
 ## CSS
 - 色・影・書体・角丸は `:root` の変数を使う。**生の色コードを直書きしない。** 新色が要るときは `:root` に変数を足してから使う。インライン SVG の `fill` / `stroke` も `var(--coral)` のように変数で書く。
@@ -47,7 +47,7 @@ paths:
 ## リンクとアセット
 - 内部リンクは `href="#about"` のようにセクション id を指す。外部リンクは `target="_blank" rel="noopener"`。
 - 画像は必ず `alt` を書く（装飾画像は `alt=""`）。ロゴは `chiroom-logo.png`（透過・トリミング済み）、大学ロゴは `nagasaki-u.png`、OGP は `ogp.png`、favicon は `favicon-32.png` / `favicon-512.png` / `apple-touch-icon.png`。
-- 活動写真は `#gallery` の `figure.shot` 内の `.photo-pending` を `<img>` に差し替える。手順は HTML コメントに書いてある。
+- 活動写真は `#gallery` の `figure.shot` 内の `.photo-pending` を `<img>` に差し替える。手順は HTML コメントに書いてある。`.photo-pending` が1つでも残っている間は `.gallery-grid:has(.photo-pending)` で枠が小さく並び、全部差し替えると大きいモザイクに戻る。
 - 本番ドメインは `https://childhome-nagasaki.vercel.app/`。canonical / og:url / og:image / JSON-LD の `url` に絶対 URL で書いてある。独自ドメインに変えたら4か所すべて直す。
 - 外部リソースは https のみ。ライブラリ CDN は追加しない（フォント以外の外部依存を増やさない方針）。
 

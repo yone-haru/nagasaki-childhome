@@ -271,7 +271,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 
 /* ---------- ヒーロー ---------- */
 .hero { background: var(--brand-sky); padding: calc(var(--header-h) + 20px) 0 40px; overflow: hidden; }
-.hero-grid { display: grid; gap: 28px; align-items: center; }
+.hero-grid { display: grid; gap: 12px; align-items: center; }
 .hero-grid > * { min-width: 0; }
 .hero-logo { line-height: 0; }
 .hero-logo img { width: min(100%, 300px); }
@@ -283,19 +283,23 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 .hero-lead { margin-top: 14px; max-width: 30em; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 .hero-actions .btn { flex: 1 1 100%; }
+.hero-partner { margin-top: 8px; font-size: 15px; font-weight: 700; word-break: auto-phrase; }
+.hero-partner a { display: inline-block; padding-block: 8px; color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .3em; }
+.hero-partner a:hover { color: var(--teal-text); }
 .hero-affil {
-  display: flex; align-items: center; gap: 12px; margin-top: 28px;
+  display: flex; align-items: center; gap: 12px; margin-top: 24px;
   font-size: 14px; font-weight: 700; color: var(--charcoal);
 }
 .hero-affil img { height: 28px; width: auto; }
-.hero-art { width: min(100%, 340px); height: auto; margin-inline: auto; color: var(--ink); overflow: visible; }
+/* SVG の内側に余白があるので、スマホでは上下を詰めて置く */
+.hero-art { width: min(100%, 260px); height: auto; margin: -8px auto -16px; color: var(--ink); overflow: visible; }
 /* 席が順番に置かれていく（ページ表示時に1回だけ） */
 .hero-art .seat { transform-box: fill-box; transform-origin: center; animation: seat-in .7s var(--ease-out) both; animation-delay: calc(.35s + var(--i) * .1s); }
 @keyframes seat-in { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
 
 /* 参加のめやす */
 .hero-facts {
-  margin-top: 36px; padding: 20px 22px;
+  margin-top: 24px; padding: 20px 22px;
   background: var(--paper); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
 }
 .facts-title { font-weight: 700; font-size: 15px; color: var(--teal-text); margin-bottom: 10px; }
@@ -306,7 +310,9 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 @media (min-width: 640px) {
   .hero-actions .btn { flex: 0 1 auto; }
   .hero-logo img { width: min(100%, 380px); }
-  .hero-art { width: min(100%, 420px); }
+  .hero-grid { gap: 28px; }
+  .hero-art { width: min(100%, 420px); margin-block: 0; }
+  .hero-facts { margin-top: 36px; }
 }
 @media (min-width: 900px) {
   .hero { padding: calc(var(--header-h) + 40px) 0 56px; }
@@ -337,6 +343,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 /* ---------- わたしたちのこと ---------- */
 .about-grid { display: grid; gap: 40px; }
 .about-grid > * { min-width: 0; }
+.about-story > p:first-child { font-family: var(--font-head); font-weight: 700; font-size: clamp(18px, 2vw, 20px); line-height: 1.8; color: var(--ink); }
 .about-story p + p { margin-top: 1.1em; }
 .name-note { margin-top: 32px; padding: 22px 26px; border-radius: var(--radius-md); background: var(--yellow-soft); }
 .name-note h3 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
@@ -494,6 +501,9 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 .photo-pending.is-mint { background: var(--mint); }
 .photo-pending.is-sky { background: var(--brand-sky); }
 .shot figcaption { margin-top: 8px; font-size: 14px; color: var(--charcoal-soft); line-height: 1.6; }
+/* 写真がそろうまで（.photo-pending が残っている間）は、枠を小さく並べる */
+.gallery-grid:has(.photo-pending) .shot-a, .gallery-grid:has(.photo-pending) .shot-d { grid-column: auto; }
+.gallery-grid:has(.photo-pending) .photo-pending { flex: none; min-height: 112px; }
 .gallery-foot { display: grid; gap: 18px; margin-top: 36px; }
 .gallery-foot p { font-size: 15px; }
 .gallery-foot .photo-policy { margin-top: 4px; font-size: 14px; color: var(--charcoal-soft); }
@@ -501,6 +511,9 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 @media (min-width: 640px) {
   .gallery-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(190px, auto)); gap: 16px; }
   .shot-a { grid-row: span 2; }
+  .gallery-grid:has(.photo-pending) { grid-template-rows: repeat(2, minmax(0, auto)); }
+  .gallery-grid:has(.photo-pending) .shot-a, .gallery-grid:has(.photo-pending) .shot-d { grid-column: span 2; }
+  .gallery-grid:has(.photo-pending) .photo-pending { flex: 1 1 auto; min-height: 104px; }
 }
 @media (min-width: 900px) {
   .gallery-foot { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 32px; }
@@ -779,6 +792,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
           </a>
           <a class="btn btn-outline" href="#activities">活動内容を見る</a>
         </div>
+        <p class="hero-partner"><a href="#partner">こども食堂・地域の方へ</a></p>
         <p class="hero-affil">
           <img src="nagasaki-u.png" alt="" width="2363" height="827">
           長崎大学 認定サークル
@@ -889,7 +903,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 
     <div class="hero-facts">
       <h2 class="facts-title" id="facts-title">参加のめやす</h2>
-      <!-- 要確認: 参加費の扱いはサークルの実態に合わせて修正すること -->
+      <!-- 要確認: 参加費の扱いはサークルの実態に合わせて修正すること。活動の曜日・時間帯・1回の所要時間・主な活動エリアが決まっていれば、ここに行を足す（学生が授業や移動と両立できるか判断する材料になる） -->
       <dl class="facts-list">
         <div><dt>活動</dt><dd>月2回程度</dd></div>
         <div><dt>場所</dt><dd>長崎県内の<span class="phrase">こども食堂</span></dd></div>
@@ -1153,6 +1167,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 <!-- ===== 活動の様子 =====
      写真を載せるときは、各 <figure> の中の <div class="photo-pending">…</div> を
      <img src="photos/xxx.jpg" alt="写真の説明" loading="lazy"> に置き換える。figcaption は短い説明文。
+     .photo-pending が1つでも残っている間は、枠を小さく並べる（CSS の :has で自動判定）。
      こどもの顔や名前がわかる写真は、食堂の許可なく載せない。 -->
 <section class="block is-tinted gallery" id="gallery" aria-labelledby="gallery-title">
   <div class="container">
@@ -1225,7 +1240,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
         <details class="faq-item">
           <summary>ボランティアははじめてです。参加できますか？<span class="plus" aria-hidden="true"></span></summary>
           <div class="faq-body">
-            <p>はい。はじめての人を歓迎しています。当日はメンバーが一緒に行動し、やることはその場でお伝えするので、事前の準備は必要ありません。</p>
+            <p>はい。はじめての人を歓迎しています。当日はメンバーが一緒に行動し、やることはその場でお伝えするので、特別な知識や経験は必要ありません。持ち物や服装は参加前にお知らせします。</p>
           </div>
         </details>
         <details class="faq-item">
@@ -1495,13 +1510,19 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* モバイルメニュー */
+  /* モバイルメニュー: 開いている間は背景を inert にし、Tab をメニューの中で循環させる */
+  var behind = [document.querySelector('.skip-link'), header.querySelector('.brand'), header.querySelector('.header-cta'),
+    document.getElementById('main'), document.querySelector('.site-footer'), sticky];
+  function menuFocusables() {
+    return [toggle].concat(Array.prototype.slice.call(menu.querySelectorAll('a[href], button')));
+  }
   function setMenu(open) {
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
     menu.classList.toggle('is-open', open);
     header.classList.toggle('is-open', open);
     document.body.style.overflow = open ? 'hidden' : '';
+    behind.forEach(function (el) { if (el) el.inert = open; });
     if (open) { var first = menu.querySelector('a'); if (first) first.focus(); }
   }
   toggle.addEventListener('click', function () {
@@ -1511,7 +1532,14 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
     a.addEventListener('click', function () { setMenu(false); });
   });
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { setMenu(false); toggle.focus(); }
+    if (toggle.getAttribute('aria-expanded') !== 'true') return;
+    if (e.key === 'Escape') { setMenu(false); toggle.focus(); return; }
+    if (e.key === 'Tab') {
+      var items = menuFocusables(), firstEl = items[0], lastEl = items[items.length - 1];
+      var inside = items.indexOf(document.activeElement) !== -1;
+      if (e.shiftKey && (document.activeElement === firstEl || !inside)) { e.preventDefault(); lastEl.focus(); }
+      else if (!e.shiftKey && (document.activeElement === lastEl || !inside)) { e.preventDefault(); firstEl.focus(); }
+    }
   });
   window.matchMedia('(min-width: 900px)').addEventListener('change', function (e) { if (e.matches) setMenu(false); });
 
