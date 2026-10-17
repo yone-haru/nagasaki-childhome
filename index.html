@@ -30,6 +30,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="chiroom-logo.png">
+<link rel="preload" as="image" href="photos/hero-1.jpg" fetchpriority="high">
 
 <script type="application/ld+json">
 {
@@ -52,9 +53,9 @@
 </script>
 <style>
 /* ==========================================================================
-   ちるーむ v4.1
+   ちるーむ v5.0
    色・書体・角丸・影は :root の変数だけを使う（生の色コードを直書きしない）
-   ブレークポイント: 640px / 900px（ヘッダーのナビだけ 1080px で広げる）
+   ブレークポイント: 640px / 900px / 1080px（1080 の上書きは各セクションの 900 ブロックの後ろに書く）
    ========================================================================== */
 :root {
   /* ブランド色 */
@@ -122,7 +123,7 @@ ul, ol { list-style: none; }
 h1, h2, h3 { font-family: var(--font-head); color: var(--ink); line-height: 1.45; }
 /* 日本語の改行: 見出しや短い行は文節で折り返し、1文字だけ次の行に落ちるのを防ぐ */
 h1, h2, h3, h4, summary, dt, dd, li, figcaption, .btn, .sec-lead,
-.hero-lead, .bring-note, .photo-policy, .footer-brand p { word-break: auto-phrase; overflow-wrap: break-word; }
+.hero-lead, .hero-partner, .day-stage-cap, .bring-note, .photo-policy, .footer-brand p { word-break: auto-phrase; overflow-wrap: break-word; }
 /* 途中で折りたくない語句は span.phrase で囲む */
 .phrase { display: inline-block; }
 h1, h2, h3, h4, summary { text-wrap: balance; }
@@ -239,6 +240,10 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
   .site-nav a:hover { background: var(--mint-soft); }
   .header-cta { padding-inline: 18px; }
   .nav-toggle { display: none; }
+  .site-header:not(.is-scrolled):not(.is-open) .site-nav ul {
+    padding: 4px; border-radius: 999px; background: var(--glass); box-shadow: var(--shadow-sm);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px); backdrop-filter: saturate(1.4) blur(14px);
+  }
 }
 @media (min-width: 1080px) {
   .site-nav ul { gap: 2px; }
@@ -269,64 +274,108 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 }
 @media (min-width: 900px) { .mobile-menu { display: none; } }
 
-/* ---------- ヒーロー ---------- */
-.hero { background: var(--brand-sky); padding: calc(var(--header-h) + 20px) 0 40px; overflow: hidden; }
-.hero-grid { display: grid; gap: 12px; align-items: center; }
-.hero-grid > * { min-width: 0; }
-.hero-logo { line-height: 0; }
-.hero-logo img { width: min(100%, 300px); }
-.hero-copy {
-  margin-top: 18px;
-  font-family: var(--font-head); font-weight: 900; color: var(--ink);
-  font-size: clamp(26px, 3.6vw, 40px); line-height: 1.4; letter-spacing: .04em;
+/* ---------- ヒーロー（全面写真のスライドショー） ----------
+   写真は photos/hero-1.jpg 〜 hero-5.jpg（1920×1280）。JS が 6 秒ごとに .is-active を回す。
+   スマホ: 写真の下に白いパネルが重なる / 900px〜: 写真が全面、パネルは左下 */
+.hero { position: relative; display: grid; background: var(--brand-sky); overflow: hidden; }
+.hero-media { position: relative; height: max(360px, 62svh); }
+.hero-slides { position: absolute; inset: 0; background: var(--mint); }
+/* ヘッダーの上だけ少し暗くして、ハンバーガーやナビを写真の上でも見やすくする */
+.hero-media::after {
+  content: ""; position: absolute; inset: 0 0 auto; height: 160px; z-index: 3; pointer-events: none;
+  background: linear-gradient(var(--ink-14), transparent);
 }
-.hero-lead { margin-top: 14px; max-width: 30em; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease; }
+.hero-slide.is-active { opacity: 1; z-index: 2; }
+.hero-slide.is-leaving { opacity: 1; z-index: 1; }
+.hero-slide img { width: 100%; height: 100%; object-fit: cover; }
+/* 表示中の写真だけ、ゆっくり寄る */
+.hero-slide.is-active img, .hero-slide.is-leaving img { animation: hero-zoom 8s linear both; }
+@keyframes hero-zoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+.hero.is-paused .hero-slide img { animation-play-state: paused; }
+
+/* 一時停止ボタンと写真の切り替え（JS が動くときだけ hidden を外す） */
+.hero-controls {
+  position: absolute; z-index: 4; right: 16px; bottom: 48px;
+  display: flex; align-items: center; gap: 2px; padding: 4px 10px 4px 4px; border-radius: 999px;
+  background: var(--glass); box-shadow: var(--shadow-sm);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px); backdrop-filter: saturate(1.4) blur(14px);
+}
+.hero-controls[hidden] { display: none; }
+.hero-toggle {
+  width: 44px; height: 44px; border: 0; border-radius: 50%; background: transparent;
+  display: grid; place-items: center; cursor: pointer; color: var(--ink); transition: background-color .2s;
+}
+.hero-toggle:hover { background: var(--ink-06); }
+.hero-toggle .ico { width: 18px; height: 18px; }
+.hero-toggle .ico-play, .hero.is-stopped .hero-toggle .ico-pause { display: none; }
+.hero.is-stopped .hero-toggle .ico-play { display: block; }
+.hero-dots { display: flex; }
+.hero-dot { position: relative; width: 24px; height: 44px; border: 0; background: transparent; cursor: pointer; transition: width .3s var(--ease-out); }
+.hero-dot::before, .hero-dot::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px;
+  border-radius: 999px; background: var(--charcoal-soft);
+  transition: width .3s var(--ease-out), margin .3s var(--ease-out), background-color .3s;
+}
+.hero-dot::after { display: none; }
+.hero-dot:hover::before { background: var(--ink); }
+/* 表示中の写真: 横長のバーが、次の写真までの時間で満ちていく */
+.hero-dot[aria-current="true"] { width: 44px; }
+.hero-dot[aria-current="true"]::before, .hero-dot[aria-current="true"]::after { width: 28px; margin-left: -14px; }
+.hero-dot[aria-current="true"]::before { background: var(--ink-14); }
+.hero-dot[aria-current="true"]::after {
+  display: block; background: var(--ink); transform-origin: left center;
+  animation: dot-fill var(--hero-interval, 6s) linear both;
+}
+.hero.is-paused .hero-dot::after { animation-play-state: paused; }
+.hero.is-stopped .hero-dot[aria-current="true"]::after { animation: none; transform: none; }
+@keyframes dot-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+.hero-panel {
+  position: relative; z-index: 3; margin-top: -32px;
+  background: var(--paper); border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.hero-panel-inner { width: min(100% - 40px, 1120px); margin-inline: auto; padding: 32px 0 44px; }
+.hero-logo { line-height: 0; }
+.hero-logo img { width: min(100%, 240px); }
+.hero-copy {
+  margin-top: 16px;
+  font-family: var(--font-head); font-weight: 900; color: var(--ink);
+  font-size: clamp(24px, 3vw, 34px); line-height: 1.4; letter-spacing: .04em;
+}
+.hero-lead { margin-top: 12px; max-width: 30em; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 .hero-actions .btn { flex: 1 1 100%; }
-.hero-partner { margin-top: 8px; font-size: 15px; font-weight: 700; word-break: auto-phrase; }
+.hero-sub { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 24px; margin-top: 16px; }
+.hero-partner { font-size: 15px; font-weight: 700; }
 .hero-partner a { display: inline-block; padding-block: 8px; color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .3em; }
 .hero-partner a:hover { color: var(--teal-text); }
-.hero-affil {
-  display: flex; align-items: center; gap: 12px; margin-top: 24px;
-  font-size: 14px; font-weight: 700; color: var(--charcoal);
-}
-.hero-affil img { height: 28px; width: auto; }
-/* SVG の内側に余白があるので、スマホでは上下を詰めて置く */
-.hero-art { width: min(100%, 260px); height: auto; margin: -8px auto -16px; color: var(--ink); overflow: visible; }
-/* 席が順番に置かれていく（ページ表示時に1回だけ） */
-.hero-art .seat { transform-box: fill-box; transform-origin: center; animation: seat-in .7s var(--ease-out) both; animation-delay: calc(.35s + var(--i) * .1s); }
-@keyframes seat-in { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
-
-/* 参加のめやす */
-.hero-facts {
-  margin-top: 24px; padding: 20px 22px;
-  background: var(--paper); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
-}
-.facts-title { font-weight: 700; font-size: 15px; color: var(--teal-text); margin-bottom: 10px; }
-.facts-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 20px; }
-.facts-list dt { font-size: 13px; font-weight: 700; color: var(--charcoal-soft); line-height: 1.6; }
-.facts-list dd { font-family: var(--font-head); font-weight: 700; font-size: 16px; color: var(--ink); line-height: 1.5; }
+.hero-affil { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; color: var(--charcoal); }
+.hero-affil img { height: 24px; width: auto; }
 
 @media (min-width: 640px) {
+  .hero-media { height: max(420px, 58svh); }
   .hero-actions .btn { flex: 0 1 auto; }
-  .hero-logo img { width: min(100%, 380px); }
-  .hero-grid { gap: 28px; }
-  .hero-art { width: min(100%, 420px); margin-block: 0; }
-  .hero-facts { margin-top: 36px; }
+  .hero-logo img { width: min(100%, 280px); }
+  .hero-controls { right: 24px; }
 }
 @media (min-width: 900px) {
-  .hero { padding: calc(var(--header-h) + 40px) 0 56px; }
-  .hero-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 32px; }
-  .hero-logo img { width: min(100%, 440px); }
-  .hero-art { width: 100%; max-width: 540px; margin-right: -12px; }
-  .hero-facts { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 32px; padding: 22px 36px; margin-top: 40px; }
-  .facts-title { margin: 0; padding-right: 32px; border-right: 1px solid var(--line); line-height: 1.5; }
-  .facts-list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; }
-  .facts-list > div { padding-inline: 20px; border-left: 1px solid var(--line); }
-  .facts-list > div:first-child { padding-left: 0; border-left: 0; }
+  .hero { min-height: max(640px, 100svh); align-items: end; }
+  .hero-media { position: absolute; inset: 0; height: auto; }
+  /* パネルの左端はページの .container にそろえる（% はヒーローの幅に対する値） */
+  .hero-panel {
+    justify-self: start; margin: 0;
+    width: calc(max(20px, (100% - 1120px) / 2) + 560px);
+    padding-left: max(20px, calc((100% - 1120px) / 2));
+    border-radius: 0 44px 0 0;
+  }
+  .hero-panel-inner { width: auto; margin: 0; padding: 40px 48px 36px 0; }
+  .hero-controls { right: max(20px, calc((100% - 1120px) / 2)); bottom: 32px; }
 }
 @media (min-width: 1080px) {
-  .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr); gap: 40px; }
+  .hero-panel { width: calc(max(20px, (100% - 1120px) / 2) + 600px); }
+  .hero-panel-inner { padding: 48px 56px 40px 0; }
+  .hero-logo img { width: min(100%, 300px); }
 }
 
 /* ---------- お知らせ ---------- */
@@ -340,25 +389,25 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
   .news-inner { grid-template-columns: 8em minmax(0, 1fr); align-items: baseline; padding-block: 28px; }
 }
 
-/* ---------- わたしたちのこと ---------- */
-.about-grid { display: grid; gap: 40px; }
+/* ---------- わたしたちのこと ----------
+   写真は photos/about-1.jpg（縦 900×1200）と about-2.jpg（横 1200×900）。2枚を少し重ねて置く */
+.about-grid { display: grid; gap: 32px; grid-template-areas: "head" "media" "body"; }
 .about-grid > * { min-width: 0; }
+.about-grid > .sec-head { grid-area: head; margin-bottom: 0; }
+.about-media { grid-area: media; position: relative; padding-bottom: 56px; }
+.about-story { grid-area: body; }
+.about-photo img { width: 100%; height: 100%; object-fit: cover; }
+.about-photo-main { width: 76%; margin-left: auto; aspect-ratio: 3 / 4; border-radius: var(--radius-lg); overflow: hidden; }
+.about-photo-sub {
+  position: absolute; left: 0; bottom: 0; width: 58%; aspect-ratio: 4 / 3;
+  border: 8px solid var(--paper); border-radius: calc(var(--radius-lg) + 8px); overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
 .about-story > p:first-child { font-family: var(--font-head); font-weight: 700; font-size: clamp(18px, 2vw, 20px); line-height: 1.8; color: var(--ink); }
 .about-story p + p { margin-top: 1.1em; }
-.name-note { margin-top: 32px; padding: 22px 26px; border-radius: var(--radius-md); background: var(--yellow-soft); }
-.name-note h3 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
-.name-note p { font-size: 15px; }
-.profile { border: 2px solid var(--line); border-radius: var(--radius-lg); padding: 26px 28px 14px; }
-.profile h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
-.profile dl > div { display: grid; grid-template-columns: 5.5em minmax(0, 1fr); gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); }
-.profile dt { font-size: 14px; font-weight: 700; color: var(--charcoal-soft); }
-.profile dd { font-size: 15px; line-height: 1.75; }
+.about-story .about-name { margin-top: 1.6em; color: var(--charcoal-soft); }
 
-.kodomo {
-  margin-top: clamp(48px, 7vw, 80px); padding: clamp(24px, 4vw, 40px);
-  display: grid; gap: 10px; border-radius: var(--radius-lg); background: var(--mint-soft);
-}
-.bridge-wrap { margin-top: clamp(48px, 7vw, 80px); }
+.bridge-wrap { margin-top: clamp(56px, 8vw, 96px); }
 .bridge-wrap .sub-title { margin-bottom: 20px; }
 .bridge-head { display: none; }
 .bridge { border-top: 2px solid var(--ink); }
@@ -369,70 +418,88 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 .bridge-answer { font-weight: 700; color: var(--ink); }
 
 @media (min-width: 900px) {
-  .about-grid { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 64px; align-items: start; }
-  .kodomo { grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr); gap: 48px; align-items: center; }
+  .about-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: "head media" "body media";
+    grid-template-rows: auto 1fr; column-gap: 72px; row-gap: 32px;
+  }
+  .about-media { align-self: start; padding-bottom: 72px; }
+  .about-photo-sub { width: 56%; left: -40px; }
   .bridge-head, .bridge li { grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr); }
   .bridge-head { display: grid; padding-bottom: 10px; font-size: 13px; font-weight: 700; color: var(--charcoal-soft); }
   .bridge-head span:last-child { grid-column: 3; }
   .bridge li { align-items: center; gap: 0; padding: 24px 0; }
   .bridge-arrow { margin: 0 auto; transform: none; }
 }
-
-/* ---------- 活動内容 ---------- */
-.acts { display: grid; gap: 28px; }
-.act { display: grid; grid-template-columns: 84px minmax(0, 1fr); column-gap: 20px; align-items: start; }
-.act-plate {
-  grid-row: span 2; width: 84px; height: 84px; border-radius: 50%;
-  display: grid; place-items: center; color: var(--ink);
-  background: radial-gradient(circle, var(--plate) 0 55%, var(--paper) 56%);
-  box-shadow: 0 0 0 2px var(--line), var(--shadow-sm);
-}
-.act-plate.is-coral { --plate: var(--coral-soft); }
-.act-plate.is-yellow { --plate: var(--yellow-soft); }
-.act-plate.is-mint { --plate: var(--mint); }
-.act-plate.is-sky { --plate: var(--brand-sky); }
-.act-plate .ico { width: 32px; height: 32px; stroke-width: 1.7; }
-.act h3 { margin-top: 4px; font-size: 19px; font-weight: 700; line-height: 1.5; }
-.act p { margin-top: 6px; font-size: 15px; }
-@media (min-width: 640px) {
-  .acts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px 40px; }
-  .act { display: block; }
-  .act-plate { width: 116px; height: 116px; margin-bottom: 22px; }
-  .act-plate .ico { width: 42px; height: 42px; }
-}
-/* 4列は1行の文字数が12字前後まで減るので、十分広い 1080px から */
 @media (min-width: 1080px) {
-  .acts { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+  .about-grid { column-gap: 96px; }
 }
 
-/* ---------- ある日の活動 ---------- */
-.day-list { display: grid; max-width: 640px; }
-.day-step { position: relative; padding: 0 0 30px 64px; }
-.day-step:last-child { padding-bottom: 0; }
-.day-step::before {
-  content: ""; position: absolute; left: 21px; top: 48px; bottom: 4px; width: 2px;
-  background: repeating-linear-gradient(var(--mint-deep) 0 6px, transparent 6px 12px);
+/* ---------- 活動内容 ----------
+   写真は photos/act-1.jpg 〜 act-4.jpg（1200×900）。PC では2列を上下にずらして並べる */
+.acts { display: grid; gap: 44px; }
+.act { min-width: 0; }
+.act-photo { aspect-ratio: 4 / 3; border-radius: var(--radius-lg); overflow: hidden; background: var(--mint); }
+.act-photo img { width: 100%; height: 100%; object-fit: cover; }
+.act h3 { margin-top: 20px; font-size: clamp(20px, 2.2vw, 24px); font-weight: 900; letter-spacing: .02em; }
+.act p { margin-top: 8px; max-width: 30em; }
+@media (min-width: 640px) {
+  .acts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px 28px; }
 }
-.day-step:last-child::before { display: none; }
-.day-num {
-  position: absolute; left: 0; top: 0; width: 44px; height: 44px; border-radius: 50%;
-  display: grid; place-items: center;
-  background: var(--paper); border: 2px solid var(--ink);
-  font-family: var(--font-head); font-weight: 900; font-size: 18px; color: var(--ink); line-height: 1;
-}
-.day-step.is-main .day-num { background: var(--coral); border-color: var(--coral); }
-.day-step h3 { padding-top: 5px; font-size: 19px; font-weight: 700; line-height: 1.6; }
-.day-step p { margin-top: 4px; font-size: 15px; }
-.day-note { margin-top: 32px; font-size: 14px; color: var(--charcoal-soft); }
 @media (min-width: 900px) {
-  .day-list { max-width: none; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 40px; }
-  .day-step { padding: 64px 0 0; }
-  .day-step::before {
-    left: 56px; right: -28px; top: 21px; bottom: auto; width: auto; height: 2px;
-    background: repeating-linear-gradient(90deg, var(--mint-deep) 0 6px, transparent 6px 12px);
+  .acts { column-gap: 64px; row-gap: 64px; padding-bottom: 112px; }
+  .act:nth-child(even) { translate: 0 112px; }
+}
+@media (min-width: 1080px) {
+  .acts { column-gap: 96px; }
+}
+
+/* ---------- ある日の活動 ----------
+   スマホ: 写真つきの縦タイムライン / 900px〜: 左に手順、右に固定の写真（スクロールで切り替わる） */
+.day-steps { position: relative; display: grid; gap: 40px; }
+/* 番号をつなぐ線（--day-line まで珊瑚色で満ちる。JS が値を入れる） */
+.day-steps::before, .day-steps::after {
+  content: ""; position: absolute; left: 19px; top: 20px; width: 2px; border-radius: 2px;
+}
+.day-steps::before { bottom: 20px; background: var(--line); }
+.day-steps::after { height: var(--day-line, 0px); background: var(--coral); transition: height .6s var(--ease-out); }
+.day-step { position: relative; display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: 16px; }
+.day-photo { grid-column: 2; grid-row: 1; margin-bottom: 16px; aspect-ratio: 4 / 3; border-radius: var(--radius-md); overflow: hidden; background: var(--mint); }
+.day-photo img { width: 100%; height: 100%; object-fit: cover; }
+.day-num {
+  grid-column: 1; grid-row: 2; position: relative; z-index: 1;
+  width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--paper); border: 2px solid var(--ink);
+  font-family: var(--font-head); font-weight: 900; font-size: 16px; line-height: 1; color: var(--ink);
+  transition: background-color .3s, border-color .3s, color .3s;
+}
+.day-step.is-done .day-num { background: var(--ink); color: var(--paper); }
+.day-step.is-active .day-num { background: var(--coral); border-color: var(--coral); color: var(--ink); }
+.day-text { grid-column: 2; grid-row: 2; min-width: 0; }
+.day-text h3 { padding-top: 5px; font-size: 19px; font-weight: 900; line-height: 1.5; }
+.day-text p { margin-top: 6px; font-size: 15px; }
+.day-stage { display: none; }
+@media (min-width: 900px) {
+  .day-layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 72px; }
+  .day-steps { gap: 0; }
+  .day-photo { display: none; }
+  .day-step { grid-template-rows: auto; min-height: 30vh; align-content: center; padding-block: 24px; }
+  .day-num { grid-row: 1; }
+  .day-text { grid-row: 1; }
+  .day-text h3 { font-size: 21px; }
+  .day-stage { display: block; align-self: start; position: sticky; top: calc(var(--header-h) + 32px); }
+  .day-stage-frame { position: relative; aspect-ratio: 4 / 3; border-radius: var(--radius-lg); overflow: hidden; background: var(--mint); box-shadow: var(--shadow-md); }
+  .day-stage-frame img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    opacity: 0; transform: scale(1.03); transition: opacity .6s ease, transform 1.2s var(--ease-out);
   }
-  .day-step:nth-child(3n)::before { display: none; }
-  .day-step h3 { padding-top: 0; }
+  .day-stage-frame img.is-active { opacity: 1; transform: none; }
+  .day-stage-cap { display: flex; align-items: baseline; gap: 16px; margin-top: 20px; }
+  .day-stage-num { font-family: var(--font-head); font-weight: 900; font-size: 52px; line-height: 1; color: var(--coral-deep); font-variant-numeric: tabular-nums; }
+  .day-stage-title { font-family: var(--font-head); font-weight: 700; font-size: 22px; line-height: 1.5; color: var(--ink); }
+}
+@media (min-width: 1080px) {
+  .day-layout { gap: 96px; }
 }
 
 /* ---------- 大切にしていること ---------- */
@@ -484,39 +551,26 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
   .step-num { font-size: 52px; }
 }
 
-/* ---------- 活動の様子 ---------- */
-.gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.shot { display: flex; flex-direction: column; min-width: 0; }
-.shot-a, .shot-d { grid-column: span 2; }
-.shot img, .photo-pending { flex: 1 1 auto; width: 100%; min-height: 150px; border-radius: var(--radius-md); }
-.shot img { height: 100%; object-fit: cover; }
-.shot-a .photo-pending, .shot-a img { min-height: 220px; }
-.photo-pending {
-  display: grid; place-content: center; justify-items: center; gap: 6px;
-  font-size: 13px; font-weight: 700; color: var(--charcoal);
-}
-.photo-pending .ico { width: 30px; height: 30px; stroke-width: 1.6; }
-.photo-pending.is-coral { background: var(--coral-soft); }
-.photo-pending.is-yellow { background: var(--yellow-soft); }
-.photo-pending.is-mint { background: var(--mint); }
-.photo-pending.is-sky { background: var(--brand-sky); }
-.shot figcaption { margin-top: 8px; font-size: 14px; color: var(--charcoal-soft); line-height: 1.6; }
-/* 写真がそろうまで（.photo-pending が残っている間）は、枠を小さく並べる */
-.gallery-grid:has(.photo-pending) .shot-a, .gallery-grid:has(.photo-pending) .shot-d { grid-column: auto; }
-.gallery-grid:has(.photo-pending) .photo-pending { flex: none; min-height: 112px; }
+/* ---------- 活動の様子 ----------
+   写真は photos/gallery-1.jpg 〜 gallery-8.jpg（1 と 3 は縦 900×1200、ほかは横 1200×900）。大小を混ぜたモザイク */
+.gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 150px; grid-auto-flow: dense; gap: 10px; }
+.g { min-width: 0; border-radius: var(--radius-md); overflow: hidden; background: var(--mint); }
+.g img { width: 100%; height: 100%; object-fit: cover; }
+.g1, .g3 { grid-row: span 2; }
+.g2, .g6 { grid-column: span 2; }
 .gallery-foot { display: grid; gap: 18px; margin-top: 36px; }
 .gallery-foot p { font-size: 15px; }
 .gallery-foot .photo-policy { margin-top: 4px; font-size: 14px; color: var(--charcoal-soft); }
 .gallery-foot .btn { justify-self: start; }
 @media (min-width: 640px) {
-  .gallery-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(190px, auto)); gap: 16px; }
-  .shot-a { grid-row: span 2; }
-  .gallery-grid:has(.photo-pending) { grid-template-rows: repeat(2, minmax(0, auto)); }
-  .gallery-grid:has(.photo-pending) .shot-a, .gallery-grid:has(.photo-pending) .shot-d { grid-column: span 2; }
-  .gallery-grid:has(.photo-pending) .photo-pending { flex: 1 1 auto; min-height: 104px; }
+  .gallery-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 170px; gap: 14px; }
 }
 @media (min-width: 900px) {
+  .gallery-grid { grid-auto-rows: 210px; gap: 16px; }
   .gallery-foot { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 32px; }
+}
+@media (min-width: 1080px) {
+  .gallery-grid { grid-auto-rows: 240px; }
 }
 
 /* ---------- よくある質問 ---------- */
@@ -562,6 +616,9 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 .join-grid > * { min-width: 0; }
 .wanted { padding: 28px; border-radius: var(--radius-lg); background: var(--paper); }
 .wanted h3 { font-size: 20px; font-weight: 900; }
+.wanted { overflow: hidden; }
+.join-photo { margin: -28px -28px 24px; aspect-ratio: 16 / 9; background: var(--mint); }
+.join-photo img { width: 100%; height: 100%; object-fit: cover; }
 .channels { display: grid; gap: 12px; align-content: start; }
 .channel {
   display: flex; align-items: center; gap: 16px; padding: 18px 20px;
@@ -610,6 +667,22 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 @media (min-width: 900px) {
   .join-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 32px; align-items: start; }
   .partner { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+}
+
+/* ---------- 団体概要 ---------- */
+.profile { padding-bottom: clamp(56px, 7vw, 88px); }
+.profile-grid { display: grid; }
+.profile-grid > * { min-width: 0; }
+.profile-list { border-top: 2px solid var(--ink); }
+.profile-list > div { display: grid; grid-template-columns: 6em minmax(0, 1fr); gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.profile-list dt { font-size: 14px; font-weight: 700; color: var(--charcoal-soft); line-height: 1.9; }
+.profile-list dd { font-size: 15px; color: var(--ink); }
+/* 団体概要と SNS はどちらも白地なので、罫線で区切る */
+.profile + .connect { border-top: 1px solid var(--line); }
+@media (min-width: 900px) {
+  .profile-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 64px; align-items: start; }
+  .profile .sec-head { margin-bottom: 0; }
+  .profile-list > div { grid-template-columns: 8em minmax(0, 1fr); padding: 18px 0; }
 }
 
 /* ---------- SNS ---------- */
@@ -690,6 +763,9 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-delay: 0s !important; }
   .reveal { opacity: 1; transform: none; }
+  /* スライドショーは自動で動かさない（JS も停止状態で始める）。写真の寄りもしない */
+  .hero-slide img { animation: none !important; }
+  .day-stage-frame img { transform: none; }
 }
 </style>
 </head>
@@ -707,15 +783,12 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
   <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
   <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10.2A4.1 4.1 0 0 1 12 7.4a4.1 4.1 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"/></symbol>
-  <symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></symbol>
-  <symbol id="i-cloche" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3"/><path d="M5 11V7a7 7 0 0 1 14 0v4"/><path d="M12 19v3"/><path d="M8 22h8"/></symbol>
-  <symbol id="i-smile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01"/><path d="M15 9h.01"/></symbol>
-  <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/><path d="M9 16l2 2 4-4"/></symbol>
-  <symbol id="i-group" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
   <symbol id="i-clipboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h4"/></symbol>
   <symbol id="i-drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
   <symbol id="i-pair" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M15 14.5c3 0 6 2 6 5"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5v14M15 5v14"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5.5v13l10.5-6.5z"/></symbol>
 </svg>
 
 <!-- ===== ヘッダー ===== -->
@@ -755,6 +828,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
     <li><a class="menu-link" href="#faq">よくある質問<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
     <li><a class="menu-link" href="#join">参加する<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
     <li><a class="menu-link" href="#partner">こども食堂・地域の方へ<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
+    <li><a class="menu-link" href="#profile">団体概要<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
   </ul>
   <div class="menu-cta">
     <a class="btn btn-primary" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">
@@ -775,144 +849,50 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 
 <main id="main">
 
-<!-- ===== ヒーロー ===== -->
+
+<!-- ===== ヒーロー =====
+     背景の写真は photos/hero-1.jpg 〜 hero-5.jpg（1920×1280）。同じ名前で上書きすれば差し替わる。写真を変えたら alt も書き直す。
+     写真の右上〜中央あたりが PC で見える。大事な被写体は中央〜右に置く。 -->
 <section class="hero" id="top" aria-labelledby="hero-title">
-  <div class="container">
-    <div class="hero-grid">
-      <div class="hero-main">
-        <h1 class="hero-logo" id="hero-title">
-          <img src="chiroom-logo.png" alt="ちるーむ" width="1200" height="467" fetchpriority="high">
-        </h1>
-        <p class="hero-copy">ごはんで繋がる、<span class="phrase">笑顔の輪</span></p>
-        <p class="hero-lead">ボランティアに関心のある大学生と、<span class="phrase">こども食堂</span>をつなぎ、遊びや食事の時間をともにしながら、地域とのつながりを広げるサポートをするサークルです。</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">
-            <svg class="ico ico-line" aria-hidden="true" focusable="false"><use href="#i-line"/></svg>
-            LINEで気軽に相談する
-          </a>
-          <a class="btn btn-outline" href="#activities">活動内容を見る</a>
-        </div>
-        <p class="hero-partner"><a href="#partner">こども食堂・地域の方へ</a></p>
-        <p class="hero-affil">
-          <img src="nagasaki-u.png" alt="" width="2363" height="827">
-          長崎大学 認定サークル
-        </p>
-      </div>
-
-      <!-- イラスト: 上から見た丸いテーブル（笑顔の輪）。メンバーが描いた絵ができたら、この <svg> を <img src="..." alt="..."> に置き換える -->
-      <svg class="hero-art" viewBox="0 0 560 560" role="img" aria-labelledby="hero-art-title">
-        <title id="hero-art-title">丸いテーブルを囲んで、こどもと大学生がいっしょにごはんを食べているイラスト</title>
-        <defs>
-          <symbol id="face-a" viewBox="0 0 80 80">
-            <circle cx="40" cy="44" r="21" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
-            <path d="M19 42c0-12 9-21 21-21s21 9 21 21c-6-5-13-7-21-7s-15 2-21 7z" fill="currentColor"/>
-            <path d="M38 22c-1-5 2-9 8-10-2 3-2 6-1 9z" fill="currentColor"/>
-            <circle cx="33" cy="47" r="2.6" fill="var(--ink)"/><circle cx="47" cy="47" r="2.6" fill="var(--ink)"/>
-            <path d="M34 53q6 6 12 0" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round"/>
-            <circle cx="27" cy="53" r="3.6" fill="var(--coral-soft)"/><circle cx="53" cy="53" r="3.6" fill="var(--coral-soft)"/>
-          </symbol>
-          <symbol id="face-b" viewBox="0 0 80 80">
-            <circle cx="40" cy="16" r="9" fill="currentColor"/>
-            <circle cx="40" cy="44" r="21" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
-            <path d="M19 42c0-12 9-21 21-21s21 9 21 21c-6-5-13-7-21-7s-15 2-21 7z" fill="currentColor"/>
-            <circle cx="33" cy="47" r="2.6" fill="var(--ink)"/><circle cx="47" cy="47" r="2.6" fill="var(--ink)"/>
-            <path d="M34 53q6 6 12 0" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round"/>
-            <circle cx="27" cy="53" r="3.6" fill="var(--coral-soft)"/><circle cx="53" cy="53" r="3.6" fill="var(--coral-soft)"/>
-          </symbol>
-          <symbol id="face-c" viewBox="0 0 80 80">
-            <circle cx="15" cy="40" r="8" fill="currentColor"/><circle cx="65" cy="40" r="8" fill="currentColor"/>
-            <circle cx="40" cy="44" r="21" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
-            <path d="M19 42c0-12 9-21 21-21s21 9 21 21c-6-5-13-7-21-7s-15 2-21 7z" fill="currentColor"/>
-            <circle cx="33" cy="47" r="2.6" fill="var(--ink)"/><circle cx="47" cy="47" r="2.6" fill="var(--ink)"/>
-            <path d="M34 53q6 6 12 0" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round"/>
-            <circle cx="27" cy="53" r="3.6" fill="var(--coral-soft)"/><circle cx="53" cy="53" r="3.6" fill="var(--coral-soft)"/>
-          </symbol>
-        </defs>
-        <!-- テーブル -->
-        <circle cx="280" cy="292" r="158" fill="var(--mint)"/>
-        <circle cx="280" cy="280" r="156" fill="var(--paper)"/>
-        <circle cx="280" cy="280" r="144" fill="none" stroke="var(--mint-deep)" stroke-width="2.5" stroke-dasharray="1 9" stroke-linecap="round"/>
-        <!-- コップ（席と席のあいだ） -->
-        <circle cx="343" cy="170.9" r="10" fill="var(--paper)" stroke="var(--mint-deep)" stroke-width="3"/><circle cx="343" cy="170.9" r="5" fill="var(--brand-sky)"/>
-        <circle cx="406" cy="280" r="10" fill="var(--paper)" stroke="var(--mint-deep)" stroke-width="3"/><circle cx="406" cy="280" r="5" fill="var(--brand-sky)"/>
-        <circle cx="343" cy="389.1" r="10" fill="var(--paper)" stroke="var(--mint-deep)" stroke-width="3"/><circle cx="343" cy="389.1" r="5" fill="var(--brand-sky)"/>
-        <circle cx="217" cy="389.1" r="10" fill="var(--paper)" stroke="var(--mint-deep)" stroke-width="3"/><circle cx="217" cy="389.1" r="5" fill="var(--brand-sky)"/>
-        <circle cx="154" cy="280" r="10" fill="var(--paper)" stroke="var(--mint-deep)" stroke-width="3"/><circle cx="154" cy="280" r="5" fill="var(--brand-sky)"/>
-        <circle cx="217" cy="170.9" r="10" fill="var(--paper)" stroke="var(--mint-deep)" stroke-width="3"/><circle cx="217" cy="170.9" r="5" fill="var(--brand-sky)"/>
-        <!-- まんなかの大鍋 -->
-        <rect x="216" y="271" width="26" height="18" rx="7" fill="var(--coral-deep)"/>
-        <rect x="318" y="271" width="26" height="18" rx="7" fill="var(--coral-deep)"/>
-        <circle cx="280" cy="280" r="50" fill="var(--coral)"/>
-        <circle cx="280" cy="280" r="40" fill="var(--yellow-soft)"/>
-        <rect x="262" y="262" width="12" height="12" rx="3" fill="var(--paper)" transform="rotate(12 268 268)"/>
-        <rect x="286" y="284" width="12" height="12" rx="3" fill="var(--paper)" transform="rotate(-10 292 290)"/>
-        <circle cx="296" cy="264" r="6" fill="var(--coral)"/><circle cx="266" cy="294" r="6" fill="var(--coral)"/>
-        <circle cx="282" cy="301" r="4" fill="var(--teal)"/><circle cx="302" cy="282" r="4" fill="var(--teal)"/><circle cx="258" cy="278" r="4" fill="var(--teal)"/>
-        <path d="M237.7 264.6A45 45 0 0 1 254.2 243.1" fill="none" stroke="var(--paper)" stroke-width="4" stroke-linecap="round" opacity=".7"/>
-        <!-- 席（ページ表示時に1回だけ順番に現れる） -->
-        <g class="seat" style="--i:0">
-          <path d="M263 98L250 126M297 98L310 126" stroke="var(--coral)" stroke-width="11" stroke-linecap="round"/>
-          <ellipse cx="280" cy="96" rx="29" ry="19" transform="rotate(0 280 96)" fill="var(--coral)"/>
-          <circle cx="250" cy="126" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.4"/><circle cx="310" cy="126" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.4"/>
-          <circle cx="280" cy="176" r="31" fill="var(--paper)" stroke="var(--line)" stroke-width="3"/>
-          <path d="M280 161c2.6 0 4 1.4 5.4 3.8l9.4 16.6c1.8 3.4-.2 7.6-4.2 7.6H269.4c-4 0-6-4.2-4.2-7.6l9.4-16.6C276 162.4 277.4 161 280 161z" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.4" stroke-linejoin="round"/><rect x="273" y="179" width="14" height="10" rx="1.5" fill="var(--ink)"/>
-          <use href="#face-a" x="240" y="36" width="80" height="80"/>
-        </g>
-        <g class="seat" style="--i:1">
-          <path d="M428.8 178L398.4 177M442.7 202.2L428.4 229" stroke="var(--teal)" stroke-width="9" stroke-linecap="round"/>
-          <ellipse cx="437.2" cy="189.3" rx="23.8" ry="15.6" transform="rotate(60 437.2 189.3)" fill="var(--teal)"/>
-          <circle cx="398.4" cy="177" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.4"/><circle cx="428.4" cy="229" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.4"/>
-          <circle cx="370.1" cy="228" r="31" fill="var(--paper)" stroke="var(--line)" stroke-width="3"/>
-          <rect x="353.1" y="218" width="16" height="20" rx="4" fill="var(--yellow)"/><rect x="371.1" y="218" width="16" height="20" rx="4" fill="var(--yellow)"/><path d="M358.1 225h6M358.1 231h6M376.1 225h6M376.1 231h6" stroke="var(--yellow-soft)" stroke-width="2" stroke-linecap="round"/>
-          <use href="#face-c" x="415.7" y="146.6" width="65.6" height="65.6"/>
-        </g>
-        <g class="seat" style="--i:2">
-          <path d="M446.1 356.3L428.4 331M429.1 385.7L398.4 383" stroke="var(--yellow)" stroke-width="11" stroke-linecap="round"/>
-          <ellipse cx="439.3" cy="372" rx="29" ry="19" transform="rotate(120 439.3 372)" fill="var(--yellow)"/>
-          <circle cx="428.4" cy="331" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.4"/><circle cx="398.4" cy="383" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.4"/>
-          <circle cx="370.1" cy="332" r="31" fill="var(--paper)" stroke="var(--line)" stroke-width="3"/>
-          <circle cx="364.1" cy="335" r="10" fill="var(--coral)"/><circle cx="378.1" cy="330" r="9" fill="var(--coral)"/><path d="M364.1 325l2.5 3M364.1 325l-3 2.4M378.1 321l2.4 2.8M378.1 321l-2.8 2.2" stroke="var(--teal)" stroke-width="2.4" stroke-linecap="round"/>
-          <use href="#face-b" x="413.2" y="336" width="80" height="80"/>
-        </g>
-        <g class="seat" style="--i:3">
-          <path d="M293.9 459.8L310 434M266.1 459.8L250 434" stroke="var(--coral-deep)" stroke-width="9" stroke-linecap="round"/>
-          <ellipse cx="280" cy="461.5" rx="23.8" ry="15.6" transform="rotate(180 280 461.5)" fill="var(--coral-deep)"/>
-          <circle cx="310" cy="434" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.4"/><circle cx="250" cy="434" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.4"/>
-          <circle cx="280" cy="384" r="31" fill="var(--paper)" stroke="var(--line)" stroke-width="3"/>
-          <circle cx="273" cy="380" r="9" fill="var(--mint-deep)"/><circle cx="287" cy="379" r="8" fill="var(--teal)"/><circle cx="280" cy="391" r="9" fill="var(--mint-deep)"/><circle cx="289" cy="391" r="4.5" fill="var(--coral)"/>
-          <use href="#face-a" x="247.2" y="438.5" width="65.6" height="65.6"/>
-        </g>
-        <g class="seat" style="--i:4">
-          <path d="M130.9 385.7L161.6 383M113.9 356.3L131.6 331" stroke="var(--mint-deep)" stroke-width="11" stroke-linecap="round"/>
-          <ellipse cx="120.7" cy="372" rx="29" ry="19" transform="rotate(240 120.7 372)" fill="var(--mint-deep)"/>
-          <circle cx="161.6" cy="383" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.4"/><circle cx="131.6" cy="331" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.4"/>
-          <circle cx="189.9" cy="332" r="31" fill="var(--paper)" stroke="var(--line)" stroke-width="3"/>
-          <circle cx="189.9" cy="332" r="19" fill="var(--coral-deep)"/><circle cx="189.9" cy="332" r="14.5" fill="var(--yellow-soft)"/><rect x="182.9" y="326" width="6" height="6" rx="1" fill="var(--paper)"/><rect x="191.9" y="333" width="6" height="6" rx="1" fill="var(--paper)"/><path d="M181.9 338q3-3 6 0M192.9 324q3-3 6 0" stroke="var(--teal)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-          <use href="#face-c" x="66.8" y="336" width="80" height="80"/>
-        </g>
-        <g class="seat" style="--i:5">
-          <path d="M117.3 202.2L131.6 229M131.2 178L161.6 177" stroke="var(--yellow)" stroke-width="9" stroke-linecap="round"/>
-          <ellipse cx="122.8" cy="189.3" rx="23.8" ry="15.6" transform="rotate(300 122.8 189.3)" fill="var(--yellow)"/>
-          <circle cx="131.6" cy="229" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.4"/><circle cx="161.6" cy="177" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.4"/>
-          <circle cx="189.9" cy="228" r="31" fill="var(--paper)" stroke="var(--line)" stroke-width="3"/>
-          <circle cx="189.9" cy="228" r="19" fill="var(--paper)" stroke="var(--teal)" stroke-width="4"/><circle cx="189.9" cy="228" r="12" fill="var(--paper)" stroke="var(--line)" stroke-width="2"/><circle cx="189.9" cy="228" r="5" fill="var(--coral-deep)"/>
-          <use href="#face-b" x="78.7" y="146.6" width="65.6" height="65.6"/>
-        </g>
-      </svg>
+  <div class="hero-media">
+    <div class="hero-slides">
+      <figure class="hero-slide is-active"><img src="photos/hero-1.jpg" alt="こども食堂で、こどもと学生がいっしょに「いただきます」をする食卓" width="1920" height="1280" fetchpriority="high"></figure>
+      <figure class="hero-slide" aria-hidden="true"><img src="photos/hero-2.jpg" alt="こどもと遊ぶ学生メンバー" width="1920" height="1280" loading="lazy" decoding="async"></figure>
+      <figure class="hero-slide" aria-hidden="true"><img src="photos/hero-3.jpg" alt="こども食堂で調理と配膳を手伝う学生" width="1920" height="1280" loading="lazy" decoding="async"></figure>
+      <figure class="hero-slide" aria-hidden="true"><img src="photos/hero-4.jpg" alt="こどもの宿題をみる学生" width="1920" height="1280" loading="lazy" decoding="async"></figure>
+      <figure class="hero-slide" aria-hidden="true"><img src="photos/hero-5.jpg" alt="ちるーむのメンバーの集合写真" width="1920" height="1280" loading="lazy" decoding="async"></figure>
     </div>
-
-    <div class="hero-facts">
-      <h2 class="facts-title" id="facts-title">参加のめやす</h2>
-      <!-- 要確認: 参加費の扱いはサークルの実態に合わせて修正すること。活動の曜日・時間帯・1回の所要時間・主な活動エリアが決まっていれば、ここに行を足す（学生が授業や移動と両立できるか判断する材料になる） -->
-      <dl class="facts-list">
-        <div><dt>活動</dt><dd>月2回程度</dd></div>
-        <div><dt>場所</dt><dd>長崎県内の<span class="phrase">こども食堂</span></dd></div>
-        <div><dt>対象</dt><dd>学部・学年は問いません</dd></div>
-        <div><dt>参加費</dt><dd>かかりません</dd></div>
-      </dl>
+    <div class="hero-controls" role="group" aria-label="写真のスライドショー" hidden>
+      <button class="hero-toggle" type="button" aria-label="スライドショーを一時停止">
+        <svg class="ico ico-pause" aria-hidden="true" focusable="false"><use href="#i-pause"/></svg>
+        <svg class="ico ico-play" aria-hidden="true" focusable="false"><use href="#i-play"/></svg>
+      </button>
+      <div class="hero-dots">
+        <button class="hero-dot" type="button" aria-label="写真 1 を表示" aria-current="true"></button>
+        <button class="hero-dot" type="button" aria-label="写真 2 を表示"></button>
+        <button class="hero-dot" type="button" aria-label="写真 3 を表示"></button>
+        <button class="hero-dot" type="button" aria-label="写真 4 を表示"></button>
+        <button class="hero-dot" type="button" aria-label="写真 5 を表示"></button>
+      </div>
+    </div>
+  </div>
+  <div class="hero-panel">
+    <div class="hero-panel-inner">
+      <h1 class="hero-logo" id="hero-title"><img src="chiroom-logo.png" alt="ちるーむ" width="1200" height="467"></h1>
+      <p class="hero-copy">ごはんで繋がる、<span class="phrase">笑顔の輪</span></p>
+      <p class="hero-lead">ボランティアに関心のある大学生と、<span class="phrase">こども食堂</span>をつなぎ、遊びや食事の時間をともにしながら、地域とのつながりを広げるサポートをするサークルです。</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener"><svg class="ico ico-line" aria-hidden="true" focusable="false"><use href="#i-line"/></svg>LINEで気軽に相談する</a>
+        <a class="btn btn-outline" href="#activities">活動内容を見る</a>
+      </div>
+      <div class="hero-sub">
+        <p class="hero-partner"><a href="#partner">こども食堂・地域の方へ</a></p>
+        <p class="hero-affil"><img src="nagasaki-u.png" alt="" width="2363" height="827">長崎大学 認定サークル</p>
+      </div>
     </div>
   </div>
 </section>
+
 
 <!-- ===== お知らせ（新しい項目は先頭に追加。日付は <time datetime="YYYY-MM-DD"> で書く） ===== -->
 <section class="news" id="news" aria-labelledby="news-title">
@@ -934,37 +914,22 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 <!-- ===== わたしたちのこと ===== -->
 <section class="block about" id="about" aria-labelledby="about-title">
   <div class="container">
-    <div class="sec-head reveal">
-      <span class="stripe-mark" aria-hidden="true"></span>
-      <h2 id="about-title">わたしたちのこと</h2>
-      <p class="sec-lead">こども食堂と大学生をつなぎ、地域全体をつなぐ場をつくる。長崎で活動する学生サークルです。</p>
-    </div>
     <div class="about-grid">
+      <div class="sec-head reveal">
+        <span class="stripe-mark" aria-hidden="true"></span>
+        <h2 id="about-title">わたしたちのこと</h2>
+        <p class="sec-lead">こども食堂と大学生をつなぎ、地域全体をつなぐ場をつくる。長崎で活動する学生サークルです。</p>
+      </div>
+      <div class="about-media reveal">
+        <figure class="about-photo about-photo-main"><img src="photos/about-1.jpg" alt="こども食堂で活動するちるーむのメンバー" width="900" height="1200" loading="lazy" decoding="async"></figure>
+        <figure class="about-photo about-photo-sub"><img src="photos/about-2.jpg" alt="こども食堂の食卓" width="1200" height="900" loading="lazy" decoding="async"></figure>
+      </div>
       <div class="about-story reveal">
         <p>わたしたちはちゃいるどほーむ、略して「ちるーむ」という名前で、長崎県で活動しているサークルです。</p>
         <p>長崎県ではこども食堂が年々増え、子どもたちの居場所や地域の交流の場として大切な役割を担っています。しかし、ボランティアの人手不足や運営の負担が大きいといった課題もあります。また、参加したい気持ちはあってもきっかけがない大学生も少なくありません。</p>
         <p>私たち「ちるーむ」は、こども食堂と大学生をつなぎ、活動に参加して子供食堂をサポートし、ワークショップ等の企画・実施を通して地域全体をつなぐ場をつくることを目指して活動しています。</p>
-        <div class="name-note">
-          <h3>名前の由来</h3>
-          <p>「ちゃいるどほーむ（child home）」を縮めて「ちるーむ」。こどもにとっての、もうひとつの家のような場所でありたいという想いを込めています。</p>
-        </div>
+        <p class="about-name">「ちゃいるどほーむ（child home）」を縮めて「ちるーむ」。こどもにとっての、もうひとつの家のような場所でありたいという想いを込めています。</p>
       </div>
-      <aside class="profile reveal" aria-labelledby="profile-title">
-        <h3 id="profile-title">団体概要</h3>
-        <dl>
-          <div><dt>名称</dt><dd>ちゃいるどほーむ（略称: ちるーむ）</dd></div>
-          <div><dt>所属</dt><dd>長崎大学 認定サークル</dd></div>
-          <div><dt>活動地域</dt><dd>長崎県内の<span class="phrase">こども食堂</span></dd></div>
-          <div><dt>活動頻度</dt><dd>月2回程度の定期活動</dd></div>
-          <div><dt>連携先</dt><dd>こども食堂 2か所以上</dd></div>
-          <div><dt>連絡先</dt><dd><a href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">公式LINE</a> / <a href="mailto:childhome.nagasaki@gmail.com">メール</a></dd></div>
-        </dl>
-      </aside>
-    </div>
-
-    <div class="kodomo reveal">
-      <h3 class="sub-title">こども食堂って？</h3>
-      <p>こども食堂は、地域の人が中心になって運営する、こどもが無料または少ない負担でごはんを食べられる場所です。ひとりでも安心して来られる居場所であり、こどもから高齢の方まで集まる地域の交流の場にもなっています。</p>
     </div>
 
     <div class="bridge-wrap reveal">
@@ -991,7 +956,8 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
   </div>
 </section>
 
-<!-- ===== 活動内容 ===== -->
+<!-- ===== 活動内容 =====
+     写真は photos/act-1.jpg 〜 act-4.jpg（1200×900）。差し替えたら alt も書き直す。 -->
 <section class="block is-tinted activities" id="activities" aria-labelledby="activities-title">
   <div class="container">
     <div class="sec-head reveal">
@@ -999,24 +965,24 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
       <h2 id="activities-title">活動内容</h2>
       <p class="sec-lead">こどもと、食堂と、地域と。ちるーむでできる4つのこと。</p>
     </div>
-    <ul class="acts reveal">
-      <li class="act">
-        <span class="act-plate is-coral" aria-hidden="true"><svg class="ico" focusable="false"><use href="#i-cloche"/></svg></span>
+    <ul class="acts">
+      <li class="act reveal">
+        <figure class="act-photo"><img src="photos/act-1.jpg" alt="調理や配膳を手伝う学生" width="1200" height="900" loading="lazy" decoding="async"></figure>
         <h3>こども食堂のお手伝い</h3>
         <p>食事の準備や配膳など、スタッフの方々を学生のチカラで支援します。</p>
       </li>
-      <li class="act">
-        <span class="act-plate is-yellow" aria-hidden="true"><svg class="ico" focusable="false"><use href="#i-smile"/></svg></span>
+      <li class="act reveal">
+        <figure class="act-photo"><img src="photos/act-2.jpg" alt="こどもと遊ぶ学生" width="1200" height="900" loading="lazy" decoding="async"></figure>
         <h3>こどもとのふれあい</h3>
         <p>自由時間には、子供たちと一緒に遊んだり勉強をみたりして子どもたちと交流を深めます。</p>
       </li>
-      <li class="act">
-        <span class="act-plate is-mint" aria-hidden="true"><svg class="ico" focusable="false"><use href="#i-calendar"/></svg></span>
+      <li class="act reveal">
+        <figure class="act-photo"><img src="photos/act-3.jpg" alt="こども向けのイベントのようす" width="1200" height="900" loading="lazy" decoding="async"></figure>
         <h3>イベント企画</h3>
         <p>季節のお楽しみや、こどもが笑顔になれる企画をみんなで考えます。</p>
       </li>
-      <li class="act">
-        <span class="act-plate is-sky" aria-hidden="true"><svg class="ico" focusable="false"><use href="#i-group"/></svg></span>
+      <li class="act reveal">
+        <figure class="act-photo"><img src="photos/act-4.jpg" alt="食堂のスタッフや地域の方と話す学生" width="1200" height="900" loading="lazy" decoding="async"></figure>
         <h3>地域との繋がり</h3>
         <p>こども食堂のスタッフや地域の方、大学・学年を超えた仲間と出会い、活動の振り返りを共有しながら地域とのつながりを広げます。</p>
       </li>
@@ -1025,7 +991,8 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 </section>
 
 <!-- ===== ある日の活動 =====
-     要確認: 当日の流れはサークルの実態に合わせて修正すること（時刻は書かない） -->
+     要確認: 当日の流れはサークルの実態に合わせて修正すること（時刻は書かない）
+     写真は photos/day-1.jpg 〜 day-6.jpg（1200×900）。各ステップの写真と、PC で右に出る写真（.day-stage）は同じファイル。 -->
 <section class="block day" id="day" aria-labelledby="day-title">
   <div class="container">
     <div class="sec-head reveal">
@@ -1033,38 +1000,69 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
       <h2 id="day-title">ある日の活動</h2>
       <p class="sec-lead">こども食堂での1日の流れの一例です。食堂によって内容や時間は変わります。</p>
     </div>
-    <ol class="day-list reveal">
-      <li class="day-step">
-        <span class="day-num" aria-hidden="true">1</span>
-        <h3>集合・打ち合わせ</h3>
-        <p>食堂に集合して、スタッフの方とその日の役割や注意点を確認します。</p>
-      </li>
-      <li class="day-step">
-        <span class="day-num" aria-hidden="true">2</span>
-        <h3>準備</h3>
-        <p>手洗いと身支度をすませて、調理の補助や会場づくり、配膳の準備をします。</p>
-      </li>
-      <li class="day-step is-main">
-        <span class="day-num" aria-hidden="true">3</span>
-        <h3>いただきます</h3>
-        <p>こどもたちを迎えて、配膳をしたり、同じテーブルで話したりしながら食事の時間を過ごします。</p>
-      </li>
-      <li class="day-step">
-        <span class="day-num" aria-hidden="true">4</span>
-        <h3>あそび・勉強の時間</h3>
-        <p>食後は、こどもたちと一緒に遊んだり、宿題をみたりします。</p>
-      </li>
-      <li class="day-step">
-        <span class="day-num" aria-hidden="true">5</span>
-        <h3>片付け</h3>
-        <p>食器洗いや掃除をして、会場を元に戻します。</p>
-      </li>
-      <li class="day-step">
-        <span class="day-num" aria-hidden="true">6</span>
-        <h3>ふりかえり</h3>
-        <p>メンバーで気づいたことを共有し、次の活動に生かします。</p>
-      </li>
-    </ol>
+    <div class="day-layout">
+      <ol class="day-steps">
+        <li class="day-step reveal is-active">
+          <figure class="day-photo"><img src="photos/day-1.jpg" alt="食堂のスタッフの方と打ち合わせをする学生" width="1200" height="900" loading="lazy" decoding="async"></figure>
+          <span class="day-num" aria-hidden="true">1</span>
+          <div class="day-text">
+            <h3>集合・打ち合わせ</h3>
+            <p>食堂に集合して、スタッフの方とその日の役割や注意点を確認します。</p>
+          </div>
+        </li>
+        <li class="day-step reveal">
+          <figure class="day-photo"><img src="photos/day-2.jpg" alt="調理の補助と会場の準備" width="1200" height="900" loading="lazy" decoding="async"></figure>
+          <span class="day-num" aria-hidden="true">2</span>
+          <div class="day-text">
+            <h3>準備</h3>
+            <p>手洗いと身支度をすませて、調理の補助や会場づくり、配膳の準備をします。</p>
+          </div>
+        </li>
+        <li class="day-step reveal">
+          <figure class="day-photo"><img src="photos/day-3.jpg" alt="こどもと学生がいっしょに囲む食卓" width="1200" height="900" loading="lazy" decoding="async"></figure>
+          <span class="day-num" aria-hidden="true">3</span>
+          <div class="day-text">
+            <h3>いただきます</h3>
+            <p>こどもたちを迎えて、配膳をしたり、同じテーブルで話したりしながら食事の時間を過ごします。</p>
+          </div>
+        </li>
+        <li class="day-step reveal">
+          <figure class="day-photo"><img src="photos/day-4.jpg" alt="食後にこどもと遊ぶ学生" width="1200" height="900" loading="lazy" decoding="async"></figure>
+          <span class="day-num" aria-hidden="true">4</span>
+          <div class="day-text">
+            <h3>あそび・勉強の時間</h3>
+            <p>食後は、こどもたちと一緒に遊んだり、宿題をみたりします。</p>
+          </div>
+        </li>
+        <li class="day-step reveal">
+          <figure class="day-photo"><img src="photos/day-5.jpg" alt="食器を洗って片付ける学生" width="1200" height="900" loading="lazy" decoding="async"></figure>
+          <span class="day-num" aria-hidden="true">5</span>
+          <div class="day-text">
+            <h3>片付け</h3>
+            <p>食器洗いや掃除をして、会場を元に戻します。</p>
+          </div>
+        </li>
+        <li class="day-step reveal">
+          <figure class="day-photo"><img src="photos/day-6.jpg" alt="活動後にふりかえりをするメンバー" width="1200" height="900" loading="lazy" decoding="async"></figure>
+          <span class="day-num" aria-hidden="true">6</span>
+          <div class="day-text">
+            <h3>ふりかえり</h3>
+            <p>メンバーで気づいたことを共有し、次の活動に生かします。</p>
+          </div>
+        </li>
+      </ol>
+      <div class="day-stage" aria-hidden="true">
+        <div class="day-stage-frame">
+          <img class="is-active" src="photos/day-1.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
+          <img src="photos/day-2.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
+          <img src="photos/day-3.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
+          <img src="photos/day-4.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
+          <img src="photos/day-5.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
+          <img src="photos/day-6.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
+        </div>
+        <p class="day-stage-cap"><span class="day-stage-num">1</span><span class="day-stage-title">集合・打ち合わせ</span></p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1165,47 +1163,25 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 </section>
 
 <!-- ===== 活動の様子 =====
-     写真を載せるときは、各 <figure> の中の <div class="photo-pending">…</div> を
-     <img src="photos/xxx.jpg" alt="写真の説明" loading="lazy"> に置き換える。figcaption は短い説明文。
-     .photo-pending が1つでも残っている間は、枠を小さく並べる（CSS の :has で自動判定）。
-     こどもの顔や名前がわかる写真は、食堂の許可なく載せない。 -->
+     写真は photos/gallery-1.jpg 〜 gallery-8.jpg。同じ名前で上書きすれば差し替わる。
+     1 と 3 は縦長（900×1200）、ほかは横長（1200×900）。差し替えたら alt を写真の内容に書き直す。 -->
 <section class="block is-tinted gallery" id="gallery" aria-labelledby="gallery-title">
   <div class="container">
     <div class="sec-head reveal">
       <span class="stripe-mark" aria-hidden="true"></span>
       <h2 id="gallery-title">活動の様子</h2>
-      <p class="sec-lead">こども食堂での活動の様子を紹介します。写真は準備ができしだい掲載します。</p>
+      <p class="sec-lead">こども食堂での活動の様子を紹介します。</p>
     </div>
-    <div class="gallery-grid reveal">
-      <figure class="shot shot-a">
-        <div class="photo-pending is-coral" role="img" aria-label="写真準備中">
-          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-camera"/></svg>
-          <span>写真準備中</span>
-        </div>
-        <figcaption>こども食堂でのごはんの時間</figcaption>
-      </figure>
-      <figure class="shot shot-b">
-        <div class="photo-pending is-yellow" role="img" aria-label="写真準備中">
-          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-camera"/></svg>
-          <span>写真準備中</span>
-        </div>
-        <figcaption>調理のお手伝い</figcaption>
-      </figure>
-      <figure class="shot shot-c">
-        <div class="photo-pending is-mint" role="img" aria-label="写真準備中">
-          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-camera"/></svg>
-          <span>写真準備中</span>
-        </div>
-        <figcaption>こどもとあそぶ時間</figcaption>
-      </figure>
-      <figure class="shot shot-d">
-        <div class="photo-pending is-sky" role="img" aria-label="写真準備中">
-          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-camera"/></svg>
-          <span>写真準備中</span>
-        </div>
-        <figcaption>活動後の振り返り</figcaption>
-      </figure>
-    </div>
+    <ul class="gallery-grid reveal">
+      <li class="g g1"><img src="photos/gallery-1.jpg" alt="こども食堂でのごはんの時間" width="900" height="1200" loading="lazy" decoding="async"></li>
+      <li class="g g2"><img src="photos/gallery-2.jpg" alt="調理のお手伝い" width="1200" height="900" loading="lazy" decoding="async"></li>
+      <li class="g g3"><img src="photos/gallery-3.jpg" alt="こどもと遊ぶ時間" width="900" height="1200" loading="lazy" decoding="async"></li>
+      <li class="g g4"><img src="photos/gallery-4.jpg" alt="会場の準備" width="1200" height="900" loading="lazy" decoding="async"></li>
+      <li class="g g5"><img src="photos/gallery-5.jpg" alt="季節のイベント" width="1200" height="900" loading="lazy" decoding="async"></li>
+      <li class="g g6"><img src="photos/gallery-6.jpg" alt="メンバーの集合写真" width="1200" height="900" loading="lazy" decoding="async"></li>
+      <li class="g g7"><img src="photos/gallery-7.jpg" alt="盛りつけと配膳" width="1200" height="900" loading="lazy" decoding="async"></li>
+      <li class="g g8"><img src="photos/gallery-8.jpg" alt="活動後のふりかえり" width="1200" height="900" loading="lazy" decoding="async"></li>
+    </ul>
     <div class="gallery-foot reveal">
       <div>
         <p>最新の活動報告は Instagram で発信しています。</p>
@@ -1219,6 +1195,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
     </div>
   </div>
 </section>
+
 
 <!-- ===== よくある質問 ===== -->
 <section class="block faq" id="faq" aria-labelledby="faq-title">
@@ -1237,6 +1214,12 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
     <div class="faq-groups">
       <div class="faq-group reveal">
         <h3 class="faq-group-title">学生の方から</h3>
+        <details class="faq-item">
+          <summary>こども食堂って、どんな場所ですか？<span class="plus" aria-hidden="true"></span></summary>
+          <div class="faq-body">
+            <p>こども食堂は、地域の人が中心になって運営する、こどもが無料または少ない負担でごはんを食べられる場所です。ひとりでも安心して来られる居場所であり、こどもから高齢の方まで集まる地域の交流の場にもなっています。</p>
+          </div>
+        </details>
         <details class="faq-item">
           <summary>ボランティアははじめてです。参加できますか？<span class="plus" aria-hidden="true"></span></summary>
           <div class="faq-body">
@@ -1319,6 +1302,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
     </div>
     <div class="join-grid">
       <div class="wanted reveal">
+        <figure class="join-photo"><img src="photos/join.jpg" alt="ちるーむのメンバーの集合写真" width="1600" height="1000" loading="lazy" decoding="async"></figure>
         <h3>こんな人を待っています</h3>
         <ul class="check-list">
           <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>こどもと関わることに興味がある人</li>
@@ -1385,6 +1369,25 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
         </ol>
       </div>
     </section>
+  </div>
+</section>
+
+<!-- ===== 団体概要 ===== -->
+<section class="block profile" id="profile" aria-labelledby="profile-title">
+  <div class="container profile-grid">
+    <div class="sec-head reveal">
+      <span class="stripe-mark" aria-hidden="true"></span>
+      <h2 id="profile-title">団体概要</h2>
+    </div>
+    <!-- 要確認: 活動頻度・連携先はサークルの実態に合わせて修正すること -->
+    <dl class="profile-list reveal">
+      <div><dt>名称</dt><dd>ちゃいるどほーむ（略称: ちるーむ）</dd></div>
+      <div><dt>所属</dt><dd>長崎大学 認定サークル</dd></div>
+      <div><dt>活動地域</dt><dd>長崎県内の<span class="phrase">こども食堂</span></dd></div>
+      <div><dt>活動頻度</dt><dd>月2回程度の定期活動</dd></div>
+      <div><dt>連携先</dt><dd>こども食堂 2か所以上</dd></div>
+      <div><dt>連絡先</dt><dd><a href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">公式LINE</a> / <a href="mailto:childhome.nagasaki@gmail.com">メール</a></dd></div>
+    </dl>
   </div>
 </section>
 
@@ -1462,6 +1465,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
           <li><a href="#faq">よくある質問</a></li>
           <li><a href="#join">参加する</a></li>
           <li><a href="#partner">こども食堂・地域の方へ</a></li>
+          <li><a href="#profile">団体概要</a></li>
           <li><a href="#connect">SNS</a></li>
         </ul>
       </nav>
@@ -1567,6 +1571,118 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
     }
     new IntersectionObserver(function (entries) { heroVisible = entries[0].isIntersecting; updateSticky(); }, { threshold: 0.15 }).observe(hero);
     new IntersectionObserver(function (entries) { joinVisible = entries[0].isIntersecting; updateSticky(); }, { threshold: 0.05 }).observe(join);
+  }
+
+  /* ヒーローのスライドショー
+     6 秒ごとに写真を切り替える。止まる条件: 一時停止ボタン（is-stopped）/ ヒーローが画面外 / タブが裏にある。
+     動きを減らす設定の人には、止まった状態で始める（ボタンで再生はできる） */
+  var slides = hero.querySelectorAll('.hero-slide');
+  var controls = hero.querySelector('.hero-controls');
+  if (slides.length > 1 && controls) {
+    var dots = controls.querySelectorAll('.hero-dot');
+    var heroToggle = controls.querySelector('.hero-toggle');
+    var INTERVAL = 6000;
+    var current = 0, timer = null, startedAt = 0, remaining = INTERVAL;
+    var userStopped = reduceMotion, offscreen = false;
+    hero.style.setProperty('--hero-interval', INTERVAL / 1000 + 's');
+
+    function showSlide(n) {
+      if (n === current) return;
+      var prev = slides[current];
+      prev.classList.remove('is-active');
+      prev.classList.add('is-leaving');
+      prev.setAttribute('aria-hidden', 'true');
+      setTimeout(function () { prev.classList.remove('is-leaving'); }, 1200);
+      slides[n].classList.add('is-active');
+      slides[n].removeAttribute('aria-hidden');
+      dots[current].removeAttribute('aria-current');
+      dots[n].setAttribute('aria-current', 'true');
+      current = n;
+    }
+    function schedule(ms) {
+      clearTimeout(timer);
+      startedAt = Date.now();
+      remaining = ms;
+      timer = setTimeout(function () { showSlide((current + 1) % slides.length); schedule(INTERVAL); }, ms);
+    }
+    function updateSlideshow() {
+      var run = !userStopped && !offscreen && !document.hidden;
+      hero.classList.toggle('is-paused', !run);
+      hero.classList.toggle('is-stopped', userStopped);
+      if (run && !timer) {
+        schedule(remaining);
+      } else if (!run && timer) {
+        clearTimeout(timer);
+        timer = null;
+        remaining = Math.max(0, remaining - (Date.now() - startedAt));
+      }
+    }
+    function setToggleLabel() {
+      heroToggle.setAttribute('aria-label', userStopped ? 'スライドショーを再生' : 'スライドショーを一時停止');
+    }
+
+    heroToggle.addEventListener('click', function () {
+      userStopped = !userStopped;
+      // 再生し直すと進み具合のバーが最初から満ちなおすので、時間も最初から数える
+      if (!userStopped) remaining = INTERVAL;
+      setToggleLabel();
+      updateSlideshow();
+    });
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () {
+        if (i === current) return;
+        showSlide(i);
+        remaining = INTERVAL;
+        if (timer) schedule(INTERVAL);
+      });
+    });
+    document.addEventListener('visibilitychange', updateSlideshow);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        offscreen = !entries[0].isIntersecting;
+        updateSlideshow();
+      }).observe(hero);
+    }
+    controls.hidden = false;
+    setToggleLabel();
+    updateSlideshow();
+  }
+
+  /* ある日の活動: 画面の真ん中にきた手順を強調する。PC では右の写真と見出しも切り替える */
+  var dayList = document.querySelector('.day-steps');
+  if (dayList && 'IntersectionObserver' in window) {
+    var daySteps = dayList.querySelectorAll('.day-step');
+    var stageImgs = document.querySelectorAll('.day-stage-frame img');
+    var stageNum = document.querySelector('.day-stage-num');
+    var stageTitle = document.querySelector('.day-stage-title');
+    var dayCurrent = 0;
+
+    // 番号をつなぐ線を、いまの手順の番号まで伸ばす
+    function updateDayLine() {
+      var num = daySteps[dayCurrent].querySelector('.day-num');
+      var r = num.getBoundingClientRect();
+      var top = dayList.getBoundingClientRect().top;
+      dayList.style.setProperty('--day-line', Math.max(0, r.top + r.height / 2 - top - 20) + 'px');
+    }
+    function setDay(n) {
+      dayCurrent = n;
+      daySteps.forEach(function (step, i) {
+        step.classList.toggle('is-active', i === n);
+        step.classList.toggle('is-done', i < n);
+      });
+      stageImgs.forEach(function (img, i) { img.classList.toggle('is-active', i === n); });
+      if (stageNum) stageNum.textContent = daySteps[n].querySelector('.day-num').textContent;
+      if (stageTitle) stageTitle.textContent = daySteps[n].querySelector('h3').textContent;
+      updateDayLine();
+    }
+    var dayIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) setDay(Array.prototype.indexOf.call(daySteps, entry.target));
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    daySteps.forEach(function (step) { dayIO.observe(step); });
+    window.addEventListener('resize', updateDayLine, { passive: true });
+    window.addEventListener('load', updateDayLine);
   }
 
   /* 著作権表示の年 */
