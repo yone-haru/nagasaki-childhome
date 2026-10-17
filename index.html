@@ -158,7 +158,7 @@ p a:hover, dd a:hover { text-decoration-thickness: 2px; }
 }
 
 /* ---------- セクション共通 ---------- */
-section.block { padding-block: clamp(72px, 9vw, 120px); }
+section.block { padding-block: clamp(60px, 9vw, 120px); }
 .is-tinted { background: var(--mint-soft); }
 .sec-head { max-width: 40em; margin-bottom: clamp(36px, 5vw, 56px); }
 .sec-head h2 {
@@ -245,10 +245,16 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
     -webkit-backdrop-filter: saturate(1.4) blur(14px); backdrop-filter: saturate(1.4) blur(14px);
   }
 }
+/* 食堂・地域の方向けの #partner は、6項目が入る 1080px から出す */
+.site-nav .nav-partner { display: none; }
 @media (min-width: 1080px) {
   .site-nav ul { gap: 2px; }
-  .site-nav a { padding: 8px 14px; font-size: 15px; }
+  .site-nav a { padding: 8px 10px; font-size: 15px; }
+  .site-nav .nav-partner { display: block; }
   .site-header .container { gap: 20px; }
+}
+@media (min-width: 1240px) {
+  .site-nav a { padding-inline: 14px; }
 }
 
 /* ---------- モバイルメニュー ---------- */
@@ -278,7 +284,8 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
    写真は photos/hero-1.jpg 〜 hero-5.jpg（1920×1280）。JS が 6 秒ごとに .is-active を回す。
    スマホ: 写真の下に白いパネルが重なる / 900px〜: 写真が全面、パネルは左下 */
 .hero { position: relative; display: grid; background: var(--brand-sky); overflow: hidden; }
-.hero-media { position: relative; height: max(360px, 62svh); }
+/* スマホは写真を低めにして、1画面目に LINE ボタンまで入るようにする */
+.hero-media { position: relative; height: max(280px, 36svh); }
 .hero-slides { position: absolute; inset: 0; background: var(--mint); }
 /* ヘッダーの上だけ少し暗くして、ハンバーガーやナビを写真の上でも見やすくする */
 .hero-media::after {
@@ -310,8 +317,9 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 .hero-toggle .ico { width: 18px; height: 18px; }
 .hero-toggle .ico-play, .hero.is-stopped .hero-toggle .ico-pause { display: none; }
 .hero.is-stopped .hero-toggle .ico-play { display: block; }
+/* 点のボタンは幅固定。表示中のバーは枠の中だけで伸びるので、操作部の幅は変わらない */
 .hero-dots { display: flex; }
-.hero-dot { position: relative; width: 24px; height: 44px; border: 0; background: transparent; cursor: pointer; transition: width .3s var(--ease-out); }
+.hero-dot { position: relative; width: 32px; height: 44px; border: 0; background: transparent; cursor: pointer; }
 .hero-dot::before, .hero-dot::after {
   content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px;
   border-radius: 999px; background: var(--charcoal-soft);
@@ -320,8 +328,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 .hero-dot::after { display: none; }
 .hero-dot:hover::before { background: var(--ink); }
 /* 表示中の写真: 横長のバーが、次の写真までの時間で満ちていく */
-.hero-dot[aria-current="true"] { width: 44px; }
-.hero-dot[aria-current="true"]::before, .hero-dot[aria-current="true"]::after { width: 28px; margin-left: -14px; }
+.hero-dot[aria-current="true"]::before, .hero-dot[aria-current="true"]::after { width: 24px; margin-left: -12px; }
 .hero-dot[aria-current="true"]::before { background: var(--ink-14); }
 .hero-dot[aria-current="true"]::after {
   display: block; background: var(--ink); transform-origin: left center;
@@ -335,17 +342,25 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
   position: relative; z-index: 3; margin-top: -32px;
   background: var(--paper); border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
-.hero-panel-inner { width: min(100% - 40px, 1120px); margin-inline: auto; padding: 32px 0 44px; }
+.hero-panel-inner { width: min(100% - 40px, 1120px); margin-inline: auto; padding: 24px 0 36px; }
 .hero-logo { line-height: 0; }
-.hero-logo img { width: min(100%, 240px); }
+.hero-logo img { width: min(100%, 190px); }
 .hero-copy {
-  margin-top: 16px;
+  margin-top: 12px;
   font-family: var(--font-head); font-weight: 900; color: var(--ink);
   font-size: clamp(24px, 3vw, 34px); line-height: 1.4; letter-spacing: .04em;
 }
 .hero-lead { margin-top: 12px; max-width: 30em; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
 .hero-actions .btn { flex: 1 1 100%; }
+/* 参加を決める前に知りたいこと（サイト内の記述から抜き出したもの） */
+.hero-facts {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 12px;
+  margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line);
+  font-size: 14px; font-weight: 700; line-height: 1.5; color: var(--ink);
+}
+.hero-facts li { display: flex; align-items: flex-start; gap: 6px; }
+.hero-facts .ico { width: 16px; height: 16px; margin-top: 2px; color: var(--teal-text); stroke-width: 2.6; }
 .hero-sub { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 24px; margin-top: 16px; }
 .hero-partner { font-size: 15px; font-weight: 700; }
 .hero-partner a { display: inline-block; padding-block: 8px; color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .3em; }
@@ -356,7 +371,9 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 @media (min-width: 640px) {
   .hero-media { height: max(420px, 58svh); }
   .hero-actions .btn { flex: 0 1 auto; }
-  .hero-logo img { width: min(100%, 280px); }
+  .hero-logo img { width: min(100%, 260px); }
+  .hero-copy { margin-top: 16px; }
+  .hero-panel-inner { padding: 32px 0 44px; }
   .hero-controls { right: 24px; }
 }
 @media (min-width: 900px) {
@@ -417,14 +434,11 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 .bridge-arrow { width: 22px; height: 22px; margin-left: 15px; color: var(--teal); transform: rotate(90deg); stroke-width: 2.2; }
 .bridge-answer { font-weight: 700; color: var(--ink); }
 
+/* 900〜1079px は2列にすると本文の列が狭すぎるので、1列のまま写真を横に広げる */
 @media (min-width: 900px) {
-  .about-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-areas: "head media" "body media";
-    grid-template-rows: auto 1fr; column-gap: 72px; row-gap: 32px;
-  }
-  .about-media { align-self: start; padding-bottom: 72px; }
-  .about-photo-sub { width: 56%; left: -40px; }
+  .about-media { width: min(100%, 720px); margin-inline: auto; padding-bottom: 72px; }
+  .about-photo-main { width: 70%; aspect-ratio: 4 / 3; }
+  .about-story { max-width: 40em; }
   .bridge-head, .bridge li { grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr); }
   .bridge-head { display: grid; padding-bottom: 10px; font-size: 13px; font-weight: 700; color: var(--charcoal-soft); }
   .bridge-head span:last-child { grid-column: 3; }
@@ -432,7 +446,14 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
   .bridge-arrow { margin: 0 auto; transform: none; }
 }
 @media (min-width: 1080px) {
-  .about-grid { column-gap: 96px; }
+  .about-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: "head media" "body media";
+    grid-template-rows: auto 1fr; column-gap: 96px; row-gap: 32px;
+  }
+  .about-media { width: auto; margin-inline: 0; align-self: start; }
+  .about-photo-main { width: 76%; aspect-ratio: 3 / 4; }
+  .about-photo-sub { width: 56%; left: -40px; }
 }
 
 /* ---------- 活動内容 ----------
@@ -447,11 +468,12 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
   .acts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px 28px; }
 }
 @media (min-width: 900px) {
-  .acts { column-gap: 64px; row-gap: 64px; padding-bottom: 112px; }
-  .act:nth-child(even) { translate: 0 112px; }
+  .acts { column-gap: 56px; row-gap: 56px; }
 }
+/* 上下のずらしは、列に余裕がある 1080px から */
 @media (min-width: 1080px) {
-  .acts { column-gap: 96px; }
+  .acts { column-gap: 96px; row-gap: 64px; padding-bottom: 112px; }
+  .act:nth-child(even) { translate: 0 112px; }
 }
 
 /* ---------- ある日の活動 ----------
@@ -466,6 +488,8 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 .day-step { position: relative; display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: 16px; }
 .day-photo { grid-column: 2; grid-row: 1; margin-bottom: 16px; aspect-ratio: 4 / 3; border-radius: var(--radius-md); overflow: hidden; background: var(--mint); }
 .day-photo img { width: 100%; height: 100%; object-fit: cover; }
+/* スマホでは写真を1つおきにして、手順の文字を追いやすくする */
+.day-step:nth-child(even) .day-photo { display: none; }
 .day-num {
   grid-column: 1; grid-row: 2; position: relative; z-index: 1;
   width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
@@ -558,12 +582,15 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 .g img { width: 100%; height: 100%; object-fit: cover; }
 .g1, .g3 { grid-row: span 2; }
 .g2, .g6 { grid-column: span 2; }
+/* スマホは 6 枚まで（7・8 枚目は 640px から） */
+.g7, .g8 { display: none; }
 .gallery-foot { display: grid; gap: 18px; margin-top: 36px; }
 .gallery-foot p { font-size: 15px; }
 .gallery-foot .photo-policy { margin-top: 4px; font-size: 14px; color: var(--charcoal-soft); }
 .gallery-foot .btn { justify-self: start; }
 @media (min-width: 640px) {
   .gallery-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 170px; gap: 14px; }
+  .g7, .g8 { display: block; }
 }
 @media (min-width: 900px) {
   .gallery-grid { grid-auto-rows: 210px; gap: 16px; }
@@ -636,7 +663,8 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 .channel.is-mail .channel-icon { background: var(--yellow-soft); }
 .channel-text { flex: 1; min-width: 0; display: grid; }
 .channel-name { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-family: var(--font-head); font-weight: 700; font-size: 17px; line-height: 1.5; }
-.channel-id { font-size: 14px; color: var(--charcoal-soft); overflow-wrap: anywhere; line-height: 1.6; }
+/* メールアドレスは @ の前（<wbr>）でだけ折る。anywhere だと1文字ずつ割れる */
+.channel-id { font-size: 14px; color: var(--charcoal-soft); word-break: keep-all; overflow-wrap: break-word; line-height: 1.6; }
 .tag { padding: 1px 10px; border-radius: 999px; background: var(--yellow); font-family: var(--font-body); font-size: 12px; font-weight: 700; line-height: 1.7; color: var(--ink); }
 .channel-chev { width: 20px; height: 20px; color: var(--charcoal-soft); stroke-width: 2.2; }
 .channel-note { margin-top: 4px; font-size: 14px; color: var(--charcoal); word-break: auto-phrase; }
@@ -652,7 +680,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 .partner-list li { position: relative; padding-left: 20px; font-weight: 700; color: var(--ink); line-height: 1.7; }
 .partner-list li::before { content: ""; position: absolute; left: 2px; top: .66em; width: 9px; height: 9px; border-radius: 50%; background: var(--coral); }
 .partner-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 24px; }
-.mail-text { font-size: 14px; color: var(--charcoal-soft); overflow-wrap: anywhere; }
+.mail-text { font-size: 14px; color: var(--charcoal-soft); word-break: keep-all; overflow-wrap: break-word; }
 .consult { padding: 24px; border-radius: var(--radius-md); background: var(--mint-soft); }
 .consult h3 { font-size: 17px; font-weight: 700; }
 .consult ol { display: grid; gap: 14px; margin-top: 14px; }
@@ -801,9 +829,10 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
       <ul>
         <li><a href="#about">わたしたちのこと</a></li>
         <li><a href="#activities">活動内容</a></li>
-        <li><a href="#day">ある日の活動</a></li>
         <li><a href="#flow">参加の流れ</a></li>
+        <li><a href="#day">ある日の活動</a></li>
         <li><a href="#faq">よくある質問</a></li>
+        <li class="nav-partner"><a href="#partner">食堂・地域の方へ</a></li>
       </ul>
     </nav>
     <a class="btn btn-primary btn-sm header-cta" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">
@@ -819,15 +848,15 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 <!-- ===== モバイルメニュー（ナビを変えたらヘッダー・フッターも同じように直す） ===== -->
 <nav class="mobile-menu" id="mobile-menu" aria-label="メニュー">
   <ul>
-    <li><a class="menu-link" href="#about">わたしたちのこと<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
-    <li><a class="menu-link" href="#activities">活動内容<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
-    <li><a class="menu-link" href="#day">ある日の活動<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
-    <li><a class="menu-link" href="#promise">大切にしていること<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
-    <li><a class="menu-link" href="#flow">参加までの流れ<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
-    <li><a class="menu-link" href="#gallery">活動の様子<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
-    <li><a class="menu-link" href="#faq">よくある質問<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
     <li><a class="menu-link" href="#join">参加する<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
     <li><a class="menu-link" href="#partner">こども食堂・地域の方へ<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
+    <li><a class="menu-link" href="#about">わたしたちのこと<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
+    <li><a class="menu-link" href="#activities">活動内容<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
+    <li><a class="menu-link" href="#flow">参加までの流れ<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
+    <li><a class="menu-link" href="#day">ある日の活動<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
+    <li><a class="menu-link" href="#promise">大切にしていること<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
+    <li><a class="menu-link" href="#gallery">活動の様子<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
+    <li><a class="menu-link" href="#faq">よくある質問<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
     <li><a class="menu-link" href="#profile">団体概要<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
   </ul>
   <div class="menu-cta">
@@ -885,6 +914,13 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
         <a class="btn btn-primary" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener"><svg class="ico ico-line" aria-hidden="true" focusable="false"><use href="#i-line"/></svg>LINEで気軽に相談する</a>
         <a class="btn btn-outline" href="#activities">活動内容を見る</a>
       </div>
+      <!-- 要確認: 活動頻度・参加費は FAQ と団体概要の記述と同じ。サークルの実態が変わったら3か所とも直すこと -->
+      <ul class="hero-facts" aria-label="参加について">
+        <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>活動は月2回程度</li>
+        <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>参加できる日だけでOK</li>
+        <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>参加費はかかりません</li>
+        <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>学部・学年は問いません</li>
+      </ul>
       <div class="hero-sub">
         <p class="hero-partner"><a href="#partner">こども食堂・地域の方へ</a></p>
         <p class="hero-affil"><img src="nagasaki-u.png" alt="" width="2363" height="827">長崎大学 認定サークル</p>
@@ -990,15 +1026,78 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
   </div>
 </section>
 
+<!-- ===== 参加までの流れ ===== -->
+<section class="block flow" id="flow" aria-labelledby="flow-title">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="stripe-mark" aria-hidden="true"></span>
+      <h2 id="flow-title">参加までの流れ</h2>
+      <p class="sec-lead">気になったら、まずは連絡するだけ。3つのステップで活動に参加できます。</p>
+    </div>
+    <div class="flow-grid">
+      <ol class="steps reveal">
+        <li class="step">
+          <span class="step-num" aria-hidden="true">1</span>
+          <div>
+            <h3>LINEで連絡する</h3>
+            <p>公式LINEを友だち追加して、「参加してみたい」「話を聞きたい」と送ってください。質問だけでも歓迎です。</p>
+            <p class="step-note"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-heart"/></svg>返信はメンバーが順番に行います。</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">2</span>
+          <div>
+            <h3>見学・体験に行く</h3>
+            <p>日程を相談して、まずは1回、メンバーと一緒にこども食堂へ。集合場所や持ち物は事前にお知らせします。</p>
+            <p class="step-note"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-heart"/></svg>はじめての日は、先輩メンバーがずっと一緒です。</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">3</span>
+          <div>
+            <h3>メンバーとして活動する</h3>
+            <p>都合の合う日に参加しながら、お手伝い、こどもとのふれあい、イベント企画に関わっていきます。</p>
+            <p class="step-note"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-heart"/></svg>学部・学年は問いません。</p>
+          </div>
+        </li>
+      </ol>
+      <div class="flow-side">
+        <aside class="line-card reveal" aria-labelledby="flow-aside-title">
+          <h3 id="flow-aside-title">まずは話を聞くだけでも</h3>
+          <p>「続けられるか不安」「どんな雰囲気か知りたい」という段階でも大丈夫です。公式LINEでお気軽にどうぞ。</p>
+          <a class="btn btn-primary" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">
+            <svg class="ico ico-line" aria-hidden="true" focusable="false"><use href="#i-line"/></svg>
+            LINEで友だち追加
+          </a>
+          <p class="line-id">LINE ID: @990qouib</p>
+        </aside>
+        <!-- 要確認: 持ち物・服装はサークルの実態に合わせて修正すること -->
+        <aside class="bring reveal" aria-labelledby="bring-title">
+          <h3 id="bring-title">持ち物・服装のめやす</h3>
+          <ul class="check-list">
+            <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>エプロン</li>
+            <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>三角巾またはバンダナ</li>
+            <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>マスク</li>
+            <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>動きやすい服装</li>
+            <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>飲み物</li>
+          </ul>
+          <p class="bring-note">食堂によって異なるので、参加前にお知らせします。</p>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== ある日の活動 =====
      要確認: 当日の流れはサークルの実態に合わせて修正すること（時刻は書かない）
      写真は photos/day-1.jpg 〜 day-6.jpg（1200×900）。各ステップの写真と、PC で右に出る写真（.day-stage）は同じファイル。 -->
-<section class="block day" id="day" aria-labelledby="day-title">
+<section class="block is-tinted day" id="day" aria-labelledby="day-title">
   <div class="container">
     <div class="sec-head reveal">
       <span class="stripe-mark" aria-hidden="true"></span>
       <h2 id="day-title">ある日の活動</h2>
-      <p class="sec-lead">こども食堂での1日の流れの一例です。食堂によって内容や時間は変わります。</p>
+      <p class="sec-lead">こども食堂での1日の流れの一例です。食堂によって内容や時間は変わります。途中からの参加や早めに帰ることができるかは、LINE で気軽に相談してください。</p>
+      <!-- 要確認: 途中参加・途中退出の可否はサークルに確認すること -->
     </div>
     <div class="day-layout">
       <ol class="day-steps">
@@ -1068,7 +1167,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 
 <!-- ===== 活動で大切にしていること =====
      要確認: 写真・個人情報の扱いはサークルと連携先の方針に合わせて修正すること -->
-<section class="block is-tinted" id="promise" aria-labelledby="promise-title">
+<section class="block" id="promise" aria-labelledby="promise-title">
   <div class="container">
     <div class="sec-head reveal">
       <span class="stripe-mark" aria-hidden="true"></span>
@@ -1097,68 +1196,6 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
         <p>はじめての参加者には先輩メンバーがつき、当日の流れを一緒に確認します。</p>
       </li>
     </ul>
-  </div>
-</section>
-
-<!-- ===== 参加までの流れ ===== -->
-<section class="block flow" id="flow" aria-labelledby="flow-title">
-  <div class="container">
-    <div class="sec-head reveal">
-      <span class="stripe-mark" aria-hidden="true"></span>
-      <h2 id="flow-title">参加までの流れ</h2>
-      <p class="sec-lead">気になったら、まずは連絡するだけ。3つのステップで活動に参加できます。</p>
-    </div>
-    <div class="flow-grid">
-      <ol class="steps reveal">
-        <li class="step">
-          <span class="step-num" aria-hidden="true">1</span>
-          <div>
-            <h3>LINEで連絡する</h3>
-            <p>公式LINEを友だち追加して、「参加してみたい」「話を聞きたい」と送ってください。質問だけでも歓迎です。</p>
-            <p class="step-note"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-heart"/></svg>返信はメンバーが順番に行います。</p>
-          </div>
-        </li>
-        <li class="step">
-          <span class="step-num" aria-hidden="true">2</span>
-          <div>
-            <h3>見学・体験に行く</h3>
-            <p>日程を相談して、まずは1回、メンバーと一緒にこども食堂へ。集合場所や持ち物は事前にお知らせします。</p>
-            <p class="step-note"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-heart"/></svg>はじめての日は、先輩メンバーがずっと一緒です。</p>
-          </div>
-        </li>
-        <li class="step">
-          <span class="step-num" aria-hidden="true">3</span>
-          <div>
-            <h3>メンバーとして活動する</h3>
-            <p>都合の合う日に参加しながら、お手伝い、こどもとのふれあい、イベント企画に関わっていきます。</p>
-            <p class="step-note"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-heart"/></svg>学部・学年は問いません。</p>
-          </div>
-        </li>
-      </ol>
-      <div class="flow-side">
-        <aside class="line-card reveal" aria-labelledby="flow-aside-title">
-          <h3 id="flow-aside-title">まずは話を聞くだけでも</h3>
-          <p>「続けられるか不安」「どんな雰囲気か知りたい」という段階でも大丈夫です。公式LINEでお気軽にどうぞ。</p>
-          <a class="btn btn-primary" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">
-            <svg class="ico ico-line" aria-hidden="true" focusable="false"><use href="#i-line"/></svg>
-            LINEで友だち追加
-          </a>
-          <p class="line-id">LINE ID: @990qouib</p>
-        </aside>
-        <!-- 要確認: 持ち物・服装はサークルの実態に合わせて修正すること -->
-        <aside class="bring reveal" aria-labelledby="bring-title">
-          <h3 id="bring-title">持ち物・服装のめやす</h3>
-          <ul class="check-list">
-            <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>エプロン</li>
-            <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>三角巾またはバンダナ</li>
-            <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>マスク</li>
-            <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>動きやすい服装</li>
-            <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>飲み物</li>
-          </ul>
-          <p class="bring-note">食堂によって異なるので、参加前にお知らせします。</p>
-        </aside>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1333,7 +1370,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
           <span class="channel-icon" aria-hidden="true"><svg class="ico" focusable="false"><use href="#i-mail"/></svg></span>
           <span class="channel-text">
             <span class="channel-name">メールで連絡</span>
-            <span class="channel-id">childhome.nagasaki@gmail.com</span>
+            <span class="channel-id">childhome.nagasaki<wbr>@gmail.com</span>
           </span>
           <svg class="ico channel-chev" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg>
         </a>
@@ -1356,7 +1393,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
             <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
             メールで相談する
           </a>
-          <span class="mail-text">childhome.nagasaki@gmail.com</span>
+          <span class="mail-text">childhome.nagasaki<wbr>@gmail.com</span>
         </div>
       </div>
       <!-- 要確認: 相談の流れはサークルの実態に合わせて修正すること -->
@@ -1458,9 +1495,9 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
         <ul>
           <li><a href="#about">わたしたちのこと</a></li>
           <li><a href="#activities">活動内容</a></li>
+          <li><a href="#flow">参加までの流れ</a></li>
           <li><a href="#day">ある日の活動</a></li>
           <li><a href="#promise">大切にしていること</a></li>
-          <li><a href="#flow">参加までの流れ</a></li>
           <li><a href="#gallery">活動の様子</a></li>
           <li><a href="#faq">よくある質問</a></li>
           <li><a href="#join">参加する</a></li>
@@ -1476,7 +1513,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
           <li><a href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-line"/></svg>LINE公式アカウント</a></li>
           <li><a href="https://www.facebook.com/share/18ar3FUNtg/?mibextid=wwXIfr" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-facebook"/></svg>Facebook</a></li>
           <li><a href="https://www.linkedin.com/in/%E3%81%BB%E3%83%BC%E3%82%80-%E3%81%A1%E3%82%83%E3%81%84%E3%82%8B%E3%81%A9-1152a3406" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-linkedin"/></svg>LinkedIn</a></li>
-          <li><a href="mailto:childhome.nagasaki@gmail.com"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>childhome.nagasaki@gmail.com</a></li>
+          <li><a href="mailto:childhome.nagasaki@gmail.com"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>childhome.nagasaki<wbr>@gmail.com</a></li>
         </ul>
       </div>
     </div>
@@ -1487,7 +1524,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
   </div>
 </footer>
 
-<!-- モバイル固定 CTA（ヒーローを過ぎたら表示、参加セクションが見えている間は隠す） -->
+<!-- モバイル固定 CTA（ヒーローを過ぎたら表示、参加セクションと参加までの流れの LINE カードが見えている間は隠す） -->
 <div class="sticky-cta" id="sticky-cta" aria-hidden="true">
   <span class="sticky-text">参加してみたい？<small>質問だけでも大丈夫</small></span>
   <a class="btn btn-primary btn-sm" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener" tabindex="-1">
@@ -1560,17 +1597,20 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
     revealEls.forEach(function (el) { io.observe(el); });
   }
 
-  /* モバイル固定 CTA: ヒーローを過ぎたら表示、参加セクションが見えている間は隠す */
+  /* モバイル固定 CTA: ヒーローを過ぎたら表示。参加セクションと「参加までの流れ」の LINE カードが見えている間は隠す
+     （同じ LINE ボタンが画面に2つ並ばないように） */
   if ('IntersectionObserver' in window) {
-    var heroVisible = true, joinVisible = false;
+    var heroVisible = true, joinVisible = false, cardVisible = false;
+    var lineCard = document.querySelector('.line-card');
     function updateSticky() {
-      var show = !heroVisible && !joinVisible;
+      var show = !heroVisible && !joinVisible && !cardVisible;
       sticky.classList.toggle('is-visible', show);
       sticky.setAttribute('aria-hidden', String(!show));
       sticky.querySelector('a').setAttribute('tabindex', show ? '0' : '-1');
     }
     new IntersectionObserver(function (entries) { heroVisible = entries[0].isIntersecting; updateSticky(); }, { threshold: 0.15 }).observe(hero);
     new IntersectionObserver(function (entries) { joinVisible = entries[0].isIntersecting; updateSticky(); }, { threshold: 0.05 }).observe(join);
+    if (lineCard) new IntersectionObserver(function (entries) { cardVisible = entries[0].isIntersecting; updateSticky(); }, { threshold: 0 }).observe(lineCard);
   }
 
   /* ヒーローのスライドショー
