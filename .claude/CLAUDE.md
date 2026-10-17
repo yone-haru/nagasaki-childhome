@@ -18,7 +18,7 @@ git push origin master      # 本番公開（= デプロイ。下の「やって
 
 ## プロジェクト構成
 ```
-index.html            # サイト本体（CSS/JS 内包・約1250行）。編集対象はほぼここだけ
+index.html            # サイト本体（CSS/JS/アイコン SVG 内包・約1550行）。編集対象はほぼここだけ。構成と規約は .claude/rules/index-html.md
 vercel.json           # Vercel 設定（cleanUrls / trailingSlash）
 tools/                # 検証・開発用スクリプト（依存ゼロ。ここ以外にスクリプトを増やさない）
 .claude/              # 運用ルール・スキル・フック（このファイルを含む）
@@ -41,6 +41,8 @@ _ ver2.0 _.html       # 旧版(13MB)。参照も編集もしない
 - 色・余白は `:root` の CSS 変数（`--mint` `--coral` `--charcoal` など）で定義済み。生の色コードを直書きしない。
 - アニメーションは `.reveal` クラス + 末尾の IntersectionObserver 1本だけ。新しい要素にも `.reveal` を付ければ動く。
 - `.env` が `.gitignore` に入っていなかった（2026-09-03 に修正）。`tools/check.mjs` が毎回この状態を検査する。
+- **1080px の上書きが効かない罠。** CSS 前方（ヘッダーの近く）にある `@media (min-width: 1080px)` ブロックにヒーロー等の上書きを足すと、その後ろにあるセクションの `@media (min-width: 900px)` が同じ詳細度で勝ち、1080 で何も変わらない（v4.1 で実際に起きた）。**1080 の上書きは、そのセクションの 900 ブロックの後ろに独立した 1080 ブロックで書く。**
+- 日本語の改行: 見出し・ボタン・短い注記は `word-break: auto-phrase` で文節単位に折る（「笑顔／の輪」「こども／食堂」のような泣き別れを防ぐ）。狭い幅で語句が割れたら `<span class="phrase">` で囲む。長い本文の `p` に auto-phrase を付けると行末がガタつくので付けない。
 - `tools/check.mjs` のタグ対応チェックは属性値内に `>` があると誤爆する（例: `title="5 > 3"`）。今のところ該当箇所はないが、そういう属性値を書くときは注意する。
 - **Chrome 拡張（claude-in-chrome）のスクリーンショットは、そのタブが非表示（`document.hidden === true`）だと真っ白になる。** ユーザーが別ウィンドウを見ていると起きる。代替は headless Chrome: `"/c/Program Files/Google/Chrome/Application/chrome.exe" --headless=new --screenshot=... --window-size=1280,9000 URL`。ただし **headless でも `--window-size` の幅は約 500px 未満にならない**（390px を指定しても viewport は 500px 前後のまま画像だけ 390px に切られ、「はみ出している」ように見える）。狭い幅を正確に見るには、`<iframe width="390">` を並べたラッパー HTML を撮るか、CDP の `Emulation.setDeviceMetricsOverride` を使う（Node 22 標準の `WebSocket` で依存ゼロで書ける）。また `--virtual-time-budget` が短いと `.reveal` の遷移途中（薄い状態）で撮れて「要素が消えている」ように見える。**25000 以上**にする。
 - 画像アセットの生成には Python 3.10 + Pillow 12 が使える（`python -c "import PIL"`）。ImageMagick はない。
