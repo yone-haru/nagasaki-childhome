@@ -138,3 +138,12 @@
 - `git checkout a1663a5 -- index.html .claude/rules/index-html.md` で戻した。`git diff a1663a5 -- index.html` は差分なし。`node tools/check.mjs` PASS。
 - v6 の下書きは scratchpad の `v6-rejected/` に退避した。`tools/check.mjs` に足した「引数で対象ファイルを指定する」機能は残す（害がないため）。
 - 学び: 審査の言うまま構成・配色・書体を総入れ替えすると、ユーザーの好みから外れる。大きく変えるときは、先に小さく見本を見せて方向の合意を取る。
+
+## 2026-10-19 v5.0 に microCMS を入れる（Issue #6）
+- やったこと: `index.html` → `site/template.html`（差し込み口 `{{名前}}`）。`tools/build.mjs` ＋ `tools/cms/{fetch,normalize,render,import-seed}.mjs`。`cms/schema`（settings / top / news）・`cms/seed`（v5.0 の全文言）・`cms/env.example`。`vercel.json` にビルド設定。`docs/cms-manual.md`（依頼主向け＋管理者向け初期設定）・`docs/cms-fields.md`（手作業用のフィールド一覧）。
+- 検証: 見本データでビルドした `dist/index.html` を v5.0 の index.html（null ガード適用）とコメント除去・空白正規化して比較 → 差分 0。`node tools/check.mjs` PASS。
+- 知見: Bash ツールが「exp: command not found」で使えない → PowerShell。`.env.example` は deny で書けない → `cms/env.example`。microCMS のスキーマは余計なプロパティで 400 → check.mjs で種類ごとの許可リスト検査。
+- 仮定: お知らせはヒーロー直後・0件なら非表示・最新5件／ヘッダーナビは最大5項目／写真は 5MB まで／版の履歴はプラン次第とマニュアルに書いた／Webhook が使えないプランでは Deploy Hook のブックマークか Cron。
+- verifier 1回目の指摘への対応: 中身が空のセクション（題名のある項目・写真・行が0件など）は見出しだけ出さずセクションごと外し、警告を出す（normalize.mjs の dropEmpty。check.mjs に7種類の空セクションの検査を追加）。build.mjs が dist にコピーするのは画像の拡張子だけにした（CMS に相対リンク「.env」などを書かれても公開されないように）。
+- 未検証: `import-seed.mjs --create-apis`（マネジメント API で API を作る）は本物の microCMS で試していない。マニュアル A には「まずはスキーマのインポートを使う」と書いた。
+- 受け入れた軽微な指摘: 画像 URL を https に限定しない（見本データが相対パスのため）／`build --out` はプロジェクト内なら rmSync する／リンク語が本文に見つからなくても警告しない／未追跡の `nul` はコミットしない。

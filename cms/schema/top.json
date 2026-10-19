@@ -1,0 +1,1554 @@
+{
+  "apiFields": [
+    {
+      "fieldId": "heroSlides",
+      "name": "ヒーローの写真",
+      "kind": "repeater",
+      "description": "最初に表示される大きな写真。2枚以上で自動で切り替わります。",
+      "required": true,
+      "customFieldIds": [
+        "heroSlide"
+      ]
+    },
+    {
+      "fieldId": "heroCopy",
+      "name": "キャッチコピー",
+      "kind": "textArea",
+      "description": "改行するとそこで行が変わります。[[ ]] で囲んだ語句は途中で折り返しません。 ※いまの文は依頼時に指定された文言です。",
+      "required": false
+    },
+    {
+      "fieldId": "heroLead",
+      "name": "キャッチコピーの下の文",
+      "kind": "textArea",
+      "description": "※いまの文は依頼時に指定された文言です。",
+      "required": false
+    },
+    {
+      "fieldId": "heroPrimaryLabel",
+      "name": "LINE ボタンの文字",
+      "kind": "text",
+      "description": "押すと公式LINE が開きます。空ならボタンなし。",
+      "required": false
+    },
+    {
+      "fieldId": "heroSecondaryLabel",
+      "name": "2つ目のボタンの文字",
+      "kind": "text",
+      "description": "「活動内容」へ移動します（なければ最初のセクション）。",
+      "required": false
+    },
+    {
+      "fieldId": "heroPartnerLabel",
+      "name": "こども食堂向けリンクの文字",
+      "kind": "text",
+      "description": "「参加する」で案内を出しているときだけ表示されます。",
+      "required": false
+    },
+    {
+      "fieldId": "heroAffilLabel",
+      "name": "大学ロゴの横の文字",
+      "kind": "text",
+      "description": "例: 長崎大学 認定サークル",
+      "required": false
+    },
+    {
+      "fieldId": "sections",
+      "name": "セクション（上から順に表示）",
+      "kind": "repeater",
+      "description": "並べ替え・追加・削除ができます。「自由セクション」以外は1回ずつ使えます。",
+      "required": true,
+      "customFieldIds": [
+        "sec_about",
+        "sec_activities",
+        "sec_day",
+        "sec_promise",
+        "sec_flow",
+        "sec_gallery",
+        "sec_faq",
+        "sec_join",
+        "sec_profile",
+        "sec_connect",
+        "sec_free"
+      ]
+    }
+  ],
+  "customFields": [
+    {
+      "fieldId": "heroSlide",
+      "name": "ヒーローの写真",
+      "fields": [
+        {
+          "fieldId": "image",
+          "name": "写真",
+          "kind": "media",
+          "description": "横長の写真。スマホでは中央付近が切り取られて表示されます。",
+          "required": true
+        },
+        {
+          "fieldId": "alt",
+          "name": "写真の説明（読み上げ用）",
+          "kind": "text",
+          "description": "目の見えない方向けに読み上げられます。例: こどもと学生が一緒に料理をしている様子",
+          "required": false
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "image",
+          "alt"
+        ]
+      ]
+    },
+    {
+      "fieldId": "sec_about",
+      "name": "ちるーむについて",
+      "fields": [
+        {
+          "fieldId": "heading",
+          "name": "見出し",
+          "kind": "text",
+          "description": "[[ ]] で囲んだ語句は途中で折り返しません。※「参加する」では改行も反映されます。",
+          "required": true
+        },
+        {
+          "fieldId": "lead",
+          "name": "見出しの下の文",
+          "kind": "textArea",
+          "description": "空なら出しません。改行するとそこで行が変わります。",
+          "required": false
+        },
+        {
+          "fieldId": "menuLabel",
+          "name": "スマホメニューでの名前",
+          "kind": "text",
+          "description": "空ならスマホのメニューに出しません。",
+          "required": false
+        },
+        {
+          "fieldId": "headerLabel",
+          "name": "パソコンの上部メニューでの名前",
+          "kind": "text",
+          "description": "空なら出しません。全部で5つまで（6つ目以降は出ません）。",
+          "required": false
+        },
+        {
+          "fieldId": "footerLabel",
+          "name": "フッターでの名前",
+          "kind": "text",
+          "description": "空なら「スマホメニューでの名前」を使います。",
+          "required": false
+        },
+        {
+          "fieldId": "tinted",
+          "name": "背景を色付きにする",
+          "kind": "boolean",
+          "description": "色付きのセクションが続かないように、交互にするのがおすすめです。",
+          "required": false,
+          "initialValue": false
+        },
+        {
+          "fieldId": "photoMain",
+          "name": "大きい写真",
+          "kind": "media",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "photoMainAlt",
+          "name": "大きい写真の説明（読み上げ用）",
+          "kind": "text",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "photoSub",
+          "name": "小さい写真",
+          "kind": "media",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "photoSubAlt",
+          "name": "小さい写真の説明（読み上げ用）",
+          "kind": "text",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "story",
+          "name": "紹介文",
+          "kind": "textArea",
+          "description": "1行が1段落になります（空行は無視）。 ※いまの文は依頼時に指定された文言です。",
+          "required": false
+        },
+        {
+          "fieldId": "nameNote",
+          "name": "名前の由来などの補足",
+          "kind": "textArea",
+          "description": "紹介文の下に小さく出ます。",
+          "required": false
+        },
+        {
+          "fieldId": "bridgeTitle",
+          "name": "「課題と取り組み」の見出し",
+          "kind": "text",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "bridgeIssueLabel",
+          "name": "左の列の名前",
+          "kind": "text",
+          "description": "例: こども食堂の課題",
+          "required": false
+        },
+        {
+          "fieldId": "bridgeAnswerLabel",
+          "name": "右の列の名前",
+          "kind": "text",
+          "description": "例: ちるーむの取り組み",
+          "required": false
+        },
+        {
+          "fieldId": "bridge",
+          "name": "課題と取り組み",
+          "kind": "repeater",
+          "description": "1行ずつ追加します。",
+          "required": false,
+          "customFieldIds": [
+            "bridgeRow"
+          ]
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "heading",
+          "lead",
+          "menuLabel",
+          "headerLabel",
+          "footerLabel",
+          "tinted",
+          "photoMain",
+          "photoMainAlt",
+          "photoSub",
+          "photoSubAlt",
+          "story",
+          "nameNote",
+          "bridgeTitle",
+          "bridgeIssueLabel",
+          "bridgeAnswerLabel",
+          "bridge"
+        ]
+      ]
+    },
+    {
+      "fieldId": "sec_activities",
+      "name": "活動内容",
+      "fields": [
+        {
+          "fieldId": "heading",
+          "name": "見出し",
+          "kind": "text",
+          "description": "[[ ]] で囲んだ語句は途中で折り返しません。※「参加する」では改行も反映されます。",
+          "required": true
+        },
+        {
+          "fieldId": "lead",
+          "name": "見出しの下の文",
+          "kind": "textArea",
+          "description": "空なら出しません。改行するとそこで行が変わります。",
+          "required": false
+        },
+        {
+          "fieldId": "menuLabel",
+          "name": "スマホメニューでの名前",
+          "kind": "text",
+          "description": "空ならスマホのメニューに出しません。",
+          "required": false
+        },
+        {
+          "fieldId": "headerLabel",
+          "name": "パソコンの上部メニューでの名前",
+          "kind": "text",
+          "description": "空なら出しません。全部で5つまで（6つ目以降は出ません）。",
+          "required": false
+        },
+        {
+          "fieldId": "footerLabel",
+          "name": "フッターでの名前",
+          "kind": "text",
+          "description": "空なら「スマホメニューでの名前」を使います。",
+          "required": false
+        },
+        {
+          "fieldId": "tinted",
+          "name": "背景を色付きにする",
+          "kind": "boolean",
+          "description": "色付きのセクションが続かないように、交互にするのがおすすめです。",
+          "required": false,
+          "initialValue": false
+        },
+        {
+          "fieldId": "items",
+          "name": "活動",
+          "kind": "repeater",
+          "description": "写真はなくても出せます。",
+          "required": false,
+          "customFieldIds": [
+            "photoCard"
+          ]
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "heading",
+          "lead",
+          "menuLabel",
+          "headerLabel",
+          "footerLabel",
+          "tinted",
+          "items"
+        ]
+      ]
+    },
+    {
+      "fieldId": "sec_day",
+      "name": "ある日の活動",
+      "fields": [
+        {
+          "fieldId": "heading",
+          "name": "見出し",
+          "kind": "text",
+          "description": "[[ ]] で囲んだ語句は途中で折り返しません。※「参加する」では改行も反映されます。",
+          "required": true
+        },
+        {
+          "fieldId": "lead",
+          "name": "見出しの下の文",
+          "kind": "textArea",
+          "description": "空なら出しません。改行するとそこで行が変わります。",
+          "required": false
+        },
+        {
+          "fieldId": "menuLabel",
+          "name": "スマホメニューでの名前",
+          "kind": "text",
+          "description": "空ならスマホのメニューに出しません。",
+          "required": false
+        },
+        {
+          "fieldId": "headerLabel",
+          "name": "パソコンの上部メニューでの名前",
+          "kind": "text",
+          "description": "空なら出しません。全部で5つまで（6つ目以降は出ません）。",
+          "required": false
+        },
+        {
+          "fieldId": "footerLabel",
+          "name": "フッターでの名前",
+          "kind": "text",
+          "description": "空なら「スマホメニューでの名前」を使います。",
+          "required": false
+        },
+        {
+          "fieldId": "tinted",
+          "name": "背景を色付きにする",
+          "kind": "boolean",
+          "description": "色付きのセクションが続かないように、交互にするのがおすすめです。",
+          "required": false,
+          "initialValue": false
+        },
+        {
+          "fieldId": "steps",
+          "name": "ステップ",
+          "kind": "repeater",
+          "description": "上から時間順。このセクションは全ステップに写真が必要です（ないステップは出ません）。",
+          "required": false,
+          "customFieldIds": [
+            "photoCard"
+          ]
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "heading",
+          "lead",
+          "menuLabel",
+          "headerLabel",
+          "footerLabel",
+          "tinted",
+          "steps"
+        ]
+      ]
+    },
+    {
+      "fieldId": "sec_promise",
+      "name": "大切にしていること",
+      "fields": [
+        {
+          "fieldId": "heading",
+          "name": "見出し",
+          "kind": "text",
+          "description": "[[ ]] で囲んだ語句は途中で折り返しません。※「参加する」では改行も反映されます。",
+          "required": true
+        },
+        {
+          "fieldId": "lead",
+          "name": "見出しの下の文",
+          "kind": "textArea",
+          "description": "空なら出しません。改行するとそこで行が変わります。",
+          "required": false
+        },
+        {
+          "fieldId": "menuLabel",
+          "name": "スマホメニューでの名前",
+          "kind": "text",
+          "description": "空ならスマホのメニューに出しません。",
+          "required": false
+        },
+        {
+          "fieldId": "headerLabel",
+          "name": "パソコンの上部メニューでの名前",
+          "kind": "text",
+          "description": "空なら出しません。全部で5つまで（6つ目以降は出ません）。",
+          "required": false
+        },
+        {
+          "fieldId": "footerLabel",
+          "name": "フッターでの名前",
+          "kind": "text",
+          "description": "空なら「スマホメニューでの名前」を使います。",
+          "required": false
+        },
+        {
+          "fieldId": "tinted",
+          "name": "背景を色付きにする",
+          "kind": "boolean",
+          "description": "色付きのセクションが続かないように、交互にするのがおすすめです。",
+          "required": false,
+          "initialValue": false
+        },
+        {
+          "fieldId": "items",
+          "name": "項目",
+          "kind": "repeater",
+          "description": null,
+          "required": false,
+          "customFieldIds": [
+            "iconCard"
+          ]
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "heading",
+          "lead",
+          "menuLabel",
+          "headerLabel",
+          "footerLabel",
+          "tinted",
+          "items"
+        ]
+      ]
+    },
+    {
+      "fieldId": "sec_flow",
+      "name": "参加の流れ",
+      "fields": [
+        {
+          "fieldId": "heading",
+          "name": "見出し",
+          "kind": "text",
+          "description": "[[ ]] で囲んだ語句は途中で折り返しません。※「参加する」では改行も反映されます。",
+          "required": true
+        },
+        {
+          "fieldId": "lead",
+          "name": "見出しの下の文",
+          "kind": "textArea",
+          "description": "空なら出しません。改行するとそこで行が変わります。",
+          "required": false
+        },
+        {
+          "fieldId": "menuLabel",
+          "name": "スマホメニューでの名前",
+          "kind": "text",
+          "description": "空ならスマホのメニューに出しません。",
+          "required": false
+        },
+        {
+          "fieldId": "headerLabel",
+          "name": "パソコンの上部メニューでの名前",
+          "kind": "text",
+          "description": "空なら出しません。全部で5つまで（6つ目以降は出ません）。",
+          "required": false
+        },
+        {
+          "fieldId": "footerLabel",
+          "name": "フッターでの名前",
+          "kind": "text",
+          "description": "空なら「スマホメニューでの名前」を使います。",
+          "required": false
+        },
+        {
+          "fieldId": "tinted",
+          "name": "背景を色付きにする",
+          "kind": "boolean",
+          "description": "色付きのセクションが続かないように、交互にするのがおすすめです。",
+          "required": false,
+          "initialValue": false
+        },
+        {
+          "fieldId": "steps",
+          "name": "ステップ",
+          "kind": "repeater",
+          "description": "上から順に番号が付きます。",
+          "required": false,
+          "customFieldIds": [
+            "flowStep"
+          ]
+        },
+        {
+          "fieldId": "asideTitle",
+          "name": "横の囲み：見出し",
+          "kind": "text",
+          "description": "例: まずは気軽に",
+          "required": false
+        },
+        {
+          "fieldId": "asideText",
+          "name": "横の囲み：文",
+          "kind": "textArea",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "asideButton",
+          "name": "横の囲み：ボタン",
+          "kind": "text",
+          "description": "押すと公式LINE が開きます。空ならボタンなし。",
+          "required": false
+        },
+        {
+          "fieldId": "bringTitle",
+          "name": "持ち物：見出し",
+          "kind": "text",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "bringItems",
+          "name": "持ち物",
+          "kind": "textArea",
+          "description": "1行に1つ書きます。",
+          "required": false
+        },
+        {
+          "fieldId": "bringNote",
+          "name": "持ち物：補足",
+          "kind": "textArea",
+          "description": null,
+          "required": false
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "heading",
+          "lead",
+          "menuLabel",
+          "headerLabel",
+          "footerLabel",
+          "tinted",
+          "steps",
+          "asideTitle",
+          "asideText",
+          "asideButton",
+          "bringTitle",
+          "bringItems",
+          "bringNote"
+        ]
+      ]
+    },
+    {
+      "fieldId": "sec_gallery",
+      "name": "活動の写真",
+      "fields": [
+        {
+          "fieldId": "heading",
+          "name": "見出し",
+          "kind": "text",
+          "description": "[[ ]] で囲んだ語句は途中で折り返しません。※「参加する」では改行も反映されます。",
+          "required": true
+        },
+        {
+          "fieldId": "lead",
+          "name": "見出しの下の文",
+          "kind": "textArea",
+          "description": "空なら出しません。改行するとそこで行が変わります。",
+          "required": false
+        },
+        {
+          "fieldId": "menuLabel",
+          "name": "スマホメニューでの名前",
+          "kind": "text",
+          "description": "空ならスマホのメニューに出しません。",
+          "required": false
+        },
+        {
+          "fieldId": "headerLabel",
+          "name": "パソコンの上部メニューでの名前",
+          "kind": "text",
+          "description": "空なら出しません。全部で5つまで（6つ目以降は出ません）。",
+          "required": false
+        },
+        {
+          "fieldId": "footerLabel",
+          "name": "フッターでの名前",
+          "kind": "text",
+          "description": "空なら「スマホメニューでの名前」を使います。",
+          "required": false
+        },
+        {
+          "fieldId": "tinted",
+          "name": "背景を色付きにする",
+          "kind": "boolean",
+          "description": "色付きのセクションが続かないように、交互にするのがおすすめです。",
+          "required": false,
+          "initialValue": false
+        },
+        {
+          "fieldId": "photos",
+          "name": "写真",
+          "kind": "repeater",
+          "description": "8枚ごとに同じ並び方をくり返します。8枚がきれいに並びます。",
+          "required": false,
+          "customFieldIds": [
+            "galleryPhoto"
+          ]
+        },
+        {
+          "fieldId": "footText",
+          "name": "写真の下の文",
+          "kind": "textArea",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "policyText",
+          "name": "写真の扱いについての文",
+          "kind": "textArea",
+          "description": "例: 顔が分かる写真は許可をいただいたものだけ載せています。",
+          "required": false
+        },
+        {
+          "fieldId": "buttonLabel",
+          "name": "Instagram ボタンの文字",
+          "kind": "text",
+          "description": "Instagram の URL があるときだけ出ます。",
+          "required": false
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "heading",
+          "lead",
+          "menuLabel",
+          "headerLabel",
+          "footerLabel",
+          "tinted",
+          "photos",
+          "footText",
+          "policyText",
+          "buttonLabel"
+        ]
+      ]
+    },
+    {
+      "fieldId": "sec_faq",
+      "name": "よくある質問",
+      "fields": [
+        {
+          "fieldId": "heading",
+          "name": "見出し",
+          "kind": "text",
+          "description": "[[ ]] で囲んだ語句は途中で折り返しません。※「参加する」では改行も反映されます。",
+          "required": true
+        },
+        {
+          "fieldId": "lead",
+          "name": "見出しの下の文",
+          "kind": "textArea",
+          "description": "空なら出しません。改行するとそこで行が変わります。",
+          "required": false
+        },
+        {
+          "fieldId": "menuLabel",
+          "name": "スマホメニューでの名前",
+          "kind": "text",
+          "description": "空ならスマホのメニューに出しません。",
+          "required": false
+        },
+        {
+          "fieldId": "headerLabel",
+          "name": "パソコンの上部メニューでの名前",
+          "kind": "text",
+          "description": "空なら出しません。全部で5つまで（6つ目以降は出ません）。",
+          "required": false
+        },
+        {
+          "fieldId": "footerLabel",
+          "name": "フッターでの名前",
+          "kind": "text",
+          "description": "空なら「スマホメニューでの名前」を使います。",
+          "required": false
+        },
+        {
+          "fieldId": "tinted",
+          "name": "背景を色付きにする",
+          "kind": "boolean",
+          "description": "色付きのセクションが続かないように、交互にするのがおすすめです。",
+          "required": false,
+          "initialValue": false
+        },
+        {
+          "fieldId": "buttonLabel",
+          "name": "LINE で質問するボタンの文字",
+          "kind": "text",
+          "description": "空ならボタンなし。",
+          "required": false
+        },
+        {
+          "fieldId": "studentTitle",
+          "name": "学生向けの見出し",
+          "kind": "text",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "studentItems",
+          "name": "学生向けの質問",
+          "kind": "repeater",
+          "description": null,
+          "required": false,
+          "customFieldIds": [
+            "qa"
+          ]
+        },
+        {
+          "fieldId": "partnerTitle",
+          "name": "こども食堂・地域の方向けの見出し",
+          "kind": "text",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "partnerItems",
+          "name": "こども食堂・地域の方向けの質問",
+          "kind": "repeater",
+          "description": null,
+          "required": false,
+          "customFieldIds": [
+            "qa"
+          ]
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "heading",
+          "lead",
+          "menuLabel",
+          "headerLabel",
+          "footerLabel",
+          "tinted",
+          "buttonLabel",
+          "studentTitle",
+          "studentItems",
+          "partnerTitle",
+          "partnerItems"
+        ]
+      ]
+    },
+    {
+      "fieldId": "sec_join",
+      "name": "参加する（お問い合わせ）",
+      "fields": [
+        {
+          "fieldId": "heading",
+          "name": "見出し",
+          "kind": "text",
+          "description": "[[ ]] で囲んだ語句は途中で折り返しません。※「参加する」では改行も反映されます。",
+          "required": true
+        },
+        {
+          "fieldId": "lead",
+          "name": "見出しの下の文",
+          "kind": "textArea",
+          "description": "空なら出しません。改行するとそこで行が変わります。",
+          "required": false
+        },
+        {
+          "fieldId": "menuLabel",
+          "name": "スマホメニューでの名前",
+          "kind": "text",
+          "description": "空ならスマホのメニューに出しません。",
+          "required": false
+        },
+        {
+          "fieldId": "headerLabel",
+          "name": "パソコンの上部メニューでの名前",
+          "kind": "text",
+          "description": "空なら出しません。全部で5つまで（6つ目以降は出ません）。",
+          "required": false
+        },
+        {
+          "fieldId": "footerLabel",
+          "name": "フッターでの名前",
+          "kind": "text",
+          "description": "空なら「スマホメニューでの名前」を使います。",
+          "required": false
+        },
+        {
+          "fieldId": "photo",
+          "name": "写真",
+          "kind": "media",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "photoAlt",
+          "name": "写真の説明（読み上げ用）",
+          "kind": "text",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "wantedTitle",
+          "name": "「こんな人を待っています」の見出し",
+          "kind": "text",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "wantedItems",
+          "name": "こんな人を待っています",
+          "kind": "textArea",
+          "description": "1行に1つ書きます。",
+          "required": false
+        },
+        {
+          "fieldId": "lineLabel",
+          "name": "LINE の文字",
+          "kind": "text",
+          "description": "空なら LINE を出しません。",
+          "required": false
+        },
+        {
+          "fieldId": "lineTag",
+          "name": "LINE の横の小さな札",
+          "kind": "text",
+          "description": "例: おすすめ",
+          "required": false
+        },
+        {
+          "fieldId": "instagramLabel",
+          "name": "Instagram の文字",
+          "kind": "text",
+          "description": "空なら出しません。",
+          "required": false
+        },
+        {
+          "fieldId": "mailLabel",
+          "name": "メールの文字",
+          "kind": "text",
+          "description": "空なら出しません。",
+          "required": false
+        },
+        {
+          "fieldId": "channelNote",
+          "name": "連絡先の下の注記",
+          "kind": "textArea",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "showPartner",
+          "name": "こども食堂・地域の方への案内を出す",
+          "kind": "boolean",
+          "description": "オンにすると、この下に連携のご案内が出ます。",
+          "required": false,
+          "initialValue": true
+        },
+        {
+          "fieldId": "partnerMenuLabel",
+          "name": "案内のメニューでの名前",
+          "kind": "text",
+          "description": "空ならメニュー・フッターに出しません。",
+          "required": false
+        },
+        {
+          "fieldId": "partnerHeading",
+          "name": "案内の見出し",
+          "kind": "text",
+          "description": "空なら「こども食堂・地域の方へ」",
+          "required": false
+        },
+        {
+          "fieldId": "partnerText",
+          "name": "案内の文",
+          "kind": "textArea",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "partnerItems",
+          "name": "お手伝いできること",
+          "kind": "textArea",
+          "description": "1行に1つ書きます。",
+          "required": false
+        },
+        {
+          "fieldId": "partnerButton",
+          "name": "メールボタンの文字",
+          "kind": "text",
+          "description": "空ならボタンなし。",
+          "required": false
+        },
+        {
+          "fieldId": "consultTitle",
+          "name": "ご相談の流れ：見出し",
+          "kind": "text",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "consultSteps",
+          "name": "ご相談の流れ",
+          "kind": "repeater",
+          "description": "上から順に番号が付きます。",
+          "required": false,
+          "customFieldIds": [
+            "consultStep"
+          ]
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "heading",
+          "lead",
+          "menuLabel",
+          "headerLabel",
+          "footerLabel",
+          "photo",
+          "photoAlt",
+          "wantedTitle",
+          "wantedItems",
+          "lineLabel",
+          "lineTag",
+          "instagramLabel",
+          "mailLabel",
+          "channelNote",
+          "showPartner",
+          "partnerMenuLabel",
+          "partnerHeading",
+          "partnerText",
+          "partnerItems",
+          "partnerButton",
+          "consultTitle",
+          "consultSteps"
+        ]
+      ]
+    },
+    {
+      "fieldId": "sec_profile",
+      "name": "団体概要",
+      "fields": [
+        {
+          "fieldId": "heading",
+          "name": "見出し",
+          "kind": "text",
+          "description": "[[ ]] で囲んだ語句は途中で折り返しません。※「参加する」では改行も反映されます。",
+          "required": true
+        },
+        {
+          "fieldId": "lead",
+          "name": "見出しの下の文",
+          "kind": "textArea",
+          "description": "空なら出しません。改行するとそこで行が変わります。",
+          "required": false
+        },
+        {
+          "fieldId": "menuLabel",
+          "name": "スマホメニューでの名前",
+          "kind": "text",
+          "description": "空ならスマホのメニューに出しません。",
+          "required": false
+        },
+        {
+          "fieldId": "headerLabel",
+          "name": "パソコンの上部メニューでの名前",
+          "kind": "text",
+          "description": "空なら出しません。全部で5つまで（6つ目以降は出ません）。",
+          "required": false
+        },
+        {
+          "fieldId": "footerLabel",
+          "name": "フッターでの名前",
+          "kind": "text",
+          "description": "空なら「スマホメニューでの名前」を使います。",
+          "required": false
+        },
+        {
+          "fieldId": "tinted",
+          "name": "背景を色付きにする",
+          "kind": "boolean",
+          "description": "色付きのセクションが続かないように、交互にするのがおすすめです。",
+          "required": false,
+          "initialValue": false
+        },
+        {
+          "fieldId": "rows",
+          "name": "項目",
+          "kind": "repeater",
+          "description": null,
+          "required": false,
+          "customFieldIds": [
+            "profileRow"
+          ]
+        },
+        {
+          "fieldId": "contactLabel",
+          "name": "「連絡先」の行の名前",
+          "kind": "text",
+          "description": "空なら連絡先の行を出しません。連絡先はサイト設定の LINE・メールを使います。",
+          "required": false
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "heading",
+          "lead",
+          "menuLabel",
+          "headerLabel",
+          "footerLabel",
+          "tinted",
+          "rows",
+          "contactLabel"
+        ]
+      ]
+    },
+    {
+      "fieldId": "sec_connect",
+      "name": "SNS",
+      "fields": [
+        {
+          "fieldId": "heading",
+          "name": "見出し",
+          "kind": "text",
+          "description": "[[ ]] で囲んだ語句は途中で折り返しません。※「参加する」では改行も反映されます。",
+          "required": true
+        },
+        {
+          "fieldId": "lead",
+          "name": "見出しの下の文",
+          "kind": "textArea",
+          "description": "空なら出しません。改行するとそこで行が変わります。",
+          "required": false
+        },
+        {
+          "fieldId": "menuLabel",
+          "name": "スマホメニューでの名前",
+          "kind": "text",
+          "description": "空ならスマホのメニューに出しません。",
+          "required": false
+        },
+        {
+          "fieldId": "headerLabel",
+          "name": "パソコンの上部メニューでの名前",
+          "kind": "text",
+          "description": "空なら出しません。全部で5つまで（6つ目以降は出ません）。",
+          "required": false
+        },
+        {
+          "fieldId": "footerLabel",
+          "name": "フッターでの名前",
+          "kind": "text",
+          "description": "空なら「スマホメニューでの名前」を使います。",
+          "required": false
+        },
+        {
+          "fieldId": "tinted",
+          "name": "背景を色付きにする",
+          "kind": "boolean",
+          "description": "色付きのセクションが続かないように、交互にするのがおすすめです。",
+          "required": false,
+          "initialValue": false
+        },
+        {
+          "fieldId": "instagramDesc",
+          "name": "Instagram の説明",
+          "kind": "text",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "lineDesc",
+          "name": "LINE の説明",
+          "kind": "text",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "facebookDesc",
+          "name": "Facebook の説明",
+          "kind": "text",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "linkedinDesc",
+          "name": "LinkedIn の説明",
+          "kind": "text",
+          "description": null,
+          "required": false
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "heading",
+          "lead",
+          "menuLabel",
+          "headerLabel",
+          "footerLabel",
+          "tinted",
+          "instagramDesc",
+          "lineDesc",
+          "facebookDesc",
+          "linkedinDesc"
+        ]
+      ]
+    },
+    {
+      "fieldId": "sec_free",
+      "name": "自由セクション（文と写真）",
+      "fields": [
+        {
+          "fieldId": "heading",
+          "name": "見出し",
+          "kind": "text",
+          "description": "[[ ]] で囲んだ語句は途中で折り返しません。※「参加する」では改行も反映されます。",
+          "required": true
+        },
+        {
+          "fieldId": "lead",
+          "name": "見出しの下の文",
+          "kind": "textArea",
+          "description": "空なら出しません。改行するとそこで行が変わります。",
+          "required": false
+        },
+        {
+          "fieldId": "menuLabel",
+          "name": "スマホメニューでの名前",
+          "kind": "text",
+          "description": "空ならスマホのメニューに出しません。",
+          "required": false
+        },
+        {
+          "fieldId": "headerLabel",
+          "name": "パソコンの上部メニューでの名前",
+          "kind": "text",
+          "description": "空なら出しません。全部で5つまで（6つ目以降は出ません）。",
+          "required": false
+        },
+        {
+          "fieldId": "footerLabel",
+          "name": "フッターでの名前",
+          "kind": "text",
+          "description": "空なら「スマホメニューでの名前」を使います。",
+          "required": false
+        },
+        {
+          "fieldId": "tinted",
+          "name": "背景を色付きにする",
+          "kind": "boolean",
+          "description": "色付きのセクションが続かないように、交互にするのがおすすめです。",
+          "required": false,
+          "initialValue": false
+        },
+        {
+          "fieldId": "body",
+          "name": "本文",
+          "kind": "textArea",
+          "description": "1行が1段落になります。",
+          "required": false
+        },
+        {
+          "fieldId": "image",
+          "name": "写真",
+          "kind": "media",
+          "description": "空なら写真なし。",
+          "required": false
+        },
+        {
+          "fieldId": "imageAlt",
+          "name": "写真の説明（読み上げ用）",
+          "kind": "text",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "linkWord",
+          "name": "リンクにする語句",
+          "kind": "text",
+          "description": "本文の中で最初に出てくるこの語句がリンクになります。空ならリンクなし。",
+          "required": false
+        },
+        {
+          "fieldId": "linkTo",
+          "name": "リンク先",
+          "kind": "select",
+          "description": "メール・LINE・Instagram はサイト設定のものを使います。",
+          "required": false,
+          "selectItems": [
+            {
+              "value": "メール"
+            },
+            {
+              "value": "LINE"
+            },
+            {
+              "value": "Instagram"
+            },
+            {
+              "value": "URLを入力"
+            }
+          ],
+          "multipleSelect": false
+        },
+        {
+          "fieldId": "linkUrl",
+          "name": "リンク先の URL",
+          "kind": "text",
+          "description": "「URLを入力」を選んだときだけ使います。https:// から。",
+          "required": false
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "heading",
+          "lead",
+          "menuLabel",
+          "headerLabel",
+          "footerLabel",
+          "tinted",
+          "body",
+          "image",
+          "imageAlt",
+          "linkWord",
+          "linkTo",
+          "linkUrl"
+        ]
+      ]
+    },
+    {
+      "fieldId": "bridgeRow",
+      "name": "課題と取り組み（1行）",
+      "fields": [
+        {
+          "fieldId": "issue",
+          "name": "課題",
+          "kind": "textArea",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "answer",
+          "name": "取り組み",
+          "kind": "textArea",
+          "description": null,
+          "required": false
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "issue",
+          "answer"
+        ]
+      ]
+    },
+    {
+      "fieldId": "photoCard",
+      "name": "写真つきの項目",
+      "fields": [
+        {
+          "fieldId": "image",
+          "name": "写真",
+          "kind": "media",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "alt",
+          "name": "写真の説明（読み上げ用）",
+          "kind": "text",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "title",
+          "name": "見出し",
+          "kind": "text",
+          "description": "[[ ]] で囲んだ語句は途中で折り返しません。",
+          "required": true
+        },
+        {
+          "fieldId": "text",
+          "name": "文",
+          "kind": "textArea",
+          "description": null,
+          "required": false
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "image",
+          "alt",
+          "title",
+          "text"
+        ]
+      ]
+    },
+    {
+      "fieldId": "iconCard",
+      "name": "アイコンつきの項目",
+      "fields": [
+        {
+          "fieldId": "icon",
+          "name": "アイコン",
+          "kind": "select",
+          "description": null,
+          "required": false,
+          "selectItems": [
+            {
+              "value": "クリップボード"
+            },
+            {
+              "value": "しずく"
+            },
+            {
+              "value": "カギ"
+            },
+            {
+              "value": "ふたり"
+            },
+            {
+              "value": "ハート"
+            },
+            {
+              "value": "チェック"
+            }
+          ],
+          "multipleSelect": false
+        },
+        {
+          "fieldId": "title",
+          "name": "見出し",
+          "kind": "text",
+          "description": "[[ ]] で囲んだ語句は途中で折り返しません。",
+          "required": true
+        },
+        {
+          "fieldId": "text",
+          "name": "文",
+          "kind": "textArea",
+          "description": null,
+          "required": false
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "icon",
+          "title",
+          "text"
+        ]
+      ]
+    },
+    {
+      "fieldId": "flowStep",
+      "name": "参加の流れ（1ステップ）",
+      "fields": [
+        {
+          "fieldId": "title",
+          "name": "見出し",
+          "kind": "text",
+          "description": null,
+          "required": true
+        },
+        {
+          "fieldId": "text",
+          "name": "文",
+          "kind": "textArea",
+          "description": null,
+          "required": false
+        },
+        {
+          "fieldId": "note",
+          "name": "ハートつきの補足",
+          "kind": "textArea",
+          "description": "空なら出しません。",
+          "required": false
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "title",
+          "text",
+          "note"
+        ]
+      ]
+    },
+    {
+      "fieldId": "galleryPhoto",
+      "name": "写真",
+      "fields": [
+        {
+          "fieldId": "image",
+          "name": "写真",
+          "kind": "media",
+          "description": null,
+          "required": true
+        },
+        {
+          "fieldId": "alt",
+          "name": "写真の説明（読み上げ用）",
+          "kind": "text",
+          "description": null,
+          "required": false
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "image",
+          "alt"
+        ]
+      ]
+    },
+    {
+      "fieldId": "qa",
+      "name": "質問と答え",
+      "fields": [
+        {
+          "fieldId": "question",
+          "name": "質問",
+          "kind": "text",
+          "description": null,
+          "required": true
+        },
+        {
+          "fieldId": "answer",
+          "name": "答え",
+          "kind": "textArea",
+          "description": "改行するとそこで行が変わります。",
+          "required": true
+        },
+        {
+          "fieldId": "linkWord",
+          "name": "リンクにする語句",
+          "kind": "text",
+          "description": "本文の中で最初に出てくるこの語句がリンクになります。空ならリンクなし。",
+          "required": false
+        },
+        {
+          "fieldId": "linkTo",
+          "name": "リンク先",
+          "kind": "select",
+          "description": "メール・LINE・Instagram はサイト設定のものを使います。",
+          "required": false,
+          "selectItems": [
+            {
+              "value": "メール"
+            },
+            {
+              "value": "LINE"
+            },
+            {
+              "value": "Instagram"
+            },
+            {
+              "value": "URLを入力"
+            }
+          ],
+          "multipleSelect": false
+        },
+        {
+          "fieldId": "linkUrl",
+          "name": "リンク先の URL",
+          "kind": "text",
+          "description": "「URLを入力」を選んだときだけ使います。https:// から。",
+          "required": false
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "question",
+          "answer",
+          "linkWord",
+          "linkTo",
+          "linkUrl"
+        ]
+      ]
+    },
+    {
+      "fieldId": "consultStep",
+      "name": "ご相談の流れ（1ステップ）",
+      "fields": [
+        {
+          "fieldId": "title",
+          "name": "見出し",
+          "kind": "text",
+          "description": null,
+          "required": true
+        },
+        {
+          "fieldId": "text",
+          "name": "文",
+          "kind": "textArea",
+          "description": null,
+          "required": false
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "title",
+          "text"
+        ]
+      ]
+    },
+    {
+      "fieldId": "profileRow",
+      "name": "団体概要（1行）",
+      "fields": [
+        {
+          "fieldId": "label",
+          "name": "項目名",
+          "kind": "text",
+          "description": "例: 設立",
+          "required": true
+        },
+        {
+          "fieldId": "value",
+          "name": "内容",
+          "kind": "textArea",
+          "description": "改行するとそこで行が変わります。",
+          "required": true
+        }
+      ],
+      "fieldOrderByColumn": [
+        [
+          "label",
+          "value"
+        ]
+      ]
+    }
+  ]
+}

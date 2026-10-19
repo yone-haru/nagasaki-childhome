@@ -1,25 +1,37 @@
 # ちるーむ 公式サイト
 
-> 長崎大学のこども食堂サポートサークル「ちるーむ」の公式サイト。`index.html` 1枚で完結する静的サイトを Vercel で公開している。読者は入会を検討する学生と、連携先のこども食堂・地域の人。
+> 長崎大学のこども食堂サポートサークル「ちるーむ」の公式サイト。`index.html` 1枚の静的サイトを Vercel で公開している。中身（文章・写真・お知らせ・セクションの並び）は依頼主が **microCMS** で更新し、Vercel のビルドで `dist/index.html` を作る。読者は入会を検討する学生と、連携先のこども食堂・地域の人。
 
 ## 技術スタック
-- HTML + CSS + 素の JavaScript のみ。**ビルドツールも npm 依存もない**（CSS と JS は `index.html` に内包）
+- HTML + CSS + 素の JavaScript のみ。**npm 依存はない**（CSS と JS は出来上がる `index.html` に内包）
+- CMS: microCMS（API は `settings` / `top` / `news` の3つ）。ビルドは自作の `tools/build.mjs`（Node 標準のみ）が microCMS から読んで `site/template.html` に差し込む。依頼主向けの手順は `docs/cms-manual.md`
 - 外部依存は Google Fonts のみ（見出し: Zen Maru Gothic 700/900、本文: Zen Kaku Gothic New 400/500/700。v4.0 で Hachi Maru Pop / Fraunces は廃止）。ライブラリは足さない
 - 検証: 自作の `tools/check.mjs`（依存ゼロ・Node 標準のみ）
-- デプロイ: Vercel。`vercel.json` は `cleanUrls: true` / `trailingSlash: false`。**master への push が即本番公開**
+- デプロイ: Vercel。`vercel.json` は `buildCommand: node tools/build.mjs` / `outputDirectory: dist` / `cleanUrls: true` / `trailingSlash: false`。**master への push が即本番公開**。microCMS で「公開」すると Webhook → Deploy Hook でも再ビルドされる
 
 ## コマンド
 ```bash
-node tools/serve.mjs        # 開発サーバ http://localhost:3000（Ctrl+C で停止。ポート変更は引数）
-node tools/check.mjs        # 検証（テスト/Lint 相当。exit 0 = 合格）
-git push origin master      # 本番公開（= デプロイ。下の「やってはいけないこと」を読むこと）
+node tools/serve.mjs              # 見本データ（cms/seed）でビルドして http://localhost:3000（Ctrl+C で停止。ポート変更は引数）
+node --env-file=.env tools/serve.mjs --cms   # microCMS の内容でビルドして表示
+node tools/build.mjs --seed       # 見本データで dist/ を作る（通信しない）
+node tools/build.mjs              # microCMS から dist/ を作る（Vercel が実行。環境変数 MICROCMS_SERVICE_DOMAIN / MICROCMS_API_KEY が必要）
+node tools/check.mjs              # 検証（見本データからビルド → HTML 検査・スキーマ/見本データの整合・壊れた入力への強さ・秘密情報。exit 0 = 合格）
+node --env-file=.env tools/cms/import-seed.mjs [--dry-run] [--create-apis]   # 見本データを microCMS に流し込む（最初の1回）
+git push origin master            # 本番公開（= デプロイ。下の「やってはいけないこと」を読むこと）
 ```
-ビルド工程はない。`node tools/check.mjs` が exit 0 であることが合否の基準。
+`node tools/check.mjs` が exit 0 であることが合否の基準。
 
 ## プロジェクト構成
 ```
-index.html            # サイト本体（CSS/JS/アイコン SVG 内包・約1690行）。編集対象はほぼここだけ。構成と規約は .claude/rules/index-html.md
-vercel.json           # Vercel 設定（cleanUrls / trailingSlash）
+site/template.html    # v5.0 の index.html から作ったテンプレート（CSS/JS/アイコン SVG/枠。中身は {{名前}}）。規約は .claude/rules/index-html.md
+tools/build.mjs       # ビルドの入口（--seed / microCMS）→ dist/
+tools/cms/            # fetch.mjs（取得）・normalize.mjs（点検と補正）・render.mjs（セクションの HTML）・import-seed.mjs（初期データ投入）
+cms/schema/*.json     # microCMS の API スキーマ（管理画面でインポートする）。変えたら seed と docs/cms-fields.md もそろえる
+cms/seed/*.json       # v5.0 の全文言（API レスポンスと同じ形）。ローカル表示と check.mjs の入力
+cms/env.example       # .env のひな形（cp cms/env.example .env）
+docs/cms-manual.md    # 依頼主向け更新マニュアル＋管理者向け初期設定。docs/cms-fields.md はフィールド一覧
+dist/                 # 生成物（.gitignore 済み）。手で直さない
+vercel.json           # Vercel 設定
 tools/                # 検証・開発用スクリプト（依存ゼロ。ここ以外にスクリプトを増やさない）
 .claude/              # 運用ルール・スキル・フック（このファイルを含む）
 photos/               # サイトの写真（v5.0 時点は仮の画像）。同じファイル名で上書きして差し替える
@@ -61,9 +73,14 @@ _ ver2.0 _.html       # 旧版(13MB)。参照も編集もしない
 - **`photos/` の画像は v5.0 時点ですべて仮の画像（「写真を入れる場所」と書いてある）。** 本物に差し替えるまで本番に push しない。差し替えは同じファイル名で上書きし、`alt` も直す。
 - **100svh のヒーローは全ページのスクリーンショット（`--window-size=1280,9000`）だと縦に伸びて別物に見える。** 1画面ずつスクロールしながら CDP の `Page.captureScreenshot` で撮る。
 - **Bash のヒアドキュメントに日本語を書くと文字化けすることがある。** 日本語を含むスクリプトは Write ツールでファイルに書いてから実行する。
+- **Bash ツールが「exp: command not found」で何も実行できないことがある**（2026-10-19 のセッションで発生）。PowerShell ツールに絶対パスを渡して実行する。
+- **`.env.example` は権限ルール（`.env.*` の deny）で書き込めない。** だから env のひな形は `cms/env.example` に置いている。deny ルールは外さない。
+- **microCMS のスキーマ JSON は、種類ごとに許されたプロパティ以外が1つでもあると 400 で拒否される**（例: boolean に `isUnique`）。`tools/check.mjs` の `checkSchema` が種類ごとの許可リストで検査している。スキーマを手で直したら必ず check を通す。
+- **`vercel.json` にビルド設定が入っているので、master に push すると本番は「microCMS から読んで作る」になる。** microCMS に初期データを入れて Vercel に環境変数を登録するまで push しない（環境変数がないとビルドが失敗する。前の版は残るが更新できない）。
+- **出来上がる HTML は v5.0（a1663a5 の index.html）とマークアップが一致することを保証している**（違いは「参加する」の null ガードと自由セクションの CSS だけ）。render.mjs を変えるときは、見本データでビルドした `dist/index.html` を v5.0 と突き合わせる。
 
 ## 検証ループ（最重要・消さない）
-- **IMPORTANT: `index.html` を変更したら必ず `node tools/check.mjs` を実行し、exit 0 になるまでコミットしない。**
+- **IMPORTANT: `site/template.html`・`tools/`・`cms/` を変更したら必ず `node tools/check.mjs` を実行し、exit 0 になるまでコミットしない。**
 - 見た目に関わる変更は `node tools/serve.mjs` で実際に開いて確認する。スクリーンショットや curl の結果を証拠として残す。
 - エラーは握りつぶさず根本原因を直す。成功を主張する前に証拠を示す（実行したコマンドと出力の要点）。
 - 実装と検証は分離する。実装後は `verifier` サブエージェントに検証を依頼し、PASS になるまで直す。
@@ -73,7 +90,8 @@ _ ver2.0 _.html       # 旧版(13MB)。参照も編集もしない
 - **YOU MUST NOT: `.env` や認証情報・APIキーをコミットしない。**
 - **master への push は即本番公開。** `node tools/check.mjs` が PASS し、表示崩れがないことを確認してから push する。ユーザーが公開を望んでいない変更は push しない（コミットまでで止める）。
 - `vercel --prod` を自分から実行しない。デプロイは git push 経由に統一する。
-- 単一ファイル構成を壊さない。フレームワーク導入・ファイル分割・npm 依存の追加はスコープ外（必要だと思ったら `gh issue create` に留める）。
+- 出来上がるサイトの単一ファイル構成（`dist/index.html` 1枚に CSS/JS 内包）を壊さない。フレームワーク導入・npm 依存の追加・`package.json` の設置はスコープ外（必要だと思ったら `gh issue create` に留める）。
+- `.env` を読まない・表示しない。API キーをログやコミットに出さない。
 - `_ ver2.0 _.html`・`改善点まとめ.pdf`・画像バイナリを手で編集しない。
 - スコープ外の大規模リファクタはしない。ただし根本原因の修正に必要な隣接コードは触ってよい。
 

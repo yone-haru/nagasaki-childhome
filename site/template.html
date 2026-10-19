@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ちるーむ | 長崎大学 こども食堂サポートサークル</title>
-<meta name="description" content="ちるーむ（ちゃいるどほーむ）は、ボランティアに関心のある大学生と長崎県のこども食堂をつなぐ長崎大学のサークルです。食事の準備や配膳のお手伝い、こどもとのふれあい、イベント企画を通して、地域のつながりを広げています。">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
 <meta name="theme-color" content="#CEF4F7">
 <link rel="canonical" href="https://childhome-nagasaki.vercel.app/">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -14,42 +14,26 @@
 <!-- OGP / SNS シェア用（本番ドメイン: childhome-nagasaki.vercel.app。独自ドメインに変えたら canonical と og:url / og:image も直す） -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ちるーむ">
-<meta property="og:title" content="ちるーむ | 長崎大学 こども食堂サポートサークル">
-<meta property="og:description" content="ごはんで繋がる、笑顔の輪。ボランティアに関心のある大学生と、長崎県のこども食堂をつなぐ長崎大学のサークルです。">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{ogDescription}}">
 <meta property="og:url" content="https://childhome-nagasaki.vercel.app/">
-<meta property="og:image" content="https://childhome-nagasaki.vercel.app/ogp.png">
+<meta property="og:image" content="{{ogImage}}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ちるーむ | 長崎大学 こども食堂サポートサークル">
-<meta name="twitter:description" content="ごはんで繋がる、笑顔の輪。ボランティアに関心のある大学生と、長崎県のこども食堂をつなぐ長崎大学のサークルです。">
-<meta name="twitter:image" content="https://childhome-nagasaki.vercel.app/ogp.png">
+<meta name="twitter:title" content="{{title}}">
+<meta name="twitter:description" content="{{ogDescription}}">
+<meta name="twitter:image" content="{{ogImage}}">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="chiroom-logo.png">
-<link rel="preload" as="image" href="photos/hero-1.jpg" fetchpriority="high">
+{{heroPreload}}
 
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "ちるーむ",
-  "alternateName": "ちゃいるどほーむ",
-  "description": "ボランティアに関心のある大学生と長崎県のこども食堂をつなぐ、長崎大学認定サークル。",
-  "url": "https://childhome-nagasaki.vercel.app/",
-  "logo": "https://childhome-nagasaki.vercel.app/ogp.png",
-  "email": "childhome.nagasaki@gmail.com",
-  "areaServed": "長崎県",
-  "sameAs": [
-    "https://www.instagram.com/nagasaki_childhome",
-    "https://www.facebook.com/share/18ar3FUNtg/?mibextid=wwXIfr",
-    "https://www.linkedin.com/in/%E3%81%BB%E3%83%BC%E3%82%80-%E3%81%A1%E3%82%83%E3%81%84%E3%82%8B%E3%81%A9-1152a3406",
-    "https://line.me/R/ti/p/@990qouib"
-  ]
-}
+{{jsonld}}
 </script>
 <style>
 /* ==========================================================================
@@ -758,6 +742,12 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 .sticky-cta .btn { flex: none; }
 @media (min-width: 900px) { .sticky-cta { display: none; } }
 
+/* ---------- 自由セクション（CMS で追加） ---------- */
+.free-body { max-width: 40em; }
+.free-body p + p { margin-top: 1.1em; }
+.free-photo { margin-top: clamp(28px, 4vw, 40px); max-width: 880px; border-radius: var(--radius-lg); overflow: hidden; }
+.free-photo img { width: 100%; height: auto; }
+
 /* ---------- 動きを減らす設定 ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -799,14 +789,10 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
     </a>
     <nav class="site-nav" aria-label="サイト内ナビゲーション">
       <ul>
-        <li><a href="#about">わたしたちのこと</a></li>
-        <li><a href="#activities">活動内容</a></li>
-        <li><a href="#day">ある日の活動</a></li>
-        <li><a href="#flow">参加の流れ</a></li>
-        <li><a href="#faq">よくある質問</a></li>
+{{headerNav}}
       </ul>
     </nav>
-    <a class="btn btn-primary btn-sm header-cta" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">
+    <a class="btn btn-primary btn-sm header-cta" href="{{lineUrl}}" target="_blank" rel="noopener">
       <svg class="ico ico-line" aria-hidden="true" focusable="false"><use href="#i-line"/></svg>
       LINEで相談する
     </a>
@@ -819,629 +805,25 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 <!-- ===== モバイルメニュー（ナビを変えたらヘッダー・フッターも同じように直す） ===== -->
 <nav class="mobile-menu" id="mobile-menu" aria-label="メニュー">
   <ul>
-    <li><a class="menu-link" href="#about">わたしたちのこと<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
-    <li><a class="menu-link" href="#activities">活動内容<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
-    <li><a class="menu-link" href="#day">ある日の活動<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
-    <li><a class="menu-link" href="#promise">大切にしていること<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
-    <li><a class="menu-link" href="#flow">参加までの流れ<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
-    <li><a class="menu-link" href="#gallery">活動の様子<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
-    <li><a class="menu-link" href="#faq">よくある質問<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
-    <li><a class="menu-link" href="#join">参加する<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
-    <li><a class="menu-link" href="#partner">こども食堂・地域の方へ<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
-    <li><a class="menu-link" href="#profile">団体概要<svg class="ico" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg></a></li>
+{{menuNav}}
   </ul>
   <div class="menu-cta">
-    <a class="btn btn-primary" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">
+    <a class="btn btn-primary" href="{{lineUrl}}" target="_blank" rel="noopener">
       <svg class="ico ico-line" aria-hidden="true" focusable="false"><use href="#i-line"/></svg>
       LINEで相談する
     </a>
-    <a class="btn btn-soft" href="mailto:childhome.nagasaki@gmail.com">
+    <a class="btn btn-soft" href="mailto:{{email}}">
       <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
       メールで問い合わせる
     </a>
   </div>
   <div class="menu-sns">
-    <a href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-instagram"/></svg></a>
-    <a href="https://www.facebook.com/share/18ar3FUNtg/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-facebook"/></svg></a>
-    <a href="https://www.linkedin.com/in/%E3%81%BB%E3%83%BC%E3%82%80-%E3%81%A1%E3%82%83%E3%81%84%E3%82%8B%E3%81%A9-1152a3406" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-linkedin"/></svg></a>
+{{menuSns}}
   </div>
 </nav>
 
 <main id="main">
-
-
-<!-- ===== ヒーロー =====
-     背景の写真は photos/hero-1.jpg 〜 hero-5.jpg（1920×1280）。同じ名前で上書きすれば差し替わる。写真を変えたら alt も書き直す。
-     写真の右上〜中央あたりが PC で見える。大事な被写体は中央〜右に置く。 -->
-<section class="hero" id="top" aria-labelledby="hero-title">
-  <div class="hero-media">
-    <div class="hero-slides">
-      <figure class="hero-slide is-active"><img src="photos/hero-1.jpg" alt="こども食堂で、こどもと学生がいっしょに「いただきます」をする食卓" width="1920" height="1280" fetchpriority="high"></figure>
-      <figure class="hero-slide" aria-hidden="true"><img src="photos/hero-2.jpg" alt="こどもと遊ぶ学生メンバー" width="1920" height="1280" loading="lazy" decoding="async"></figure>
-      <figure class="hero-slide" aria-hidden="true"><img src="photos/hero-3.jpg" alt="こども食堂で調理と配膳を手伝う学生" width="1920" height="1280" loading="lazy" decoding="async"></figure>
-      <figure class="hero-slide" aria-hidden="true"><img src="photos/hero-4.jpg" alt="こどもの宿題をみる学生" width="1920" height="1280" loading="lazy" decoding="async"></figure>
-      <figure class="hero-slide" aria-hidden="true"><img src="photos/hero-5.jpg" alt="ちるーむのメンバーの集合写真" width="1920" height="1280" loading="lazy" decoding="async"></figure>
-    </div>
-    <div class="hero-controls" role="group" aria-label="写真のスライドショー" hidden>
-      <button class="hero-toggle" type="button" aria-label="スライドショーを一時停止">
-        <svg class="ico ico-pause" aria-hidden="true" focusable="false"><use href="#i-pause"/></svg>
-        <svg class="ico ico-play" aria-hidden="true" focusable="false"><use href="#i-play"/></svg>
-      </button>
-      <div class="hero-dots">
-        <button class="hero-dot" type="button" aria-label="写真 1 を表示" aria-current="true"></button>
-        <button class="hero-dot" type="button" aria-label="写真 2 を表示"></button>
-        <button class="hero-dot" type="button" aria-label="写真 3 を表示"></button>
-        <button class="hero-dot" type="button" aria-label="写真 4 を表示"></button>
-        <button class="hero-dot" type="button" aria-label="写真 5 を表示"></button>
-      </div>
-    </div>
-  </div>
-  <div class="hero-panel">
-    <div class="hero-panel-inner">
-      <h1 class="hero-logo" id="hero-title"><img src="chiroom-logo.png" alt="ちるーむ" width="1200" height="467"></h1>
-      <p class="hero-copy">ごはんで繋がる、<span class="phrase">笑顔の輪</span></p>
-      <p class="hero-lead">ボランティアに関心のある大学生と、<span class="phrase">こども食堂</span>をつなぎ、遊びや食事の時間をともにしながら、地域とのつながりを広げるサポートをするサークルです。</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener"><svg class="ico ico-line" aria-hidden="true" focusable="false"><use href="#i-line"/></svg>LINEで気軽に相談する</a>
-        <a class="btn btn-outline" href="#activities">活動内容を見る</a>
-      </div>
-      <div class="hero-sub">
-        <p class="hero-partner"><a href="#partner">こども食堂・地域の方へ</a></p>
-        <p class="hero-affil"><img src="nagasaki-u.png" alt="" width="2363" height="827">長崎大学 認定サークル</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ===== お知らせ（新しい項目は先頭に追加。日付は <time datetime="YYYY-MM-DD"> で書く） ===== -->
-<section class="news" id="news" aria-labelledby="news-title">
-  <div class="container news-inner">
-    <h2 class="news-title" id="news-title">お知らせ</h2>
-    <ul class="news-list">
-      <li>
-        <time class="news-date" datetime="2026-09-04">2026.09.04</time>
-        <span>公式サイトをリニューアルしました。</span>
-      </li>
-      <li>
-        <span class="news-date">随時</span>
-        <span>活動の様子は <a href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener">Instagram</a> で更新しています。</span>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- ===== わたしたちのこと ===== -->
-<section class="block about" id="about" aria-labelledby="about-title">
-  <div class="container">
-    <div class="about-grid">
-      <div class="sec-head reveal">
-        <span class="stripe-mark" aria-hidden="true"></span>
-        <h2 id="about-title">わたしたちのこと</h2>
-        <p class="sec-lead">こども食堂と大学生をつなぎ、地域全体をつなぐ場をつくる。長崎で活動する学生サークルです。</p>
-      </div>
-      <div class="about-media reveal">
-        <figure class="about-photo about-photo-main"><img src="photos/about-1.jpg" alt="こども食堂で活動するちるーむのメンバー" width="900" height="1200" loading="lazy" decoding="async"></figure>
-        <figure class="about-photo about-photo-sub"><img src="photos/about-2.jpg" alt="こども食堂の食卓" width="1200" height="900" loading="lazy" decoding="async"></figure>
-      </div>
-      <div class="about-story reveal">
-        <p>わたしたちはちゃいるどほーむ、略して「ちるーむ」という名前で、長崎県で活動しているサークルです。</p>
-        <p>長崎県ではこども食堂が年々増え、子どもたちの居場所や地域の交流の場として大切な役割を担っています。しかし、ボランティアの人手不足や運営の負担が大きいといった課題もあります。また、参加したい気持ちはあってもきっかけがない大学生も少なくありません。</p>
-        <p>私たち「ちるーむ」は、こども食堂と大学生をつなぎ、活動に参加して子供食堂をサポートし、ワークショップ等の企画・実施を通して地域全体をつなぐ場をつくることを目指して活動しています。</p>
-        <p class="about-name">「ちゃいるどほーむ（child home）」を縮めて「ちるーむ」。こどもにとっての、もうひとつの家のような場所でありたいという想いを込めています。</p>
-      </div>
-    </div>
-
-    <div class="bridge-wrap reveal">
-      <h3 class="sub-title">こども食堂の課題に、学生ができること</h3>
-      <div class="bridge-head" aria-hidden="true"><span>こども食堂の課題</span><span>ちるーむができること</span></div>
-      <ul class="bridge">
-        <li>
-          <p class="bridge-issue">ボランティアの人手が足りず、運営の負担が大きい。</p>
-          <svg class="ico bridge-arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>
-          <p class="bridge-answer">学生が食事の準備や配膳を手伝い、スタッフの方を支えます。</p>
-        </li>
-        <li>
-          <p class="bridge-issue">参加したい気持ちはあっても、きっかけがない。</p>
-          <svg class="ico bridge-arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>
-          <p class="bridge-answer">ちるーむが窓口になり、はじめてでも参加しやすい形をつくります。</p>
-        </li>
-        <li>
-          <p class="bridge-issue">こどもの居場所や地域の交流の場を、もっと広げたい。</p>
-          <svg class="ico bridge-arrow" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg>
-          <p class="bridge-answer">ワークショップなどの企画を通して、地域全体をつなぐ場をつくります。</p>
-        </li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 活動内容 =====
-     写真は photos/act-1.jpg 〜 act-4.jpg（1200×900）。差し替えたら alt も書き直す。 -->
-<section class="block is-tinted activities" id="activities" aria-labelledby="activities-title">
-  <div class="container">
-    <div class="sec-head reveal">
-      <span class="stripe-mark" aria-hidden="true"></span>
-      <h2 id="activities-title">活動内容</h2>
-      <p class="sec-lead">こどもと、食堂と、地域と。ちるーむでできる4つのこと。</p>
-    </div>
-    <ul class="acts">
-      <li class="act reveal">
-        <figure class="act-photo"><img src="photos/act-1.jpg" alt="調理や配膳を手伝う学生" width="1200" height="900" loading="lazy" decoding="async"></figure>
-        <h3>こども食堂のお手伝い</h3>
-        <p>食事の準備や配膳など、スタッフの方々を学生のチカラで支援します。</p>
-      </li>
-      <li class="act reveal">
-        <figure class="act-photo"><img src="photos/act-2.jpg" alt="こどもと遊ぶ学生" width="1200" height="900" loading="lazy" decoding="async"></figure>
-        <h3>こどもとのふれあい</h3>
-        <p>自由時間には、子供たちと一緒に遊んだり勉強をみたりして子どもたちと交流を深めます。</p>
-      </li>
-      <li class="act reveal">
-        <figure class="act-photo"><img src="photos/act-3.jpg" alt="こども向けのイベントのようす" width="1200" height="900" loading="lazy" decoding="async"></figure>
-        <h3>イベント企画</h3>
-        <p>季節のお楽しみや、こどもが笑顔になれる企画をみんなで考えます。</p>
-      </li>
-      <li class="act reveal">
-        <figure class="act-photo"><img src="photos/act-4.jpg" alt="食堂のスタッフや地域の方と話す学生" width="1200" height="900" loading="lazy" decoding="async"></figure>
-        <h3>地域との繋がり</h3>
-        <p>こども食堂のスタッフや地域の方、大学・学年を超えた仲間と出会い、活動の振り返りを共有しながら地域とのつながりを広げます。</p>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- ===== ある日の活動 =====
-     要確認: 当日の流れはサークルの実態に合わせて修正すること（時刻は書かない）
-     写真は photos/day-1.jpg 〜 day-6.jpg（1200×900）。各ステップの写真と、PC で右に出る写真（.day-stage）は同じファイル。 -->
-<section class="block day" id="day" aria-labelledby="day-title">
-  <div class="container">
-    <div class="sec-head reveal">
-      <span class="stripe-mark" aria-hidden="true"></span>
-      <h2 id="day-title">ある日の活動</h2>
-      <p class="sec-lead">こども食堂での1日の流れの一例です。食堂によって内容や時間は変わります。</p>
-    </div>
-    <div class="day-layout">
-      <ol class="day-steps">
-        <li class="day-step reveal is-active">
-          <figure class="day-photo"><img src="photos/day-1.jpg" alt="食堂のスタッフの方と打ち合わせをする学生" width="1200" height="900" loading="lazy" decoding="async"></figure>
-          <span class="day-num" aria-hidden="true">1</span>
-          <div class="day-text">
-            <h3>集合・打ち合わせ</h3>
-            <p>食堂に集合して、スタッフの方とその日の役割や注意点を確認します。</p>
-          </div>
-        </li>
-        <li class="day-step reveal">
-          <figure class="day-photo"><img src="photos/day-2.jpg" alt="調理の補助と会場の準備" width="1200" height="900" loading="lazy" decoding="async"></figure>
-          <span class="day-num" aria-hidden="true">2</span>
-          <div class="day-text">
-            <h3>準備</h3>
-            <p>手洗いと身支度をすませて、調理の補助や会場づくり、配膳の準備をします。</p>
-          </div>
-        </li>
-        <li class="day-step reveal">
-          <figure class="day-photo"><img src="photos/day-3.jpg" alt="こどもと学生がいっしょに囲む食卓" width="1200" height="900" loading="lazy" decoding="async"></figure>
-          <span class="day-num" aria-hidden="true">3</span>
-          <div class="day-text">
-            <h3>いただきます</h3>
-            <p>こどもたちを迎えて、配膳をしたり、同じテーブルで話したりしながら食事の時間を過ごします。</p>
-          </div>
-        </li>
-        <li class="day-step reveal">
-          <figure class="day-photo"><img src="photos/day-4.jpg" alt="食後にこどもと遊ぶ学生" width="1200" height="900" loading="lazy" decoding="async"></figure>
-          <span class="day-num" aria-hidden="true">4</span>
-          <div class="day-text">
-            <h3>あそび・勉強の時間</h3>
-            <p>食後は、こどもたちと一緒に遊んだり、宿題をみたりします。</p>
-          </div>
-        </li>
-        <li class="day-step reveal">
-          <figure class="day-photo"><img src="photos/day-5.jpg" alt="食器を洗って片付ける学生" width="1200" height="900" loading="lazy" decoding="async"></figure>
-          <span class="day-num" aria-hidden="true">5</span>
-          <div class="day-text">
-            <h3>片付け</h3>
-            <p>食器洗いや掃除をして、会場を元に戻します。</p>
-          </div>
-        </li>
-        <li class="day-step reveal">
-          <figure class="day-photo"><img src="photos/day-6.jpg" alt="活動後にふりかえりをするメンバー" width="1200" height="900" loading="lazy" decoding="async"></figure>
-          <span class="day-num" aria-hidden="true">6</span>
-          <div class="day-text">
-            <h3>ふりかえり</h3>
-            <p>メンバーで気づいたことを共有し、次の活動に生かします。</p>
-          </div>
-        </li>
-      </ol>
-      <div class="day-stage" aria-hidden="true">
-        <div class="day-stage-frame">
-          <img class="is-active" src="photos/day-1.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
-          <img src="photos/day-2.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
-          <img src="photos/day-3.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
-          <img src="photos/day-4.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
-          <img src="photos/day-5.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
-          <img src="photos/day-6.jpg" alt="" width="1200" height="900" loading="lazy" decoding="async">
-        </div>
-        <p class="day-stage-cap"><span class="day-stage-num">1</span><span class="day-stage-title">集合・打ち合わせ</span></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 活動で大切にしていること =====
-     要確認: 写真・個人情報の扱いはサークルと連携先の方針に合わせて修正すること -->
-<section class="block is-tinted" id="promise" aria-labelledby="promise-title">
-  <div class="container">
-    <div class="sec-head reveal">
-      <span class="stripe-mark" aria-hidden="true"></span>
-      <h2 id="promise-title">活動で大切にしていること</h2>
-      <p class="sec-lead">こどもたちと食堂の方が安心して過ごせるように、メンバー全員で守っていることです。</p>
-    </div>
-    <ul class="promise-grid reveal">
-      <li class="promise">
-        <span class="promise-ico" aria-hidden="true"><svg class="ico" focusable="false"><use href="#i-clipboard"/></svg></span>
-        <h3>食堂のルールを第一に</h3>
-        <p>活動の進め方は食堂ごとに違います。スタッフの方の指示にしたがい、わからないことはその場で確認します。</p>
-      </li>
-      <li class="promise">
-        <span class="promise-ico" aria-hidden="true"><svg class="ico" focusable="false"><use href="#i-drop"/></svg></span>
-        <h3>衛生と体調の管理</h3>
-        <p>手洗い・消毒と身だしなみを徹底します。体調がすぐれない日は無理せず休みます。</p>
-      </li>
-      <li class="promise">
-        <span class="promise-ico" aria-hidden="true"><svg class="ico" focusable="false"><use href="#i-lock"/></svg></span>
-        <h3>こどもの写真と個人情報</h3>
-        <p>こどもの顔や名前がわかる写真は、食堂の許可なく撮影・投稿しません。活動で知ったことは外で話しません。</p>
-      </li>
-      <li class="promise">
-        <span class="promise-ico" aria-hidden="true"><svg class="ico" focusable="false"><use href="#i-pair"/></svg></span>
-        <h3>はじめての人をひとりにしない</h3>
-        <p>はじめての参加者には先輩メンバーがつき、当日の流れを一緒に確認します。</p>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- ===== 参加までの流れ ===== -->
-<section class="block flow" id="flow" aria-labelledby="flow-title">
-  <div class="container">
-    <div class="sec-head reveal">
-      <span class="stripe-mark" aria-hidden="true"></span>
-      <h2 id="flow-title">参加までの流れ</h2>
-      <p class="sec-lead">気になったら、まずは連絡するだけ。3つのステップで活動に参加できます。</p>
-    </div>
-    <div class="flow-grid">
-      <ol class="steps reveal">
-        <li class="step">
-          <span class="step-num" aria-hidden="true">1</span>
-          <div>
-            <h3>LINEで連絡する</h3>
-            <p>公式LINEを友だち追加して、「参加してみたい」「話を聞きたい」と送ってください。質問だけでも歓迎です。</p>
-            <p class="step-note"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-heart"/></svg>返信はメンバーが順番に行います。</p>
-          </div>
-        </li>
-        <li class="step">
-          <span class="step-num" aria-hidden="true">2</span>
-          <div>
-            <h3>見学・体験に行く</h3>
-            <p>日程を相談して、まずは1回、メンバーと一緒にこども食堂へ。集合場所や持ち物は事前にお知らせします。</p>
-            <p class="step-note"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-heart"/></svg>はじめての日は、先輩メンバーがずっと一緒です。</p>
-          </div>
-        </li>
-        <li class="step">
-          <span class="step-num" aria-hidden="true">3</span>
-          <div>
-            <h3>メンバーとして活動する</h3>
-            <p>都合の合う日に参加しながら、お手伝い、こどもとのふれあい、イベント企画に関わっていきます。</p>
-            <p class="step-note"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-heart"/></svg>学部・学年は問いません。</p>
-          </div>
-        </li>
-      </ol>
-      <div class="flow-side">
-        <aside class="line-card reveal" aria-labelledby="flow-aside-title">
-          <h3 id="flow-aside-title">まずは話を聞くだけでも</h3>
-          <p>「続けられるか不安」「どんな雰囲気か知りたい」という段階でも大丈夫です。公式LINEでお気軽にどうぞ。</p>
-          <a class="btn btn-primary" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">
-            <svg class="ico ico-line" aria-hidden="true" focusable="false"><use href="#i-line"/></svg>
-            LINEで友だち追加
-          </a>
-          <p class="line-id">LINE ID: @990qouib</p>
-        </aside>
-        <!-- 要確認: 持ち物・服装はサークルの実態に合わせて修正すること -->
-        <aside class="bring reveal" aria-labelledby="bring-title">
-          <h3 id="bring-title">持ち物・服装のめやす</h3>
-          <ul class="check-list">
-            <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>エプロン</li>
-            <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>三角巾またはバンダナ</li>
-            <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>マスク</li>
-            <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>動きやすい服装</li>
-            <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>飲み物</li>
-          </ul>
-          <p class="bring-note">食堂によって異なるので、参加前にお知らせします。</p>
-        </aside>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 活動の様子 =====
-     写真は photos/gallery-1.jpg 〜 gallery-8.jpg。同じ名前で上書きすれば差し替わる。
-     1 と 3 は縦長（900×1200）、ほかは横長（1200×900）。差し替えたら alt を写真の内容に書き直す。 -->
-<section class="block is-tinted gallery" id="gallery" aria-labelledby="gallery-title">
-  <div class="container">
-    <div class="sec-head reveal">
-      <span class="stripe-mark" aria-hidden="true"></span>
-      <h2 id="gallery-title">活動の様子</h2>
-      <p class="sec-lead">こども食堂での活動の様子を紹介します。</p>
-    </div>
-    <ul class="gallery-grid reveal">
-      <li class="g g1"><img src="photos/gallery-1.jpg" alt="こども食堂でのごはんの時間" width="900" height="1200" loading="lazy" decoding="async"></li>
-      <li class="g g2"><img src="photos/gallery-2.jpg" alt="調理のお手伝い" width="1200" height="900" loading="lazy" decoding="async"></li>
-      <li class="g g3"><img src="photos/gallery-3.jpg" alt="こどもと遊ぶ時間" width="900" height="1200" loading="lazy" decoding="async"></li>
-      <li class="g g4"><img src="photos/gallery-4.jpg" alt="会場の準備" width="1200" height="900" loading="lazy" decoding="async"></li>
-      <li class="g g5"><img src="photos/gallery-5.jpg" alt="季節のイベント" width="1200" height="900" loading="lazy" decoding="async"></li>
-      <li class="g g6"><img src="photos/gallery-6.jpg" alt="メンバーの集合写真" width="1200" height="900" loading="lazy" decoding="async"></li>
-      <li class="g g7"><img src="photos/gallery-7.jpg" alt="盛りつけと配膳" width="1200" height="900" loading="lazy" decoding="async"></li>
-      <li class="g g8"><img src="photos/gallery-8.jpg" alt="活動後のふりかえり" width="1200" height="900" loading="lazy" decoding="async"></li>
-    </ul>
-    <div class="gallery-foot reveal">
-      <div>
-        <p>最新の活動報告は Instagram で発信しています。</p>
-        <!-- 要確認: 写真の掲載方針はサークルと連携先の方針に合わせて修正すること -->
-        <p class="photo-policy">写真を載せるときは食堂の許可を得て、こどもの顔や名前がわからないようにします。</p>
-      </div>
-      <a class="btn btn-outline btn-sm" href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener">
-        <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-instagram"/></svg>
-        Instagramを見る
-      </a>
-    </div>
-  </div>
-</section>
-
-
-<!-- ===== よくある質問 ===== -->
-<section class="block faq" id="faq" aria-labelledby="faq-title">
-  <div class="container faq-grid">
-    <div class="faq-head">
-      <div class="sec-head reveal">
-        <span class="stripe-mark" aria-hidden="true"></span>
-        <h2 id="faq-title">よくある質問</h2>
-        <p class="sec-lead">学生の方と、こども食堂・地域の方からよくいただく質問をまとめました。ここにないことは LINE やメールで気軽に聞いてください。</p>
-      </div>
-      <a class="btn btn-soft btn-sm reveal" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">
-        <svg class="ico ico-line" aria-hidden="true" focusable="false"><use href="#i-line"/></svg>
-        LINEで質問する
-      </a>
-    </div>
-    <div class="faq-groups">
-      <div class="faq-group reveal">
-        <h3 class="faq-group-title">学生の方から</h3>
-        <details class="faq-item">
-          <summary>こども食堂って、どんな場所ですか？<span class="plus" aria-hidden="true"></span></summary>
-          <div class="faq-body">
-            <p>こども食堂は、地域の人が中心になって運営する、こどもが無料または少ない負担でごはんを食べられる場所です。ひとりでも安心して来られる居場所であり、こどもから高齢の方まで集まる地域の交流の場にもなっています。</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>ボランティアははじめてです。参加できますか？<span class="plus" aria-hidden="true"></span></summary>
-          <div class="faq-body">
-            <p>はい。はじめての人を歓迎しています。当日はメンバーが一緒に行動し、やることはその場でお伝えするので、特別な知識や経験は必要ありません。持ち物や服装は参加前にお知らせします。</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>料理が苦手でも大丈夫ですか？<span class="plus" aria-hidden="true"></span></summary>
-          <div class="faq-body">
-            <!-- 要確認: 調理の分担は食堂ごとの実態に合わせて修正すること -->
-            <p>大丈夫です。調理は食堂のスタッフの方が中心で、学生は配膳や片付け、こどもとの時間など、できることから担当します。</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>活動はどのくらいの頻度ですか？<span class="plus" aria-hidden="true"></span></summary>
-          <div class="faq-body">
-            <p>定期的な活動は月2回程度です。毎回参加する必要はなく、授業やアルバイトの都合に合わせて、参加できる日だけで大丈夫です。</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>参加費はかかりますか？<span class="plus" aria-hidden="true"></span></summary>
-          <div class="faq-body">
-            <!-- 要確認: 参加費・交通費の扱いはサークルの実態に合わせて修正すること -->
-            <p>活動への参加費はかかりません。こども食堂までの交通費など、細かい点は LINE でお尋ねください。</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>長崎大学以外の学生でも参加できますか？<span class="plus" aria-hidden="true"></span></summary>
-          <div class="faq-body">
-            <!-- 要確認: 他大学生の受け入れ可否はサークルの方針に合わせて修正すること -->
-            <p>長崎大学の認定サークルですが、他大学の学生の参加も歓迎しています。まずは LINE でご相談ください。</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>年度の途中からでも入れますか？<span class="plus" aria-hidden="true"></span></summary>
-          <div class="faq-body">
-            <p>入れます。メンバーは通年で募集しています。見学・体験からはじめて、合いそうなら続けてください。</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>見学だけでもできますか？<span class="plus" aria-hidden="true"></span></summary>
-          <div class="faq-body">
-            <p>できます。まずは1回、メンバーと一緒に活動の様子を見に来てください。LINE で日程を相談できます。</p>
-          </div>
-        </details>
-      </div>
-      <div class="faq-group is-partner reveal">
-        <h3 class="faq-group-title">こども食堂・地域の方から</h3>
-        <details class="faq-item">
-          <summary>こども食堂を運営しています。学生に手伝ってもらえますか？<span class="plus" aria-hidden="true"></span></summary>
-          <div class="faq-body">
-            <p>ぜひご相談ください。活動日や人数、お手伝いの内容をうかがったうえで、参加できるメンバーを調整します。<a href="mailto:childhome.nagasaki@gmail.com">メール</a>でご連絡いただけると確実です。</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>イベントを一緒に企画できますか？<span class="plus" aria-hidden="true"></span></summary>
-          <div class="faq-body">
-            <p>できます。季節のイベントやワークショップなど、食堂の皆さまと相談しながら企画します。まずは<a href="mailto:childhome.nagasaki@gmail.com">メール</a>でご相談ください。</p>
-          </div>
-        </details>
-        <details class="faq-item">
-          <summary>こども食堂を利用したいのですが？<span class="plus" aria-hidden="true"></span></summary>
-          <div class="faq-body">
-            <!-- 要確認: 問い合わせ先の案内はサークルの方針に合わせて修正すること -->
-            <p>ちるーむはこども食堂を運営している団体ではなく、食堂を手伝う学生サークルです。お近くのこども食堂については、お住まいの市町の窓口などでご確認いただけます。わからない場合は<a href="mailto:childhome.nagasaki@gmail.com">メール</a>でお問い合わせください。わかる範囲でご案内します。</p>
-          </div>
-        </details>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 参加する ===== -->
-<section class="join" id="join" aria-labelledby="join-title">
-  <div class="container">
-    <div class="join-head reveal">
-      <span class="stripe-mark" aria-hidden="true"></span>
-      <h2 id="join-title">ちるーむに、<br>参加してみませんか</h2>
-      <p class="sec-lead">気になったら、気軽に連絡してください。LINE や Instagram の DM からで大丈夫です。学部・学年は問いません。</p>
-    </div>
-    <div class="join-grid">
-      <div class="wanted reveal">
-        <figure class="join-photo"><img src="photos/join.jpg" alt="ちるーむのメンバーの集合写真" width="1600" height="1000" loading="lazy" decoding="async"></figure>
-        <h3>こんな人を待っています</h3>
-        <ul class="check-list">
-          <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>こどもと関わることに興味がある人</li>
-          <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>地域の役に立つ活動をしてみたい人</li>
-          <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>イベントを企画するのが好きな人</li>
-          <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>学部や学年をこえて仲間をつくりたい人</li>
-          <li><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>「ボランティアは初めて」という人</li>
-        </ul>
-      </div>
-      <div class="channels reveal">
-        <a class="channel is-line" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">
-          <span class="channel-icon" aria-hidden="true"><svg class="ico" focusable="false"><use href="#i-line"/></svg></span>
-          <span class="channel-text">
-            <span class="channel-name">公式LINEで連絡<span class="tag">いちばん早い</span></span>
-            <span class="channel-id">@990qouib</span>
-          </span>
-          <svg class="ico channel-chev" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg>
-        </a>
-        <a class="channel is-instagram" href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener">
-          <span class="channel-icon" aria-hidden="true"><svg class="ico" focusable="false"><use href="#i-instagram"/></svg></span>
-          <span class="channel-text">
-            <span class="channel-name">InstagramのDMで連絡</span>
-            <span class="channel-id">@nagasaki_childhome</span>
-          </span>
-          <svg class="ico channel-chev" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg>
-        </a>
-        <a class="channel is-mail" href="mailto:childhome.nagasaki@gmail.com">
-          <span class="channel-icon" aria-hidden="true"><svg class="ico" focusable="false"><use href="#i-mail"/></svg></span>
-          <span class="channel-text">
-            <span class="channel-name">メールで連絡</span>
-            <span class="channel-id">childhome.nagasaki@gmail.com</span>
-          </span>
-          <svg class="ico channel-chev" aria-hidden="true" focusable="false"><use href="#i-chev"/></svg>
-        </a>
-        <p class="channel-note">返信までに数日いただくことがあります。急ぎの場合は LINE をご利用ください。</p>
-      </div>
-    </div>
-
-    <section class="partner reveal" id="partner" aria-labelledby="partner-title">
-      <div class="partner-main">
-        <span class="stripe-mark" aria-hidden="true"></span>
-        <h2 id="partner-title">こども食堂・地域の方へ</h2>
-        <p>学生ボランティアの受け入れ、イベントやワークショップの共同企画、取材や講演のご依頼など、地域の皆さまからのご相談を歓迎しています。</p>
-        <ul class="partner-list">
-          <li>こども食堂の運営を学生に手伝ってほしい</li>
-          <li>こども向けのイベント・ワークショップを一緒に企画したい</li>
-          <li>取材・講演・メディア掲載のご相談</li>
-        </ul>
-        <div class="partner-actions">
-          <a class="btn btn-outline" href="mailto:childhome.nagasaki@gmail.com">
-            <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
-            メールで相談する
-          </a>
-          <span class="mail-text">childhome.nagasaki@gmail.com</span>
-        </div>
-      </div>
-      <!-- 要確認: 相談の流れはサークルの実態に合わせて修正すること -->
-      <div class="consult">
-        <h3>ご相談の流れ</h3>
-        <ol>
-          <li><span class="consult-num" aria-hidden="true">1</span><div><strong>メールで相談</strong><p>ご依頼の内容と希望の時期をお送りください。</p></div></li>
-          <li><span class="consult-num" aria-hidden="true">2</span><div><strong>打ち合わせ</strong><p>日程や人数、当日の内容を一緒に決めます。</p></div></li>
-          <li><span class="consult-num" aria-hidden="true">3</span><div><strong>活動開始</strong><p>学生が食堂にうかがい、活動します。</p></div></li>
-        </ol>
-      </div>
-    </section>
-  </div>
-</section>
-
-<!-- ===== 団体概要 ===== -->
-<section class="block profile" id="profile" aria-labelledby="profile-title">
-  <div class="container profile-grid">
-    <div class="sec-head reveal">
-      <span class="stripe-mark" aria-hidden="true"></span>
-      <h2 id="profile-title">団体概要</h2>
-    </div>
-    <!-- 要確認: 活動頻度・連携先はサークルの実態に合わせて修正すること -->
-    <dl class="profile-list reveal">
-      <div><dt>名称</dt><dd>ちゃいるどほーむ（略称: ちるーむ）</dd></div>
-      <div><dt>所属</dt><dd>長崎大学 認定サークル</dd></div>
-      <div><dt>活動地域</dt><dd>長崎県内の<span class="phrase">こども食堂</span></dd></div>
-      <div><dt>活動頻度</dt><dd>月2回程度の定期活動</dd></div>
-      <div><dt>連携先</dt><dd>こども食堂 2か所以上</dd></div>
-      <div><dt>連絡先</dt><dd><a href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">公式LINE</a> / <a href="mailto:childhome.nagasaki@gmail.com">メール</a></dd></div>
-    </dl>
-  </div>
-</section>
-
-<!-- ===== SNS ===== -->
-<section class="block connect" id="connect" aria-labelledby="connect-title">
-  <div class="container">
-    <div class="sec-head reveal">
-      <span class="stripe-mark" aria-hidden="true"></span>
-      <h2 id="connect-title">SNSでつながる</h2>
-      <p class="sec-lead">日々の活動や募集のお知らせは、各 SNS で発信しています。</p>
-    </div>
-    <ul class="sns-list reveal">
-      <li>
-        <a class="sns-item is-instagram" href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener">
-          <span class="sns-icon" aria-hidden="true"><svg class="ico" focusable="false"><use href="#i-instagram"/></svg></span>
-          <span class="sns-text">
-            <span class="sns-name">Instagram</span>
-            <span class="sns-id">@nagasaki_childhome</span>
-            <span class="sns-desc">活動の写真と日々の様子</span>
-          </span>
-        </a>
-      </li>
-      <li>
-        <a class="sns-item is-line" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener">
-          <span class="sns-icon" aria-hidden="true"><svg class="ico" focusable="false"><use href="#i-line"/></svg></span>
-          <span class="sns-text">
-            <span class="sns-name">LINE公式アカウント</span>
-            <span class="sns-id">@990qouib</span>
-            <span class="sns-desc">参加の相談・質問はこちら</span>
-          </span>
-        </a>
-      </li>
-      <li>
-        <a class="sns-item is-facebook" href="https://www.facebook.com/share/18ar3FUNtg/?mibextid=wwXIfr" target="_blank" rel="noopener">
-          <span class="sns-icon" aria-hidden="true"><svg class="ico" focusable="false"><use href="#i-facebook"/></svg></span>
-          <span class="sns-text">
-            <span class="sns-name">Facebook</span>
-            <span class="sns-desc">ちるーむ公式ページ</span>
-          </span>
-        </a>
-      </li>
-      <li>
-        <a class="sns-item is-linkedin" href="https://www.linkedin.com/in/%E3%81%BB%E3%83%BC%E3%82%80-%E3%81%A1%E3%82%83%E3%81%84%E3%82%8B%E3%81%A9-1152a3406" target="_blank" rel="noopener">
-          <span class="sns-icon" aria-hidden="true"><svg class="ico" focusable="false"><use href="#i-linkedin"/></svg></span>
-          <span class="sns-text">
-            <span class="sns-name">LinkedIn</span>
-            <span class="sns-desc">ちゃいるどほーむ</span>
-          </span>
-        </a>
-      </li>
-    </ul>
-  </div>
-</section>
-
+{{main}}
 </main>
 
 <!-- ===== フッター ===== -->
@@ -1451,37 +833,23 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
     <div class="footer-grid">
       <div class="footer-brand">
         <img src="chiroom-logo.png" alt="ちるーむ" width="1200" height="467" loading="lazy">
-        <p>ちゃいるどほーむ（ちるーむ）<br>長崎大学 認定サークル<br>ボランティアに関心のある大学生と、長崎県のこども食堂をつなぐ学生団体です。</p>
+        <p>{{footerText}}</p>
       </div>
       <nav class="footer-nav" aria-labelledby="footer-nav-title">
         <h2 class="footer-title" id="footer-nav-title">サイトマップ</h2>
         <ul>
-          <li><a href="#about">わたしたちのこと</a></li>
-          <li><a href="#activities">活動内容</a></li>
-          <li><a href="#day">ある日の活動</a></li>
-          <li><a href="#promise">大切にしていること</a></li>
-          <li><a href="#flow">参加までの流れ</a></li>
-          <li><a href="#gallery">活動の様子</a></li>
-          <li><a href="#faq">よくある質問</a></li>
-          <li><a href="#join">参加する</a></li>
-          <li><a href="#partner">こども食堂・地域の方へ</a></li>
-          <li><a href="#profile">団体概要</a></li>
-          <li><a href="#connect">SNS</a></li>
+{{footerNav}}
         </ul>
       </nav>
       <div class="footer-sns">
         <h2 class="footer-title">つながる</h2>
         <ul>
-          <li><a href="https://www.instagram.com/nagasaki_childhome" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-instagram"/></svg>Instagram</a></li>
-          <li><a href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-line"/></svg>LINE公式アカウント</a></li>
-          <li><a href="https://www.facebook.com/share/18ar3FUNtg/?mibextid=wwXIfr" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-facebook"/></svg>Facebook</a></li>
-          <li><a href="https://www.linkedin.com/in/%E3%81%BB%E3%83%BC%E3%82%80-%E3%81%A1%E3%82%83%E3%81%84%E3%82%8B%E3%81%A9-1152a3406" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-linkedin"/></svg>LinkedIn</a></li>
-          <li><a href="mailto:childhome.nagasaki@gmail.com"><svg class="ico" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>childhome.nagasaki@gmail.com</a></li>
+{{footerSns}}
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <small>© <span id="copyright-year">2026</span> ちるーむ（ちゃいるどほーむ）</small>
+      <small>© <span id="copyright-year">{{year}}</span> {{copyright}}</small>
       <a class="to-top" href="#top">ページの先頭へ</a>
     </div>
   </div>
@@ -1489,10 +857,10 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 
 <!-- モバイル固定 CTA（ヒーローを過ぎたら表示、参加セクションが見えている間は隠す） -->
 <div class="sticky-cta" id="sticky-cta" aria-hidden="true">
-  <span class="sticky-text">参加してみたい？<small>質問だけでも大丈夫</small></span>
-  <a class="btn btn-primary btn-sm" href="https://line.me/R/ti/p/@990qouib" target="_blank" rel="noopener" tabindex="-1">
+  <span class="sticky-text">{{stickyText}}<small>{{stickySub}}</small></span>
+  <a class="btn btn-primary btn-sm" href="{{lineUrl}}" target="_blank" rel="noopener" tabindex="-1">
     <svg class="ico ico-line" aria-hidden="true" focusable="false"><use href="#i-line"/></svg>
-    LINEで相談
+    {{stickyButton}}
   </a>
 </div>
 
@@ -1570,7 +938,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
       sticky.querySelector('a').setAttribute('tabindex', show ? '0' : '-1');
     }
     new IntersectionObserver(function (entries) { heroVisible = entries[0].isIntersecting; updateSticky(); }, { threshold: 0.15 }).observe(hero);
-    new IntersectionObserver(function (entries) { joinVisible = entries[0].isIntersecting; updateSticky(); }, { threshold: 0.05 }).observe(join);
+    if (join) new IntersectionObserver(function (entries) { joinVisible = entries[0].isIntersecting; updateSticky(); }, { threshold: 0.05 }).observe(join);
   }
 
   /* ヒーローのスライドショー

@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 // 開発用の静的サーバ（依存ゼロ・Node 標準のみ）。vercel.json の cleanUrls / trailingSlash:false を再現する。
-//   node tools/serve.mjs [port]     既定 3000。Ctrl+C で停止。
+//   node tools/serve.mjs [port]                       cms/seed で dist/ を組み立てて配信（既定 3000。Ctrl+C で停止）
+//   node --env-file=.env tools/serve.mjs --cms [port]   microCMS の今の内容で組み立てて配信
 import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
-import { join, extname, dirname, resolve, normalize } from 'node:path';
+import { join, extname, dirname, resolve, normalize, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { build } from './build.mjs';
 
-const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const PORT = Number(process.argv[2] || process.env.PORT || 3000);
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'dist');
+const USE_CMS = process.argv.includes('--cms');
+const PORT = Number(process.argv.slice(2).find((a) => /^\d+$/.test(a)) || process.env.PORT || 3000);
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
@@ -24,12 +27,19 @@ async function resolvePath(urlPath) {
   // ルート外への脱出を防ぐ
   const rel = normalize(decodeURIComponent(urlPath)).replace(/^([/\.]+)/, '');
   const base = join(ROOT, rel);
-  if (!base.startsWith(ROOT)) return null;
+  if (base !== ROOT && !base.startsWith(ROOT + sep)) return null;
   if (urlPath === '/' || urlPath === '') return join(ROOT, 'index.html');
   if (await isFile(base)) return base;
   if (await isFile(`${base}.html`)) return `${base}.html`;          // cleanUrls
   if (await isFile(join(base, 'index.html'))) return join(base, 'index.html');
   return null;
+}
+
+try {
+  await build({ seed: !USE_CMS });
+} catch (e) {
+  console.error('✗ ビルド失敗: ' + e.message);
+  process.exit(1);
 }
 
 createServer(async (req, res) => {

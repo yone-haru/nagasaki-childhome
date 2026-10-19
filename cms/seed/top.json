@@ -1,0 +1,601 @@
+{
+  "heroSlides": [
+    {
+      "fieldId": "heroSlide",
+      "image": {
+        "url": "photos/hero-1.jpg",
+        "width": 1920,
+        "height": 1280
+      },
+      "alt": "こども食堂で、こどもと学生がいっしょに「いただきます」をする食卓"
+    },
+    {
+      "fieldId": "heroSlide",
+      "image": {
+        "url": "photos/hero-2.jpg",
+        "width": 1920,
+        "height": 1280
+      },
+      "alt": "こどもと遊ぶ学生メンバー"
+    },
+    {
+      "fieldId": "heroSlide",
+      "image": {
+        "url": "photos/hero-3.jpg",
+        "width": 1920,
+        "height": 1280
+      },
+      "alt": "こども食堂で調理と配膳を手伝う学生"
+    },
+    {
+      "fieldId": "heroSlide",
+      "image": {
+        "url": "photos/hero-4.jpg",
+        "width": 1920,
+        "height": 1280
+      },
+      "alt": "こどもの宿題をみる学生"
+    },
+    {
+      "fieldId": "heroSlide",
+      "image": {
+        "url": "photos/hero-5.jpg",
+        "width": 1920,
+        "height": 1280
+      },
+      "alt": "ちるーむのメンバーの集合写真"
+    }
+  ],
+  "heroCopy": "ごはんで繋がる、[[笑顔の輪]]",
+  "heroLead": "ボランティアに関心のある大学生と、[[こども食堂]]をつなぎ、遊びや食事の時間をともにしながら、地域とのつながりを広げるサポートをするサークルです。",
+  "heroPrimaryLabel": "LINEで気軽に相談する",
+  "heroSecondaryLabel": "活動内容を見る",
+  "heroPartnerLabel": "こども食堂・地域の方へ",
+  "heroAffilLabel": "長崎大学 認定サークル",
+  "sections": [
+    {
+      "fieldId": "sec_about",
+      "menuLabel": "わたしたちのこと",
+      "headerLabel": "わたしたちのこと",
+      "footerLabel": "",
+      "tinted": false,
+      "heading": "わたしたちのこと",
+      "lead": "こども食堂と大学生をつなぎ、地域全体をつなぐ場をつくる。長崎で活動する学生サークルです。",
+      "photoMain": {
+        "url": "photos/about-1.jpg",
+        "width": 900,
+        "height": 1200
+      },
+      "photoMainAlt": "こども食堂で活動するちるーむのメンバー",
+      "photoSub": {
+        "url": "photos/about-2.jpg",
+        "width": 1200,
+        "height": 900
+      },
+      "photoSubAlt": "こども食堂の食卓",
+      "story": "わたしたちはちゃいるどほーむ、略して「ちるーむ」という名前で、長崎県で活動しているサークルです。\n長崎県ではこども食堂が年々増え、子どもたちの居場所や地域の交流の場として大切な役割を担っています。しかし、ボランティアの人手不足や運営の負担が大きいといった課題もあります。また、参加したい気持ちはあってもきっかけがない大学生も少なくありません。\n私たち「ちるーむ」は、こども食堂と大学生をつなぎ、活動に参加して子供食堂をサポートし、ワークショップ等の企画・実施を通して地域全体をつなぐ場をつくることを目指して活動しています。",
+      "nameNote": "「ちゃいるどほーむ（child home）」を縮めて「ちるーむ」。こどもにとっての、もうひとつの家のような場所でありたいという想いを込めています。",
+      "bridgeTitle": "こども食堂の課題に、学生ができること",
+      "bridgeIssueLabel": "こども食堂の課題",
+      "bridgeAnswerLabel": "ちるーむができること",
+      "bridge": [
+        {
+          "fieldId": "bridgeRow",
+          "issue": "ボランティアの人手が足りず、運営の負担が大きい。",
+          "answer": "学生が食事の準備や配膳を手伝い、スタッフの方を支えます。"
+        },
+        {
+          "fieldId": "bridgeRow",
+          "issue": "参加したい気持ちはあっても、きっかけがない。",
+          "answer": "ちるーむが窓口になり、はじめてでも参加しやすい形をつくります。"
+        },
+        {
+          "fieldId": "bridgeRow",
+          "issue": "こどもの居場所や地域の交流の場を、もっと広げたい。",
+          "answer": "ワークショップなどの企画を通して、地域全体をつなぐ場をつくります。"
+        }
+      ]
+    },
+    {
+      "fieldId": "sec_activities",
+      "menuLabel": "活動内容",
+      "headerLabel": "活動内容",
+      "footerLabel": "",
+      "tinted": true,
+      "heading": "活動内容",
+      "lead": "こどもと、食堂と、地域と。ちるーむでできる4つのこと。",
+      "items": [
+        {
+          "fieldId": "photoCard",
+          "image": {
+            "url": "photos/act-1.jpg",
+            "width": 1200,
+            "height": 900
+          },
+          "alt": "調理や配膳を手伝う学生",
+          "title": "こども食堂のお手伝い",
+          "text": "食事の準備や配膳など、スタッフの方々を学生のチカラで支援します。"
+        },
+        {
+          "fieldId": "photoCard",
+          "image": {
+            "url": "photos/act-2.jpg",
+            "width": 1200,
+            "height": 900
+          },
+          "alt": "こどもと遊ぶ学生",
+          "title": "こどもとのふれあい",
+          "text": "自由時間には、子供たちと一緒に遊んだり勉強をみたりして子どもたちと交流を深めます。"
+        },
+        {
+          "fieldId": "photoCard",
+          "image": {
+            "url": "photos/act-3.jpg",
+            "width": 1200,
+            "height": 900
+          },
+          "alt": "こども向けのイベントのようす",
+          "title": "イベント企画",
+          "text": "季節のお楽しみや、こどもが笑顔になれる企画をみんなで考えます。"
+        },
+        {
+          "fieldId": "photoCard",
+          "image": {
+            "url": "photos/act-4.jpg",
+            "width": 1200,
+            "height": 900
+          },
+          "alt": "食堂のスタッフや地域の方と話す学生",
+          "title": "地域との繋がり",
+          "text": "こども食堂のスタッフや地域の方、大学・学年を超えた仲間と出会い、活動の振り返りを共有しながら地域とのつながりを広げます。"
+        }
+      ]
+    },
+    {
+      "fieldId": "sec_day",
+      "menuLabel": "ある日の活動",
+      "headerLabel": "ある日の活動",
+      "footerLabel": "",
+      "tinted": false,
+      "heading": "ある日の活動",
+      "lead": "こども食堂での1日の流れの一例です。食堂によって内容や時間は変わります。",
+      "steps": [
+        {
+          "fieldId": "photoCard",
+          "image": {
+            "url": "photos/day-1.jpg",
+            "width": 1200,
+            "height": 900
+          },
+          "alt": "食堂のスタッフの方と打ち合わせをする学生",
+          "title": "集合・打ち合わせ",
+          "text": "食堂に集合して、スタッフの方とその日の役割や注意点を確認します。"
+        },
+        {
+          "fieldId": "photoCard",
+          "image": {
+            "url": "photos/day-2.jpg",
+            "width": 1200,
+            "height": 900
+          },
+          "alt": "調理の補助と会場の準備",
+          "title": "準備",
+          "text": "手洗いと身支度をすませて、調理の補助や会場づくり、配膳の準備をします。"
+        },
+        {
+          "fieldId": "photoCard",
+          "image": {
+            "url": "photos/day-3.jpg",
+            "width": 1200,
+            "height": 900
+          },
+          "alt": "こどもと学生がいっしょに囲む食卓",
+          "title": "いただきます",
+          "text": "こどもたちを迎えて、配膳をしたり、同じテーブルで話したりしながら食事の時間を過ごします。"
+        },
+        {
+          "fieldId": "photoCard",
+          "image": {
+            "url": "photos/day-4.jpg",
+            "width": 1200,
+            "height": 900
+          },
+          "alt": "食後にこどもと遊ぶ学生",
+          "title": "あそび・勉強の時間",
+          "text": "食後は、こどもたちと一緒に遊んだり、宿題をみたりします。"
+        },
+        {
+          "fieldId": "photoCard",
+          "image": {
+            "url": "photos/day-5.jpg",
+            "width": 1200,
+            "height": 900
+          },
+          "alt": "食器を洗って片付ける学生",
+          "title": "片付け",
+          "text": "食器洗いや掃除をして、会場を元に戻します。"
+        },
+        {
+          "fieldId": "photoCard",
+          "image": {
+            "url": "photos/day-6.jpg",
+            "width": 1200,
+            "height": 900
+          },
+          "alt": "活動後にふりかえりをするメンバー",
+          "title": "ふりかえり",
+          "text": "メンバーで気づいたことを共有し、次の活動に生かします。"
+        }
+      ]
+    },
+    {
+      "fieldId": "sec_promise",
+      "menuLabel": "大切にしていること",
+      "headerLabel": "",
+      "footerLabel": "",
+      "tinted": true,
+      "heading": "活動で大切にしていること",
+      "lead": "こどもたちと食堂の方が安心して過ごせるように、メンバー全員で守っていることです。",
+      "items": [
+        {
+          "fieldId": "iconCard",
+          "icon": [
+            "クリップボード"
+          ],
+          "title": "食堂のルールを第一に",
+          "text": "活動の進め方は食堂ごとに違います。スタッフの方の指示にしたがい、わからないことはその場で確認します。"
+        },
+        {
+          "fieldId": "iconCard",
+          "icon": [
+            "しずく"
+          ],
+          "title": "衛生と体調の管理",
+          "text": "手洗い・消毒と身だしなみを徹底します。体調がすぐれない日は無理せず休みます。"
+        },
+        {
+          "fieldId": "iconCard",
+          "icon": [
+            "カギ"
+          ],
+          "title": "こどもの写真と個人情報",
+          "text": "こどもの顔や名前がわかる写真は、食堂の許可なく撮影・投稿しません。活動で知ったことは外で話しません。"
+        },
+        {
+          "fieldId": "iconCard",
+          "icon": [
+            "ふたり"
+          ],
+          "title": "はじめての人をひとりにしない",
+          "text": "はじめての参加者には先輩メンバーがつき、当日の流れを一緒に確認します。"
+        }
+      ]
+    },
+    {
+      "fieldId": "sec_flow",
+      "menuLabel": "参加までの流れ",
+      "headerLabel": "参加の流れ",
+      "footerLabel": "",
+      "tinted": false,
+      "heading": "参加までの流れ",
+      "lead": "気になったら、まずは連絡するだけ。3つのステップで活動に参加できます。",
+      "steps": [
+        {
+          "fieldId": "flowStep",
+          "title": "LINEで連絡する",
+          "text": "公式LINEを友だち追加して、「参加してみたい」「話を聞きたい」と送ってください。質問だけでも歓迎です。",
+          "note": "返信はメンバーが順番に行います。"
+        },
+        {
+          "fieldId": "flowStep",
+          "title": "見学・体験に行く",
+          "text": "日程を相談して、まずは1回、メンバーと一緒にこども食堂へ。集合場所や持ち物は事前にお知らせします。",
+          "note": "はじめての日は、先輩メンバーがずっと一緒です。"
+        },
+        {
+          "fieldId": "flowStep",
+          "title": "メンバーとして活動する",
+          "text": "都合の合う日に参加しながら、お手伝い、こどもとのふれあい、イベント企画に関わっていきます。",
+          "note": "学部・学年は問いません。"
+        }
+      ],
+      "asideTitle": "まずは話を聞くだけでも",
+      "asideText": "「続けられるか不安」「どんな雰囲気か知りたい」という段階でも大丈夫です。公式LINEでお気軽にどうぞ。",
+      "asideButton": "LINEで友だち追加",
+      "bringTitle": "持ち物・服装のめやす",
+      "bringItems": "エプロン\n三角巾またはバンダナ\nマスク\n動きやすい服装\n飲み物",
+      "bringNote": "食堂によって異なるので、参加前にお知らせします。"
+    },
+    {
+      "fieldId": "sec_gallery",
+      "menuLabel": "活動の様子",
+      "headerLabel": "",
+      "footerLabel": "",
+      "tinted": true,
+      "heading": "活動の様子",
+      "lead": "こども食堂での活動の様子を紹介します。",
+      "photos": [
+        {
+          "fieldId": "galleryPhoto",
+          "image": {
+            "url": "photos/gallery-1.jpg",
+            "width": 900,
+            "height": 1200
+          },
+          "alt": "こども食堂でのごはんの時間"
+        },
+        {
+          "fieldId": "galleryPhoto",
+          "image": {
+            "url": "photos/gallery-2.jpg",
+            "width": 1200,
+            "height": 900
+          },
+          "alt": "調理のお手伝い"
+        },
+        {
+          "fieldId": "galleryPhoto",
+          "image": {
+            "url": "photos/gallery-3.jpg",
+            "width": 900,
+            "height": 1200
+          },
+          "alt": "こどもと遊ぶ時間"
+        },
+        {
+          "fieldId": "galleryPhoto",
+          "image": {
+            "url": "photos/gallery-4.jpg",
+            "width": 1200,
+            "height": 900
+          },
+          "alt": "会場の準備"
+        },
+        {
+          "fieldId": "galleryPhoto",
+          "image": {
+            "url": "photos/gallery-5.jpg",
+            "width": 1200,
+            "height": 900
+          },
+          "alt": "季節のイベント"
+        },
+        {
+          "fieldId": "galleryPhoto",
+          "image": {
+            "url": "photos/gallery-6.jpg",
+            "width": 1200,
+            "height": 900
+          },
+          "alt": "メンバーの集合写真"
+        },
+        {
+          "fieldId": "galleryPhoto",
+          "image": {
+            "url": "photos/gallery-7.jpg",
+            "width": 1200,
+            "height": 900
+          },
+          "alt": "盛りつけと配膳"
+        },
+        {
+          "fieldId": "galleryPhoto",
+          "image": {
+            "url": "photos/gallery-8.jpg",
+            "width": 1200,
+            "height": 900
+          },
+          "alt": "活動後のふりかえり"
+        }
+      ],
+      "footText": "最新の活動報告は Instagram で発信しています。",
+      "policyText": "写真を載せるときは食堂の許可を得て、こどもの顔や名前がわからないようにします。",
+      "buttonLabel": "Instagramを見る"
+    },
+    {
+      "fieldId": "sec_faq",
+      "menuLabel": "よくある質問",
+      "headerLabel": "よくある質問",
+      "footerLabel": "",
+      "tinted": false,
+      "heading": "よくある質問",
+      "lead": "学生の方と、こども食堂・地域の方からよくいただく質問をまとめました。ここにないことは LINE やメールで気軽に聞いてください。",
+      "buttonLabel": "LINEで質問する",
+      "studentTitle": "学生の方から",
+      "studentItems": [
+        {
+          "fieldId": "qa",
+          "question": "こども食堂って、どんな場所ですか？",
+          "answer": "こども食堂は、地域の人が中心になって運営する、こどもが無料または少ない負担でごはんを食べられる場所です。ひとりでも安心して来られる居場所であり、こどもから高齢の方まで集まる地域の交流の場にもなっています。",
+          "linkWord": "",
+          "linkTo": [],
+          "linkUrl": ""
+        },
+        {
+          "fieldId": "qa",
+          "question": "ボランティアははじめてです。参加できますか？",
+          "answer": "はい。はじめての人を歓迎しています。当日はメンバーが一緒に行動し、やることはその場でお伝えするので、特別な知識や経験は必要ありません。持ち物や服装は参加前にお知らせします。",
+          "linkWord": "",
+          "linkTo": [],
+          "linkUrl": ""
+        },
+        {
+          "fieldId": "qa",
+          "question": "料理が苦手でも大丈夫ですか？",
+          "answer": "大丈夫です。調理は食堂のスタッフの方が中心で、学生は配膳や片付け、こどもとの時間など、できることから担当します。",
+          "linkWord": "",
+          "linkTo": [],
+          "linkUrl": ""
+        },
+        {
+          "fieldId": "qa",
+          "question": "活動はどのくらいの頻度ですか？",
+          "answer": "定期的な活動は月2回程度です。毎回参加する必要はなく、授業やアルバイトの都合に合わせて、参加できる日だけで大丈夫です。",
+          "linkWord": "",
+          "linkTo": [],
+          "linkUrl": ""
+        },
+        {
+          "fieldId": "qa",
+          "question": "参加費はかかりますか？",
+          "answer": "活動への参加費はかかりません。こども食堂までの交通費など、細かい点は LINE でお尋ねください。",
+          "linkWord": "",
+          "linkTo": [],
+          "linkUrl": ""
+        },
+        {
+          "fieldId": "qa",
+          "question": "長崎大学以外の学生でも参加できますか？",
+          "answer": "長崎大学の認定サークルですが、他大学の学生の参加も歓迎しています。まずは LINE でご相談ください。",
+          "linkWord": "",
+          "linkTo": [],
+          "linkUrl": ""
+        },
+        {
+          "fieldId": "qa",
+          "question": "年度の途中からでも入れますか？",
+          "answer": "入れます。メンバーは通年で募集しています。見学・体験からはじめて、合いそうなら続けてください。",
+          "linkWord": "",
+          "linkTo": [],
+          "linkUrl": ""
+        },
+        {
+          "fieldId": "qa",
+          "question": "見学だけでもできますか？",
+          "answer": "できます。まずは1回、メンバーと一緒に活動の様子を見に来てください。LINE で日程を相談できます。",
+          "linkWord": "",
+          "linkTo": [],
+          "linkUrl": ""
+        }
+      ],
+      "partnerTitle": "こども食堂・地域の方から",
+      "partnerItems": [
+        {
+          "fieldId": "qa",
+          "question": "こども食堂を運営しています。学生に手伝ってもらえますか？",
+          "answer": "ぜひご相談ください。活動日や人数、お手伝いの内容をうかがったうえで、参加できるメンバーを調整します。メールでご連絡いただけると確実です。",
+          "linkWord": "メール",
+          "linkTo": [
+            "メール"
+          ],
+          "linkUrl": ""
+        },
+        {
+          "fieldId": "qa",
+          "question": "イベントを一緒に企画できますか？",
+          "answer": "できます。季節のイベントやワークショップなど、食堂の皆さまと相談しながら企画します。まずはメールでご相談ください。",
+          "linkWord": "メール",
+          "linkTo": [
+            "メール"
+          ],
+          "linkUrl": ""
+        },
+        {
+          "fieldId": "qa",
+          "question": "こども食堂を利用したいのですが？",
+          "answer": "ちるーむはこども食堂を運営している団体ではなく、食堂を手伝う学生サークルです。お近くのこども食堂については、お住まいの市町の窓口などでご確認いただけます。わからない場合はメールでお問い合わせください。わかる範囲でご案内します。",
+          "linkWord": "メール",
+          "linkTo": [
+            "メール"
+          ],
+          "linkUrl": ""
+        }
+      ]
+    },
+    {
+      "fieldId": "sec_join",
+      "menuLabel": "参加する",
+      "headerLabel": "",
+      "footerLabel": "",
+      "heading": "ちるーむに、\n参加してみませんか",
+      "lead": "気になったら、気軽に連絡してください。LINE や Instagram の DM からで大丈夫です。学部・学年は問いません。",
+      "photo": {
+        "url": "photos/join.jpg",
+        "width": 1600,
+        "height": 1000
+      },
+      "photoAlt": "ちるーむのメンバーの集合写真",
+      "wantedTitle": "こんな人を待っています",
+      "wantedItems": "こどもと関わることに興味がある人\n地域の役に立つ活動をしてみたい人\nイベントを企画するのが好きな人\n学部や学年をこえて仲間をつくりたい人\n「ボランティアは初めて」という人",
+      "lineLabel": "公式LINEで連絡",
+      "lineTag": "いちばん早い",
+      "instagramLabel": "InstagramのDMで連絡",
+      "mailLabel": "メールで連絡",
+      "channelNote": "返信までに数日いただくことがあります。急ぎの場合は LINE をご利用ください。",
+      "showPartner": true,
+      "partnerMenuLabel": "こども食堂・地域の方へ",
+      "partnerHeading": "こども食堂・地域の方へ",
+      "partnerText": "学生ボランティアの受け入れ、イベントやワークショップの共同企画、取材や講演のご依頼など、地域の皆さまからのご相談を歓迎しています。",
+      "partnerItems": "こども食堂の運営を学生に手伝ってほしい\nこども向けのイベント・ワークショップを一緒に企画したい\n取材・講演・メディア掲載のご相談",
+      "partnerButton": "メールで相談する",
+      "consultTitle": "ご相談の流れ",
+      "consultSteps": [
+        {
+          "fieldId": "consultStep",
+          "title": "メールで相談",
+          "text": "ご依頼の内容と希望の時期をお送りください。"
+        },
+        {
+          "fieldId": "consultStep",
+          "title": "打ち合わせ",
+          "text": "日程や人数、当日の内容を一緒に決めます。"
+        },
+        {
+          "fieldId": "consultStep",
+          "title": "活動開始",
+          "text": "学生が食堂にうかがい、活動します。"
+        }
+      ]
+    },
+    {
+      "fieldId": "sec_profile",
+      "menuLabel": "団体概要",
+      "headerLabel": "",
+      "footerLabel": "",
+      "tinted": false,
+      "heading": "団体概要",
+      "lead": "",
+      "rows": [
+        {
+          "fieldId": "profileRow",
+          "label": "名称",
+          "value": "ちゃいるどほーむ（略称: ちるーむ）"
+        },
+        {
+          "fieldId": "profileRow",
+          "label": "所属",
+          "value": "長崎大学 認定サークル"
+        },
+        {
+          "fieldId": "profileRow",
+          "label": "活動地域",
+          "value": "長崎県内の[[こども食堂]]"
+        },
+        {
+          "fieldId": "profileRow",
+          "label": "活動頻度",
+          "value": "月2回程度の定期活動"
+        },
+        {
+          "fieldId": "profileRow",
+          "label": "連携先",
+          "value": "こども食堂 2か所以上"
+        }
+      ],
+      "contactLabel": "連絡先"
+    },
+    {
+      "fieldId": "sec_connect",
+      "menuLabel": "",
+      "headerLabel": "",
+      "footerLabel": "SNS",
+      "tinted": false,
+      "heading": "SNSでつながる",
+      "lead": "日々の活動や募集のお知らせは、各 SNS で発信しています。",
+      "instagramDesc": "活動の写真と日々の様子",
+      "lineDesc": "参加の相談・質問はこちら",
+      "facebookDesc": "ちるーむ公式ページ",
+      "linkedinDesc": "ちゃいるどほーむ"
+    }
+  ]
+}

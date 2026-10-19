@@ -1,0 +1,63 @@
+{
+  "apiFields": [
+    {
+      "fieldId": "date",
+      "name": "日付",
+      "kind": "date",
+      "description": "空なら「日付の代わりの文字」を出します。新しい日付から5件まで表示されます。",
+      "required": false,
+      "dateFormat": true
+    },
+    {
+      "fieldId": "dateLabel",
+      "name": "日付の代わりの文字",
+      "kind": "text",
+      "description": "例: 随時（日付が空のときだけ使います）",
+      "required": false
+    },
+    {
+      "fieldId": "body",
+      "name": "本文",
+      "kind": "textArea",
+      "description": "改行するとそこで行が変わります。",
+      "required": true
+    },
+    {
+      "fieldId": "linkWord",
+      "name": "リンクにする語句",
+      "kind": "text",
+      "description": "本文の中で最初に出てくるこの語句がリンクになります。空ならリンクなし。",
+      "required": false
+    },
+    {
+      "fieldId": "linkTo",
+      "name": "リンク先",
+      "kind": "select",
+      "description": "メール・LINE・Instagram はサイト設定のものを使います。",
+      "required": false,
+      "selectItems": [
+        {
+          "value": "メール"
+        },
+        {
+          "value": "LINE"
+        },
+        {
+          "value": "Instagram"
+        },
+        {
+          "value": "URLを入力"
+        }
+      ],
+      "multipleSelect": false
+    },
+    {
+      "fieldId": "linkUrl",
+      "name": "リンク先の URL",
+      "kind": "text",
+      "description": "「URLを入力」を選んだときだけ使います。https:// から。",
+      "required": false
+    }
+  ],
+  "customFields": []
+}

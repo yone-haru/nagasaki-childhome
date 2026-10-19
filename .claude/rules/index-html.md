@@ -1,17 +1,21 @@
 ---
 paths:
-  - "index.html"
+  - "site/template.html"
+  - "tools/cms/render.mjs"
 ---
 
-# index.html の規約（単一ファイル構成・v5.0）
+# サイト HTML の規約（v5.0 ＋ microCMS）
 
-このサイトは `index.html` 1枚に CSS と JS を内包している。以下を守れば構成が崩れない。
+出来上がるサイトは `dist/index.html` 1枚（CSS と JS を内包）。元は2つに分かれている:
+- `site/template.html`: v5.0 の `index.html` から作ったテンプレート。`<head>`・CSS・JS・アイコン・ヘッダー/フッターの枠を持ち、中身は `{{名前}}` の差し込み口。
+- `tools/cms/render.mjs`: 差し込む中身（ヒーロー・お知らせ・各セクション・ナビ）の HTML を作る。マークアップを変えるときはここ。
+`dist/` は生成物なので手で直さない。以下の規約は両方に当てはまる。
 
 ## 構成の順序
 `<head>`（meta / OGP / favicon / Google Fonts / JSON-LD / `<style>`）→ `<body>`:
 `a.skip-link` → `svg.sprite`（アイコン定義）→ `header.site-header`（固定ヘッダー・PC ナビ・LINE ボタン・ハンバーガー）→ `nav.mobile-menu` → `<main id="main">` 内のセクション群 → `footer.site-footer` → `div.sticky-cta`（モバイル固定 CTA）→ 末尾の `<script>` 1本。
 
-セクションは `hero(#top) → news(#news) → about(#about) → activities(#activities) → day(#day) → promise(#promise) → flow(#flow) → gallery(#gallery) → faq(#faq) → join(#join, 内部に #partner) → profile(#profile, 団体概要) → connect(#connect)` の順。ナビはヘッダー（主要5項目）・モバイルメニュー（全セクション）・フッター（全セクション）の3か所にある。**セクションを足す／id を変えるときは3か所とも直す**（`node tools/check.mjs` がアンカー切れを検出する）。PC のヘッダーナビは 1080px で6項目目が入らないので、食堂・地域の方向けの `#partner` へはヒーローの CTA 下にある `.hero-partner` のリンクで案内している。
+セクションは `hero(#top) → news(#news) → about(#about) → activities(#activities) → day(#day) → promise(#promise) → flow(#flow) → gallery(#gallery) → faq(#faq) → join(#join, 内部に #partner) → profile(#profile, 団体概要) → connect(#connect)` の順。（これは見本データ `cms/seed/top.json` の並び。本番の並びは microCMS の「セクション」の順で決まる。id はセクションの種類ごとに固定、自由セクションは `free-1`, `free-2`…）ナビはヘッダー（主要5項目）・モバイルメニュー・フッターの3か所にあり、**3か所とも render.mjs がセクションの並びと各セクションの表示名から作る**。手で書かない（`node tools/check.mjs` がアンカー切れを検出する）。PC のヘッダーナビは 1080px で6項目目が入らないので、食堂・地域の方向けの `#partner` へはヒーローの CTA 下にある `.hero-partner` のリンクで案内している。
 
 ## CSS
 - 色・影・書体・角丸は `:root` の変数を使う。**生の色コードを直書きしない。** 新色が要るときは `:root` に変数を足してから使う。インライン SVG の `fill` / `stroke` も `var(--coral)` のように変数で書く。
@@ -58,7 +62,7 @@ paths:
 
 ## 文言
 - 「わたしたちのこと」の3段落、キャッチコピー「ごはんで繋がる、笑顔の輪」、ヒーロー説明文、「こどもとのふれあい」の説明文は `改善点まとめ.pdf` で指定された文言。勝手に変えない。
-- `<!-- 要確認 -->` コメントが付いている箇所（参加費・持ち物・当日の流れ・写真の方針・相談の流れ・FAQ の一部・写真の場面・団体概要の活動頻度と連携先）は仮定。サークルに確認して直す。
+- 文言の実体は microCMS（初期値は `cms/seed/*.json`）。本番の文言を直すのは依頼主で、コードでは直さない。v5.0 で `<!-- 要確認 -->` だった箇所（参加費・持ち物・当日の流れ・写真の方針・相談の流れ・FAQ の一部・写真の場面・団体概要の活動頻度と連携先）は仮定。サークルに確認して直す。
 
 ## 編集の作法
 - 行番号はすぐズレる。**文字列一致で編集する。**

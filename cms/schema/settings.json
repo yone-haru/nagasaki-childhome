@@ -1,0 +1,124 @@
+{
+  "apiFields": [
+    {
+      "fieldId": "siteTitle",
+      "name": "サイトのタイトル",
+      "kind": "text",
+      "description": "ブラウザのタブや検索結果に出る名前です。",
+      "required": true
+    },
+    {
+      "fieldId": "description",
+      "name": "検索結果の説明文",
+      "kind": "textArea",
+      "description": "Google などの検索結果に出る説明です。120字くらいまで。",
+      "required": false
+    },
+    {
+      "fieldId": "ogDescription",
+      "name": "SNS で共有したときの説明",
+      "kind": "textArea",
+      "description": "空なら「検索結果の説明文」を使います。",
+      "required": false
+    },
+    {
+      "fieldId": "ogImage",
+      "name": "SNS で共有したときの画像",
+      "kind": "media",
+      "description": "横長（1200×630 くらい）。空なら今の画像のままです。",
+      "required": false
+    },
+    {
+      "fieldId": "jsonldDescription",
+      "name": "検索エンジン向けの団体紹介",
+      "kind": "textArea",
+      "description": "1〜2文の短い紹介。空なら「検索結果の説明文」を使います。",
+      "required": false
+    },
+    {
+      "fieldId": "lineUrl",
+      "name": "公式LINE の URL",
+      "kind": "text",
+      "description": "https:// から。サイト中の LINE ボタンはすべてここに飛びます。",
+      "required": true
+    },
+    {
+      "fieldId": "lineId",
+      "name": "公式LINE の ID",
+      "kind": "text",
+      "description": "例: @990qouib（表示用）",
+      "required": false
+    },
+    {
+      "fieldId": "instagramUrl",
+      "name": "Instagram の URL",
+      "kind": "text",
+      "description": "https:// から。空なら Instagram の表示を出しません。",
+      "required": false
+    },
+    {
+      "fieldId": "instagramId",
+      "name": "Instagram の ID",
+      "kind": "text",
+      "description": "例: @nagasaki_childhome（表示用）",
+      "required": false
+    },
+    {
+      "fieldId": "facebookUrl",
+      "name": "Facebook の URL",
+      "kind": "text",
+      "description": "https:// から。空なら出しません。",
+      "required": false
+    },
+    {
+      "fieldId": "linkedinUrl",
+      "name": "LinkedIn の URL",
+      "kind": "text",
+      "description": "https:// から。空なら出しません。",
+      "required": false
+    },
+    {
+      "fieldId": "email",
+      "name": "メールアドレス",
+      "kind": "text",
+      "description": "お問い合わせ先。サイト中のメールのリンクはすべてここに届きます。",
+      "required": true
+    },
+    {
+      "fieldId": "footerText",
+      "name": "フッターの紹介文",
+      "kind": "textArea",
+      "description": "ページ最下部の団体名・紹介文。改行するとそこで行が変わります。",
+      "required": false
+    },
+    {
+      "fieldId": "copyright",
+      "name": "著作権表示の名前",
+      "kind": "text",
+      "description": "「© 2026」の後ろに出る名前です。年は自動で入ります。",
+      "required": false
+    },
+    {
+      "fieldId": "stickyText",
+      "name": "スマホ下部の固定バー：文",
+      "kind": "text",
+      "description": "例: 参加してみたい？",
+      "required": false
+    },
+    {
+      "fieldId": "stickySub",
+      "name": "スマホ下部の固定バー：小さい文",
+      "kind": "text",
+      "description": "例: 質問だけでも大丈夫",
+      "required": false
+    },
+    {
+      "fieldId": "stickyButton",
+      "name": "スマホ下部の固定バー：ボタン",
+      "kind": "text",
+      "description": "押すと公式LINE が開きます。",
+      "required": false
+    }
+  ],
+  "customFields": []
+}
