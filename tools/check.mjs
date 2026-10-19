@@ -14,7 +14,9 @@ const err = (m) => errors.push(m);
 const warn = (m) => warns.push(m);
 
 // 検証対象の HTML（旧版 `_ ver2.0 _.html` などは対象外）
-const PAGES = ['index.html'];
+// 引数でファイルを渡すとそれを検査する（例: node tools/check.mjs v6-a.html）。比較用の下書きの検査に使う。
+const ARGS = process.argv.slice(2).filter((a) => a.endsWith('.html'));
+const PAGES = ARGS.length ? ARGS : ['index.html'];
 
 const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
   'link', 'meta', 'param', 'source', 'track', 'wbr']);

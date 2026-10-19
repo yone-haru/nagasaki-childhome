@@ -3,7 +3,7 @@ paths:
   - "index.html"
 ---
 
-# index.html の規約（単一ファイル構成・v5.1）
+# index.html の規約（単一ファイル構成・v5.0）
 
 このサイトは `index.html` 1枚に CSS と JS を内包している。以下を守れば構成が崩れない。
 
@@ -11,13 +11,7 @@ paths:
 `<head>`（meta / OGP / favicon / Google Fonts / JSON-LD / `<style>`）→ `<body>`:
 `a.skip-link` → `svg.sprite`（アイコン定義）→ `header.site-header`（固定ヘッダー・PC ナビ・LINE ボタン・ハンバーガー）→ `nav.mobile-menu` → `<main id="main">` 内のセクション群 → `footer.site-footer` → `div.sticky-cta`（モバイル固定 CTA）→ 末尾の `<script>` 1本。
 
-セクションは `hero(#top) → news(#news) → about(#about) → activities(#activities, ミント) → flow(#flow) → day(#day, ミント) → promise(#promise) → gallery(#gallery, ミント) → faq(#faq) → join(#join, 内部に #partner) → profile(#profile, 団体概要) → connect(#connect)` の順。about〜faq は白とミント（`.is-tinted`）が交互になるように並べている。並べ替えたら `is-tinted` も振り直す。
-
-ナビはヘッダー・モバイルメニュー・フッターの3か所にある。**セクションを足す／id を変えるときは3か所とも直す**（`node tools/check.mjs` がアンカー切れを検出する）。
-- ヘッダー: 主要5項目（about・activities・flow・day・faq）＋ 1080px 以上だけ `li.nav-partner`（食堂・地域の方へ `#partner`）。1080〜1239 はリンクの左右余白 10px・15px、1240 以上で余白 14px。項目を足すときは 1080 で1行に収まるか確かめる。
-- モバイルメニュー: 「参加する」「こども食堂・地域の方へ」を先頭に、その後はページの順。
-- フッター: ページの順。
-- ヒーローの CTA 下にも `.hero-partner`（`#partner` へのリンク）がある。
+セクションは `hero(#top) → news(#news) → about(#about) → activities(#activities) → day(#day) → promise(#promise) → flow(#flow) → gallery(#gallery) → faq(#faq) → join(#join, 内部に #partner) → profile(#profile, 団体概要) → connect(#connect)` の順。ナビはヘッダー（主要5項目）・モバイルメニュー（全セクション）・フッター（全セクション）の3か所にある。**セクションを足す／id を変えるときは3か所とも直す**（`node tools/check.mjs` がアンカー切れを検出する）。PC のヘッダーナビは 1080px で6項目目が入らないので、食堂・地域の方向けの `#partner` へはヒーローの CTA 下にある `.hero-partner` のリンクで案内している。
 
 ## CSS
 - 色・影・書体・角丸は `:root` の変数を使う。**生の色コードを直書きしない。** 新色が要るときは `:root` に変数を足してから使う。インライン SVG の `fill` / `stroke` も `var(--coral)` のように変数で書く。
@@ -32,11 +26,7 @@ paths:
 - セクションの外枠は `section.block`（余白）と `.is-tinted`（ミント地）で切り替える。
 - ボタンは `.btn` ＋ `.btn-primary` / `.btn-outline` / `.btn-soft`（`.btn-sm` で小型）。ボタン・リンクの文言に「→」を付けない。
 - 同じ形のカードを並べない。並ぶものは行リスト・罫線で区切った1枚のパネル・タイムラインなど、中身に合った形にする。番号は本当に順序があるもの（参加の流れ・ある日の活動・相談の流れ）だけ。
-- レスポンシブは **min-width 640px / 900px / 1080px** の3段階（1080 はヘッダーのナビ・ヒーロー・わたしたちのこと（1080 から2列、900〜1079 は1列）・活動内容（偶数番目を下にずらす）・ある日の活動・ギャラリー・フッターの間隔）。
-- スマホでは量を間引いている: ある日の活動の写真は奇数の手順だけ、ギャラリーは g1〜g6 の6枚（640 から8枚）。セクションの上下余白は `section.block` の `clamp(60px, 9vw, 120px)`。
-- ヒーローの `.hero-facts`（参加条件4項目）は FAQ・団体概要・参加の流れと同じ事実。どれかを直したら全部そろえる。
-- メールアドレスは `childhome.nagasaki<wbr>@gmail.com` と書き、`word-break: keep-all; overflow-wrap: break-word` で `@` の前で折る。
-- **グリッド直下に画像を置くときは親に `min-width: 0` か `minmax(0, 1fr)` を付ける**（画像の固有幅で横にはみ出す）。
+- レスポンシブは **min-width 640px / 900px / 1080px** の3段階（1080 はヘッダーのナビ・ヒーロー・わたしたちのこと・活動内容・ある日の活動・ギャラリー・フッターの間隔）。**グリッド直下に画像を置くときは親に `min-width: 0` か `minmax(0, 1fr)` を付ける**（画像の固有幅で横にはみ出す）。
 - **1080px の上書きは、そのセクションの 900px ブロックより後ろに、独立した `@media (min-width: 1080px)` で書く。** ファイル前方のヘッダー用 1080 ブロックに混ぜると、後ろにある 900 のルールに負けて効かない。
 - 新しい CSS は、その要素が属するセクションの既存スタイルの近くに書く。ファイル末尾にまとめて足さない。
 
@@ -68,7 +58,7 @@ paths:
 
 ## 文言
 - 「わたしたちのこと」の3段落、キャッチコピー「ごはんで繋がる、笑顔の輪」、ヒーロー説明文、「こどもとのふれあい」の説明文は `改善点まとめ.pdf` で指定された文言。勝手に変えない。
-- `<!-- 要確認 -->` コメントが付いている箇所（参加費・持ち物・当日の流れ・途中参加の相談・ヒーローの参加条件・写真の方針・相談の流れ・FAQ の一部・写真の場面・団体概要の活動頻度と連携先）は仮定。サークルに確認して直す。
+- `<!-- 要確認 -->` コメントが付いている箇所（参加費・持ち物・当日の流れ・写真の方針・相談の流れ・FAQ の一部・写真の場面・団体概要の活動頻度と連携先）は仮定。サークルに確認して直す。
 
 ## 編集の作法
 - 行番号はすぐズレる。**文字列一致で編集する。**
