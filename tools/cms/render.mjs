@@ -357,7 +357,7 @@ R.profile = (s, ctx) => {
   const st = ctx.settings;
   const rows = s.rows.map((r) => `      <div><dt>${rich(r.label, { br: false })}</dt><dd>${rich(r.value)}</dd></div>`);
   if (s.contactLabel) {
-    rows.push(`      <div><dt>${rich(s.contactLabel, { br: false })}</dt><dd><a href="${esc(st.lineUrl)}" target="_blank" rel="noopener">公式LINE</a> / <a href="mailto:${esc(st.email)}">メール</a></dd></div>`);
+    rows.push(`      <div><dt>${rich(s.contactLabel, { br: false })}</dt><dd><a href="${esc(st.lineUrl)}" target="_blank" rel="noopener">${rich(s.contactLineLabel, { br: false })}</a> / <a href="mailto:${esc(st.email)}">${rich(s.contactMailLabel, { br: false })}</a></dd></div>`);
   }
   return [
     blockOpen(s, 'profile', 'container profile-grid'),
@@ -441,7 +441,7 @@ function hero(top, ctx) {
   out.push(`  </div>`,
     `  <div class="hero-panel">`,
     `    <div class="hero-panel-inner">`,
-    `      <h1 class="hero-logo" id="hero-title"><img src="chiroom-logo.png" alt="ちるーむ" width="1200" height="467"></h1>`);
+    `      <h1 class="hero-logo" id="hero-title"><img src="chiroom-logo.png" alt="${esc(ctx.settings.siteName)}" width="1200" height="467"></h1>`);
   if (top.heroCopy) out.push(`      <p class="hero-copy">${rich(top.heroCopy)}</p>`);
   if (top.heroLead) out.push(`      <p class="hero-lead">${rich(top.heroLead)}</p>`);
   const actions = [];
@@ -468,7 +468,7 @@ function news(items, ctx) {
   return [
     `<section class="news" id="news" aria-labelledby="news-title">`,
     `  <div class="container news-inner">`,
-    `    <h2 class="news-title" id="news-title">お知らせ</h2>`,
+    `    <h2 class="news-title" id="news-title">${rich(ctx.newsTitle, { br: false })}</h2>`,
     `    <ul class="news-list">`,
     ...items.map((n) => {
       const date = n.date
@@ -512,6 +512,7 @@ export function renderPage(template, data) {
   const ctx = {
     settings: st,
     link,
+    newsTitle: top.newsTitle,
     hasPartner: sections.some((s) => s.type === 'join' && s.showPartner),
     secondaryTarget: ids.includes('activities') ? 'activities' : ids[0],
   };
@@ -539,13 +540,13 @@ export function renderPage(template, data) {
   const ldObj = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'ちるーむ',
-    alternateName: 'ちゃいるどほーむ',
+    name: st.siteName,
+    alternateName: st.siteAltName,
     description: st.jsonldDescription || st.description,
     url: SITE_URL,
     logo: SITE_URL + 'ogp.png',
     email: st.email,
-    areaServed: '長崎県',
+    areaServed: st.areaServed,
     sameAs: [st.instagramUrl, st.facebookUrl, st.linkedinUrl, st.lineUrl].filter(Boolean),
   };
   const jsonld = JSON.stringify(ldObj, null, 2).replace(/</g, '\\u003c');
@@ -571,6 +572,12 @@ export function renderPage(template, data) {
     stickyText: esc(st.stickyText),
     stickySub: esc(st.stickySub),
     stickyButton: esc(st.stickyButton),
+    siteName: esc(st.siteName),
+    headerLineLabel: esc(st.headerLineLabel),
+    menuMailLabel: esc(st.menuMailLabel),
+    footerNavTitle: esc(st.footerNavTitle),
+    footerSnsTitle: esc(st.footerSnsTitle),
+    toTopLabel: esc(st.toTopLabel),
   };
   // 置換は1回で（差し込んだ文章の中の {{ }} を再び置換しない）
   return template.replace(/\{\{(\w+)\}\}/g, (m, k) => (k in tokens ? tokens[k] : m));

@@ -1,5 +1,8 @@
 {
   "siteTitle": "ちるーむ | 長崎大学 こども食堂サポートサークル",
+  "siteName": "ちるーむ",
+  "siteAltName": "ちゃいるどほーむ",
+  "areaServed": "長崎県",
   "description": "ちるーむ（ちゃいるどほーむ）は、ボランティアに関心のある大学生と長崎県のこども食堂をつなぐ長崎大学のサークルです。食事の準備や配膳のお手伝い、こどもとのふれあい、イベント企画を通して、地域のつながりを広げています。",
   "ogDescription": "ごはんで繋がる、笑顔の輪。ボランティアに関心のある大学生と、長崎県のこども食堂をつなぐ長崎大学のサークルです。",
   "ogImage": null,
@@ -15,5 +18,10 @@
   "copyright": "ちるーむ（ちゃいるどほーむ）",
   "stickyText": "参加してみたい？",
   "stickySub": "質問だけでも大丈夫",
-  "stickyButton": "LINEで相談"
+  "stickyButton": "LINEで相談",
+  "headerLineLabel": "LINEで相談する",
+  "menuMailLabel": "メールで問い合わせる",
+  "footerNavTitle": "サイトマップ",
+  "footerSnsTitle": "つながる",
+  "toTopLabel": "ページの先頭へ"
 }

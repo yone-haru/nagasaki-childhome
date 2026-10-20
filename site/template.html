@@ -13,7 +13,7 @@
 
 <!-- OGP / SNS シェア用（本番ドメイン: childhome-nagasaki.vercel.app。独自ドメインに変えたら canonical と og:url / og:image も直す） -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="ちるーむ">
+<meta property="og:site_name" content="{{siteName}}">
 <meta property="og:title" content="{{title}}">
 <meta property="og:description" content="{{ogDescription}}">
 <meta property="og:url" content="https://childhome-nagasaki.vercel.app/">
@@ -784,8 +784,8 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 <!-- ===== ヘッダー ===== -->
 <header class="site-header" id="site-header">
   <div class="container">
-    <a class="brand" href="#top" aria-label="ちるーむ トップへ">
-      <img src="chiroom-logo.png" alt="ちるーむ" width="1200" height="467">
+    <a class="brand" href="#top" aria-label="{{siteName}} トップへ">
+      <img src="chiroom-logo.png" alt="{{siteName}}" width="1200" height="467">
     </a>
     <nav class="site-nav" aria-label="サイト内ナビゲーション">
       <ul>
@@ -794,7 +794,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
     </nav>
     <a class="btn btn-primary btn-sm header-cta" href="{{lineUrl}}" target="_blank" rel="noopener">
       <svg class="ico ico-line" aria-hidden="true" focusable="false"><use href="#i-line"/></svg>
-      LINEで相談する
+      {{headerLineLabel}}
     </a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="メニューを開く">
       <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
@@ -810,11 +810,11 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
   <div class="menu-cta">
     <a class="btn btn-primary" href="{{lineUrl}}" target="_blank" rel="noopener">
       <svg class="ico ico-line" aria-hidden="true" focusable="false"><use href="#i-line"/></svg>
-      LINEで相談する
+      {{headerLineLabel}}
     </a>
     <a class="btn btn-soft" href="mailto:{{email}}">
       <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>
-      メールで問い合わせる
+      {{menuMailLabel}}
     </a>
   </div>
   <div class="menu-sns">
@@ -832,17 +832,17 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="chiroom-logo.png" alt="ちるーむ" width="1200" height="467" loading="lazy">
+        <img src="chiroom-logo.png" alt="{{siteName}}" width="1200" height="467" loading="lazy">
         <p>{{footerText}}</p>
       </div>
       <nav class="footer-nav" aria-labelledby="footer-nav-title">
-        <h2 class="footer-title" id="footer-nav-title">サイトマップ</h2>
+        <h2 class="footer-title" id="footer-nav-title">{{footerNavTitle}}</h2>
         <ul>
 {{footerNav}}
         </ul>
       </nav>
       <div class="footer-sns">
-        <h2 class="footer-title">つながる</h2>
+        <h2 class="footer-title">{{footerSnsTitle}}</h2>
         <ul>
 {{footerSns}}
         </ul>
@@ -850,7 +850,7 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
     </div>
     <div class="footer-bottom">
       <small>© <span id="copyright-year">{{year}}</span> {{copyright}}</small>
-      <a class="to-top" href="#top">ページの先頭へ</a>
+      <a class="to-top" href="#top">{{toTopLabel}}</a>
     </div>
   </div>
 </footer>

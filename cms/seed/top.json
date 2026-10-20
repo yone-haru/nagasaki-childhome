@@ -52,6 +52,7 @@
   "heroSecondaryLabel": "活動内容を見る",
   "heroPartnerLabel": "こども食堂・地域の方へ",
   "heroAffilLabel": "長崎大学 認定サークル",
+  "newsTitle": "お知らせ",
   "sections": [
     {
       "fieldId": "sec_about",
@@ -582,7 +583,9 @@
           "value": "こども食堂 2か所以上"
         }
       ],
-      "contactLabel": "連絡先"
+      "contactLabel": "連絡先",
+      "contactLineLabel": "公式LINE",
+      "contactMailLabel": "メール"
     },
     {
       "fieldId": "sec_connect",

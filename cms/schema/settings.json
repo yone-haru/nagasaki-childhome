@@ -8,6 +8,27 @@
       "required": true
     },
     {
+      "fieldId": "siteName",
+      "name": "団体名",
+      "kind": "text",
+      "description": "ロゴの代わりに読み上げる名前・SNS で共有したときのサイト名・検索エンジン向けの団体名です。空なら「ちるーむ」。",
+      "required": false
+    },
+    {
+      "fieldId": "siteAltName",
+      "name": "団体名の別の呼び方",
+      "kind": "text",
+      "description": "検索エンジン向け。空なら「ちゃいるどほーむ」。",
+      "required": false
+    },
+    {
+      "fieldId": "areaServed",
+      "name": "活動地域",
+      "kind": "text",
+      "description": "検索エンジン向け。空なら「長崎県」。",
+      "required": false
+    },
+    {
       "fieldId": "description",
       "name": "検索結果の説明文",
       "kind": "textArea",
@@ -117,6 +138,41 @@
       "name": "スマホ下部の固定バー：ボタン",
       "kind": "text",
       "description": "押すと公式LINE が開きます。",
+      "required": false
+    },
+    {
+      "fieldId": "headerLineLabel",
+      "name": "ヘッダーとスマホメニューの LINE ボタン",
+      "kind": "text",
+      "description": "押すと公式LINE が開きます。空なら「LINEで相談する」。",
+      "required": false
+    },
+    {
+      "fieldId": "menuMailLabel",
+      "name": "スマホメニューのメールボタン",
+      "kind": "text",
+      "description": "押すとメールが開きます。空なら「メールで問い合わせる」。",
+      "required": false
+    },
+    {
+      "fieldId": "footerNavTitle",
+      "name": "フッター：メニューの見出し",
+      "kind": "text",
+      "description": "空なら「サイトマップ」。",
+      "required": false
+    },
+    {
+      "fieldId": "footerSnsTitle",
+      "name": "フッター：SNS の見出し",
+      "kind": "text",
+      "description": "空なら「つながる」。",
+      "required": false
+    },
+    {
+      "fieldId": "toTopLabel",
+      "name": "フッター：先頭に戻るリンク",
+      "kind": "text",
+      "description": "空なら「ページの先頭へ」。",
       "required": false
     }
   ],

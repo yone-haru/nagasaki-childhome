@@ -53,6 +53,15 @@ export function normalize(raw) {
     stickySub: str(s.stickySub),
     stickyButton: str(s.stickyButton),
     copyright: str(s.copyright),
+    // 空なら v5.0 の文言を使う
+    siteName: str(s.siteName) || 'ちるーむ',
+    siteAltName: str(s.siteAltName) || 'ちゃいるどほーむ',
+    areaServed: str(s.areaServed) || '長崎県',
+    headerLineLabel: str(s.headerLineLabel) || 'LINEで相談する',
+    menuMailLabel: str(s.menuMailLabel) || 'メールで問い合わせる',
+    footerNavTitle: str(s.footerNavTitle) || 'サイトマップ',
+    footerSnsTitle: str(s.footerSnsTitle) || 'つながる',
+    toTopLabel: str(s.toTopLabel) || 'ページの先頭へ',
   };
   if (!settings.siteTitle) throw new CmsError('サイト設定の「サイトのタイトル」が空です。');
   if (!settings.lineUrl) throw new CmsError('サイト設定の「LINE の URL」が空か、https:// で始まっていません。');
@@ -93,6 +102,7 @@ export function normalize(raw) {
     heroSecondaryLabel: str(t.heroSecondaryLabel),
     heroPartnerLabel: str(t.heroPartnerLabel),
     heroAffilLabel: str(t.heroAffilLabel),
+    newsTitle: str(t.newsTitle) || 'お知らせ',
     sections: [],
   };
 
@@ -239,6 +249,8 @@ const SECTION = {
       ...sec,
       rows,
       contactLabel: str(x.contactLabel),
+      contactLineLabel: str(x.contactLineLabel) || '公式LINE',
+      contactMailLabel: str(x.contactMailLabel) || 'メール',
     };
   },
   connect(x, sec) {

@@ -53,6 +53,13 @@
       "required": false
     },
     {
+      "fieldId": "newsTitle",
+      "name": "お知らせ欄の見出し",
+      "kind": "text",
+      "description": "空なら「お知らせ」。お知らせそのものは「お知らせ」の API で書きます。",
+      "required": false
+    },
+    {
       "fieldId": "sections",
       "name": "セクション（上から順に表示）",
       "kind": "repeater",
@@ -1022,6 +1029,20 @@
           "kind": "text",
           "description": "空なら連絡先の行を出しません。連絡先はサイト設定の LINE・メールを使います。",
           "required": false
+        },
+        {
+          "fieldId": "contactLineLabel",
+          "name": "連絡先：LINE のリンクの文字",
+          "kind": "text",
+          "description": "空なら「公式LINE」。",
+          "required": false
+        },
+        {
+          "fieldId": "contactMailLabel",
+          "name": "連絡先：メールのリンクの文字",
+          "kind": "text",
+          "description": "空なら「メール」。",
+          "required": false
         }
       ],
       "fieldOrderByColumn": [
@@ -1033,7 +1054,9 @@
           "footerLabel",
           "tinted",
           "rows",
-          "contactLabel"
+          "contactLabel",
+          "contactLineLabel",
+          "contactMailLabel"
         ]
       ]
     },
