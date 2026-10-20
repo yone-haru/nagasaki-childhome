@@ -6,7 +6,7 @@ import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { build } from './build.mjs';
+import { build, dataSource } from './build.mjs';
 import { normalize, CmsError } from './cms/normalize.mjs';
 import { renderPage } from './cms/render.mjs';
 
@@ -351,6 +351,24 @@ function checkEnvIgnored() {
   }
 }
 
+// Vercel のビルドでデータの取り先が正しく振り分けられるか（本番が見本データに落ちないこと）
+function checkDataSource() {
+  const cms = { MICROCMS_SERVICE_DOMAIN: 'x', MICROCMS_API_KEY: 'y' };
+  const cases = [
+    [{ argv: ['--seed'], env: {} }, 'seed', '--seed'],
+    [{ env: { VERCEL_ENV: 'preview' } }, 'seed', 'プレビュー・環境変数なし'],
+    [{ env: { VERCEL_ENV: 'preview', ...cms } }, 'cms', 'プレビュー・環境変数あり'],
+    [{ env: { VERCEL_ENV: 'production' } }, 'cms', '本番・環境変数なし'],
+    [{ env: { VERCEL_ENV: 'production', MICROCMS_SERVICE_DOMAIN: 'x' } }, 'cms', '本番・環境変数が片方だけ'],
+    [{ env: { VERCEL_ENV: 'production', ...cms } }, 'cms', '本番・環境変数あり'],
+    [{ env: {} }, 'cms', '手元・引数なし'],
+  ];
+  for (const [input, want, label] of cases) {
+    const got = dataSource({ argv: [], ...input });
+    if (got !== want) err(`データの取り先（${label}）が ${got}。${want} であるべき`);
+  }
+}
+
 /* ====================================================================== */
 let targets;
 if (ARGS.length) {
@@ -367,6 +385,7 @@ if (ARGS.length) {
   }
   const seed = checkCms();
   if (seed) checkRobustness(seed);
+  checkDataSource();
 }
 checkSecrets();
 checkEnvIgnored();

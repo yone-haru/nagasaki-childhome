@@ -1,21 +1,13 @@
-# プラン: v5.0 に microCMS を入れる（Issue #6）
-
-設計書: `docs/superpowers/specs/2026-10-18-cms-design.md`（2026-10-19 改訂）
+# プラン: ちるーむ確認用のプレビュー URL（Issue #8）
 
 ## 手順
-1. `git mv index.html site/template.html`。本文（ヒーロー〜SNS）・ナビ・フッター・head の可変部分を `{{token}}` に置き換える。JS の `join` に null ガード。自由セクション用の CSS を少し足す
-2. `tools/cms/render.mjs`（セクション HTML）・`normalize.mjs`・`fetch.mjs`・`tools/build.mjs`
-3. `cms/seed/{settings,top,news}.json`（v5.0 の文言そのまま）
-4. 差分確認: `git show a1663a5:index.html`（null ガードを当てたもの）と `dist/index.html` をコメント除去・空白正規化して比較 → 一致させる
-5. `tools/check.mjs`（引数なしで seed ビルド → dist 検査）・`tools/serve.mjs`（dist 配信）・`vercel.json`・`cms/env.example`（`.env.example` は deny ルールで書けないため）
-6. `cms/schema/*.json`・`tools/cms/import-seed.mjs`・`docs/cms-manual.md`
-7. CLAUDE.md・`.claude/rules/index-html.md` を更新
-8. 1440 / 390 のスクリーンショットを v5.0 と比較
-9. verifier → PASS まで直す → コミット（push しない）→ Issue #6 にコメントして閉じる
+1. `tools/build.mjs`: データの取り先を決める `dataSource({ argv, env })` を足す。`--seed` → 見本。`VERCEL_ENV=preview` で microCMS の環境変数がないとき → 見本（ログに明記）。それ以外 → microCMS（本番で環境変数がなければ今まで通り失敗）
+2. `tools/check.mjs`: `dataSource` の振り分けを検査（本番＋環境変数なしで見本に落ちないこと）
+3. CLAUDE.md のハマりどころ・コマンドに追記
+4. `node tools/check.mjs` exit 0 → verifier → コミット
+5. `preview/chiroom-review` ブランチを作って push（master は push しない）→ Vercel のプレビュー URL を確認
 
 ## 完了条件
-- `node tools/check.mjs` exit 0
-- 生成 HTML が v5.0 とマークアップ一致（null ガード・自由セクション CSS を除く）
-- 1440 / 390 で見た目が同等
-- スキーマ・投入スクリプト・マニュアルがそろう
-- verifier PASS、コミットのみ
+- check exit 0、verifier PASS
+- 本番（production）では見本データに切り替わらない
+- プレビュー URL が見本データで表示される

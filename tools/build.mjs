@@ -3,6 +3,7 @@
 //   node tools/build.mjs --seed    cms/seed/*.json を使う（CMS なしで手元確認・検証用）
 //   --out <dir>                    出力先（既定 dist）
 // Vercel ではこれが buildCommand。失敗すると本番は直前の版のまま残る。
+// Vercel のプレビュー（master 以外のブランチ）は、環境変数がなければ見本データで作る（dataSource 参照）。
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync, existsSync, rmSync } from 'node:fs';
 import { join, dirname, resolve, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -75,8 +76,22 @@ export async function build({ seed = false, out = 'dist', quiet = false } = {}) 
   return { html, warnings, outDir };
 }
 
+// データの取り先: 'seed'（cms/seed）か 'cms'（microCMS）。
+// Vercel のプレビュー（master 以外のブランチ）で microCMS の環境変数がないときだけ見本データにする。
+// 本番（VERCEL_ENV=production）は見本に落とさない。環境変数がなければ build() が失敗して前の版が残る。
+export function dataSource({ argv = [], env = {} } = {}) {
+  if (argv.includes('--seed')) return 'seed';
+  const hasCms = Boolean(env.MICROCMS_SERVICE_DOMAIN && env.MICROCMS_API_KEY);
+  if (env.VERCEL_ENV === 'preview' && !hasCms) return 'seed';
+  return 'cms';
+}
+
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  build({ seed: process.argv.includes('--seed'), out: arg('--out') || 'dist' }).catch((e) => {
+  const source = dataSource({ argv: process.argv, env: process.env });
+  if (source === 'seed' && !process.argv.includes('--seed')) {
+    console.log('プレビュー: microCMS の環境変数がないので見本データ（cms/seed）で作ります');
+  }
+  build({ seed: source === 'seed', out: arg('--out') || 'dist' }).catch((e) => {
     console.error('✗ ビルド失敗: ' + e.message);
     process.exit(1);
   });
