@@ -78,7 +78,9 @@ _ ver2.0 _.html       # 旧版(13MB)。参照も編集もしない
 - **microCMS のスキーマ JSON は、種類ごとに許されたプロパティ以外が1つでもあると 400 で拒否される**（例: boolean に `isUnique`）。`tools/check.mjs` の `checkSchema` が種類ごとの許可リストで検査している。スキーマを手で直したら必ず check を通す。
 - **`vercel.json` にビルド設定が入っているので、master に push すると本番は「microCMS から読んで作る」になる。** microCMS に初期データを入れて Vercel に環境変数を登録するまで push しない（環境変数がないとビルドが失敗する。前の版は残るが更新できない）。
 - **確認用 URL = Vercel のプレビュー。** master 以外のブランチ（`preview/chiroom-review`）を push すると Vercel がプレビューを作る。`VERCEL_ENV=preview` で microCMS の環境変数がなければ `tools/build.mjs` は見本データで作る（本番 `production` は見本に落ちず失敗する。`check.mjs` の `checkDataSource` が検査）。プレビューを外の人に見せるには Vercel の Deployment Protection（Vercel Authentication）をオフにする必要がある。
-- **2026-10-21 時点、Vercel プロジェクトは GitHub につながっていないとみられる。** ブランチを push しても GitHub にデプロイ状況が出ない。本番は v3.0（origin/master と同じ）のまま。手元の `vercel` CLI も未ログイン（`Not authorized`）。Git 連携はオーナーが Vercel の Settings → Git で行う。
+- **Vercel プロジェクトはユーザーの個人アカウント（yone-haru1）ではなく、別アカウント `childhomenagasaki-9060` にある。** ダッシュボードは `https://vercel.com/childhomenagasaki-9060s-projects/childhome-nagasaki`。違うアカウントでログインしていると「プロジェクトがない」と見える。2026-10-21 に GitHub `yone-haru/nagasaki-childhome` と連携した（本番ブランチ master・環境変数なし）。以後は master に push すると本番が再ビルドされる。確認用ブランチの固定 URL は `https://childhome-nagasaki-git-f56ed1-childhomenagasaki-9060s-projects.vercel.app/`。手元の `vercel` CLI は未ログイン。
+- **本番には独自ドメイン `nagasaki-univ-childhome.com`（と www）が付いている。** canonical / OGP / JSON-LD は `childhome-nagasaki.vercel.app` のまま（Issue で記録）。
+- **Vercel の保護設定（Deployment Protection）の変更は、Claude の自動安全チェックで止められる。** 切り替えと保存はユーザーが押す。
 - **出来上がる HTML は v5.0（a1663a5 の index.html）とマークアップが一致することを保証している**（違いは「参加する」の null ガードと自由セクションの CSS だけ）。render.mjs を変えるときは、見本データでビルドした `dist/index.html` を v5.0 と突き合わせる。
 
 ## 検証ループ（最重要・消さない）
