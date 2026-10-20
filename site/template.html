@@ -363,15 +363,14 @@ section.block { padding-block: clamp(72px, 9vw, 120px); }
 }
 
 /* ---------- お知らせ ---------- */
-.news { border-bottom: 1px solid var(--line); }
-.news-inner { display: grid; gap: 6px; padding-block: 22px; }
+/* 下の線は本文の幅だけ（全幅にするとページがここで区切られて見える） */
+.news-inner { display: grid; gap: 6px; padding-block: 22px; border-bottom: 1px solid var(--line); }
 .news-title { font-size: 16px; font-weight: 700; }
 .news-list { display: grid; gap: 4px; }
 .news-list li { display: grid; grid-template-columns: 6.2em minmax(0, 1fr); gap: 12px; font-size: 15px; line-height: 1.75; }
 .news-date { font-weight: 700; color: var(--teal-text); font-variant-numeric: tabular-nums; }
 @media (min-width: 900px) {
-  /* 見出しと一覧をひとまとまりで中央に置く（一覧は中身の幅まで。長いときは全幅） */
-  .news-inner { grid-template-columns: 8em minmax(0, max-content); justify-content: center; align-items: baseline; padding-block: 28px; }
+  .news-inner { grid-template-columns: 8em minmax(0, 1fr); align-items: baseline; padding-block: 28px; }
 }
 
 /* ---------- わたしたちのこと ----------
